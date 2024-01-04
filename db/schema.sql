@@ -5,19 +5,19 @@ USE anime_db;
 
 CREATE TABLE user (
 id INT auto_increment primary key not null,
-user_name varchar(30),
-pass_word varchar(30),
-email varchar(30)
+user_name varchar(30) not null,
+pass_word varchar(30) not null,
+email varchar(30) not null
 );
 
 CREATE TABLE anime (
 id INT auto_increment primary key not null,
-title varchar(255)
+title varchar(255) not null
 );
 
 CREATE table category (
 category_id INT auto_increment primary key not null,
-category_name varchar(30)
+category_name varchar(30) not null
 );
 
 CREATE table status (
@@ -31,6 +31,15 @@ foreign key (anime_id)
 references	anime(id)
 );
 
+CREATE table category_name (
+anime_name INT,
+category_id INT,
+foreign key (anime_name)
+references anime(id),
+foreign key (category_id)
+references category(category_id)
+);
+
 /* 
 CREATE table rating (
 user_id INT,
@@ -41,12 +50,3 @@ references user(id),
 foreign key (anime_id)
 references	anime(id)
 ); */
-
-CREATE table category_name (
-anime_name INT,
-category_id INT,
-foreign key (anime_name)
-references anime(id),
-foreign key (category_id)
-references category(category_id)
-);

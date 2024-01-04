@@ -1,0 +1,12 @@
+.navbar {
+    background-color: red;
+}
+
+main {
+    background-color: blanchedalmond;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+}
