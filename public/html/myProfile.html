@@ -53,107 +53,113 @@
       </div>
     </nav>
 
-    <div class="button-container"  style="margin: auto;">
-        <button id="completed">Completed</button>
-        <button id="watching">Watching</button>
-        <button id="planning">Plan to Watch</button>
+    <div class="button-container" style="margin: auto">
+      <button id="completed">Completed</button>
+      <button id="watching">Watching</button>
+      <button id="planning">Plan to Watch</button>
     </div>
 
-    <table class="completed-table">
-        <h4>Completed</h4>
-        <thead>
-          <tr>
-            <th scope="col">img</th>
-            <th scope="col">Title</th>
-            <th scope="col">Progress</th>
-            <th scope="col">Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Attack on Titan</td>
-            <td>Completed</td>
-            <td>10/10</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>One Punch Man</td>
-            <td>Completed</td>
-            <td>9/10</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>King's Game</td>
-            <td>Completed</td>
-            <td>4/10</td>
-          </tr>
-        </tbody>
-      </table>
+    <table id="completed-table">
+      <caption class="table caption-top">
+        Completed
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">img</th>
+          <th scope="col">Title</th>
+          <th scope="col">Progress</th>
+          <th scope="col">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Attack on Titan</td>
+          <td>Completed</td>
+          <td>10/10</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>One Punch Man</td>
+          <td>Completed</td>
+          <td>9/10</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>King's Game</td>
+          <td>Completed</td>
+          <td>4/10</td>
+        </tr>
+      </tbody>
+    </table>
 
-      <table class="watching-table">
-        <h4>Watching</h4>
-        <thead>
-          <tr>
-            <th scope="col">img</th>
-            <th scope="col">Title</th>
-            <th scope="col">Progress</th>
-            <th scope="col">Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Spy x Family</td>
-            <td>18/24</td>
-            <td>10/10</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>One Piece</td>
-            <td>3/1048</td>
-            <td>7/10</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Naruto</td>
-            <td>89/476</td>
-            <td>8/10</td>
-          </tr>
-        </tbody>
-      </table>
-    
-      <table class="planning-table">
-        <h4>Planning to Watch</h4>
-        <thead>
-          <tr>
-            <th scope="col">img</th>
-            <th scope="col">Title</th>
-            <th scope="col">Progress</th>
-            <th scope="col">Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Attack on Titan Season 2</td>
-            <td>0/24</td>
-            <td></td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>One Punch Man Season 2</td>
-            <td>0/12</td>
-            <td></td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Spy X Family Season 2</td>
-            <td>0/12</td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
+    <table id="watching-table">
+      <caption class="table caption-top">
+        Watching
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">img</th>
+          <th scope="col">Title</th>
+          <th scope="col">Progress</th>
+          <th scope="col">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Spy x Family</td>
+          <td>18/24</td>
+          <td>10/10</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>One Piece</td>
+          <td>3/1048</td>
+          <td>7/10</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Naruto</td>
+          <td>89/476</td>
+          <td>8/10</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table id="planning-table">
+      <caption class="table caption-top">
+        Planning to Watch
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">img</th>
+          <th scope="col">Title</th>
+          <th scope="col">Progress</th>
+          <th scope="col">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Attack on Titan Season 2</td>
+          <td>0/24</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>One Punch Man Season 2</td>
+          <td>0/12</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Spy X Family Season 2</td>
+          <td>0/12</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
