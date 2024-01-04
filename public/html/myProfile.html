@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Username's List</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="/public/css/list.css" />
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/index.html">AnimeDB</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="/public/html/login.html"
+                >Login</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/public/html/signup.html">Signup</a>
+            </li>
+            <!-- if logged in show this -->
+            <li class="nav-item">
+              <a class="nav-link" href="/public/html/myProfile.html">My List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/public/html/forums.html">Forums</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="button-container"  style="margin: auto;">
+        <button id="completed">Completed</button>
+        <button id="watching">Watching</button>
+        <button id="planning">Plan to Watch</button>
+    </div>
+
+    <table class="completed-table">
+        <h4>Completed</h4>
+        <thead>
+          <tr>
+            <th scope="col">img</th>
+            <th scope="col">Title</th>
+            <th scope="col">Progress</th>
+            <th scope="col">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Attack on Titan</td>
+            <td>Completed</td>
+            <td>10/10</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>One Punch Man</td>
+            <td>Completed</td>
+            <td>9/10</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>King's Game</td>
+            <td>Completed</td>
+            <td>4/10</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="watching-table">
+        <h4>Watching</h4>
+        <thead>
+          <tr>
+            <th scope="col">img</th>
+            <th scope="col">Title</th>
+            <th scope="col">Progress</th>
+            <th scope="col">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Spy x Family</td>
+            <td>18/24</td>
+            <td>10/10</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>One Piece</td>
+            <td>3/1048</td>
+            <td>7/10</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Naruto</td>
+            <td>89/476</td>
+            <td>8/10</td>
+          </tr>
+        </tbody>
+      </table>
+    
+      <table class="planning-table">
+        <h4>Planning to Watch</h4>
+        <thead>
+          <tr>
+            <th scope="col">img</th>
+            <th scope="col">Title</th>
+            <th scope="col">Progress</th>
+            <th scope="col">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Attack on Titan Season 2</td>
+            <td>0/24</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>One Punch Man Season 2</td>
+            <td>0/12</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Spy X Family Season 2</td>
+            <td>0/12</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/public/js/list.js"></script>
+  </body>
+</html>

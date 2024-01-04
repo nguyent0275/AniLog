@@ -1,0 +1,11 @@
+#login-container {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 1%;
+}

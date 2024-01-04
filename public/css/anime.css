@@ -1,0 +1,6 @@
+
+.anime-carousel {
+    width: 60%;
+    display: flex;
+    border: red 1px solid;
+}
