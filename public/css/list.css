@@ -1,11 +1,11 @@
-.completed-table {
+#completed-table {
+  display: block;
+}
+
+#watching-table {
   display: none;
 }
 
-.watching-table {
-  display: none;
-}
-
-.planning-table {
+#planning-table {
   display: none;
 }
