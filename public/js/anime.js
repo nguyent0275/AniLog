@@ -23,16 +23,18 @@ $(document).ready(function () {
 
   $(".btn").on("click", getSearchQuery)
 
-  async function renderSearch(animeApiData) { 
+  async function renderSearch(animeApiData) {
+    console.log(animeApiData);
     let mainContainer = $('#main-container')
-    await mainContainer.children().remove();
-    console.log(1 + animeApiData);
+    mainContainer.children().remove();
 
-    for (let index = 0; index < animeApiData.length; index++) {
+
+    for (let index = 0; index < animeApiData.data.length; index++) {
         console.log('test')
         // create
         let animeDivContainer = $('<div>')
         let animeImgCard = $('<img>')
+        let listButton = $('<button>')
         let animeDescContainer = $('<div>')
         let animeTitle = $('<h3>')
         let animeDescription = $('<p>')
@@ -41,12 +43,14 @@ $(document).ready(function () {
         animeDivContainer.addClass('div-container');
         animeDescContainer.addClass('div-container');
         animeImgCard.attr('src', animeApiData.data[index].attributes.posterImage.tiny)
+        listButton.text('Add to List')
         animeTitle.text(animeApiData.data[index].attributes.canonicalTitle)
         animeDescription.text(animeApiData.data[index].attributes.description)
 
         // append
         mainContainer.append(animeDivContainer)
         animeDivContainer.append(animeImgCard)
+        animeDivContainer.append(listButton)
         animeDivContainer.append(animeDescContainer)
         animeDescContainer.append(animeTitle)
         animeDescContainer.append(animeDescription)
@@ -98,7 +102,7 @@ $(document).ready(function () {
       slidesToShow: 5,
       slidesToScroll: 1,
       autoplay: true,
-      autoplaySpeed: 2000,
+      autoplaySpeed: 3500,
     });
   }
 
