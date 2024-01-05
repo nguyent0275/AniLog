@@ -1,3 +1,8 @@
+DS_STORE
+.env
+Thumbs.js
+
+
 # Logs
 logs
 *.log

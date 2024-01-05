@@ -6,6 +6,13 @@ class CategoryName extends Model {}
 
 CategoryName.init(
   {
+    // comment back in if want to do retrieval by primary key (otherwise useless)
+    // id: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    //   primaryKey: true,
+    //   autoIncrement: true
+    // },
     anime_name: {
       type: DataTypes.INTEGER,
       references: {
