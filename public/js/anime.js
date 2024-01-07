@@ -1,207 +1,211 @@
-$(document).ready(function () {
-  const baseUrl = "https://kitsu.io/api/edge";
-  const categoryFilter = "/anime?filter[categories]=adventure";
-  const textFilter = "/anime?filter[text]=";
+// $(document).ready(function () {
+//   const baseUrl = "https://kitsu.io/api/edge";
+//   const categoryFilter = "/anime?filter[categories]=adventure";
+//   const textFilter = "/anime?filter[text]=";
 
-  async function getSearchQuery(event) {
-    await event.preventDefault();
-    let searchQuery = $(".search-bar").val();
-    await searchByInput(searchQuery);
-  }
+//   async function getSearchQuery(event) {
+//     await event.preventDefault();
+//     let searchQuery = $(".search-bar").val();
+//     await searchByInput(searchQuery);
+//   }
 
-  async function searchByInput(query) {
-    let newUrl = baseUrl + textFilter;
-    let queryParameters = new URLSearchParams(query);
-    let requestUrl = newUrl + queryParameters;
+//   async function searchByInput(query) {
+//     let newUrl = baseUrl + textFilter;
+//     let queryParameters = new URLSearchParams(query);
+//     let requestUrl = newUrl + queryParameters;
 
-    let response = await fetch(requestUrl);
-    let jsonData = await response.json();
-    console.log(requestUrl);
-    console.log(jsonData);
-    await renderSearch(jsonData)
-  }
+//     let response = await fetch(requestUrl);
+//     let jsonData = await response.json();
+//     console.log(requestUrl);
+//     console.log(jsonData);
+//     await renderSearch(jsonData)
+//   }
 
-  $(".btn").on("click", getSearchQuery)
+//   $(".btn").on("click", getSearchQuery)
 
-  async function renderSearch(animeApiData) { 
-    let mainContainer = $('#main-container')
-    await mainContainer.children().remove();
-    console.log(1 + animeApiData);
+//   async function renderSearch(animeApiData) {
+//     console.log(animeApiData);
+//     let mainContainer = $('#main-container')
+//     mainContainer.children().remove();
 
-    for (let index = 0; index < animeApiData.length; index++) {
-        console.log('test')
-        // create
-        let animeDivContainer = $('<div>')
-        let animeImgCard = $('<img>')
-        let animeDescContainer = $('<div>')
-        let animeTitle = $('<h3>')
-        let animeDescription = $('<p>')
 
-        // attr
-        animeDivContainer.addClass('div-container');
-        animeDescContainer.addClass('div-container');
-        animeImgCard.attr('src', animeApiData.data[index].attributes.posterImage.tiny)
-        animeTitle.text(animeApiData.data[index].attributes.canonicalTitle)
-        animeDescription.text(animeApiData.data[index].attributes.description)
+//     for (let index = 0; index < animeApiData.data.length; index++) {
+//         console.log('test')
+//         // create
+//         let animeDivContainer = $('<div>')
+//         let animeImgCard = $('<img>')
+//         let listButton = $('<button>')
+//         let animeDescContainer = $('<div>')
+//         let animeTitle = $('<h3>')
+//         let animeDescription = $('<p>')
 
-        // append
-        mainContainer.append(animeDivContainer)
-        animeDivContainer.append(animeImgCard)
-        animeDivContainer.append(animeDescContainer)
-        animeDescContainer.append(animeTitle)
-        animeDescContainer.append(animeDescription)
-    };
-  };
+//         // attr
+//         animeDivContainer.addClass('div-container');
+//         animeDescContainer.addClass('div-container');
+//         animeImgCard.attr('src', animeApiData.data[index].attributes.posterImage.tiny)
+//         listButton.text('Add to List')
+//         animeTitle.text(animeApiData.data[index].attributes.canonicalTitle)
+//         animeDescription.text(animeApiData.data[index].attributes.description)
 
-  async function searchByTopRated() {
-    let requestUrl = "https://kitsu.io/api/edge/anime?sort=ratingRank";
-    let response = await fetch(requestUrl);
-    let jsonData = await response.json();
-    console.log(requestUrl);
-    renderTopAnime(jsonData);
-  }
+//         // append
+//         mainContainer.append(animeDivContainer)
+//         animeDivContainer.append(animeImgCard)
+//         animeDivContainer.append(listButton)
+//         animeDivContainer.append(animeDescContainer)
+//         animeDescContainer.append(animeTitle)
+//         animeDescContainer.append(animeDescription)
+//     };
+//   };
 
-  async function renderTopAnime(animeApiData) {
-    for (let index = 0; index < animeApiData.data.length; index++) {
-      console.log("test");
-      // creating html elements
-      let animeDivEl = $("<div>");
-      let animeImgEl = $("<img>");
-      let animeDivCaption = $("<div>");
-      let animeCaption = $("<h5>");
+//   async function searchByTopRated() {
+//     let requestUrl = "https://kitsu.io/api/edge/anime?sort=ratingRank";
+//     let response = await fetch(requestUrl);
+//     let jsonData = await response.json();
+//     console.log(requestUrl);
+//     renderTopAnime(jsonData);
+//   }
 
-      // setting attributes
-      animeDivEl.addClass("anime-item");
-      animeImgEl.addClass("anime-img");
-      animeDivCaption.addClass("anime-caption");
-      animeImgEl.attr(
-        "src",
-        animeApiData.data[index].attributes.posterImage.tiny
-      );
-      animeCaption.text(animeApiData.data[index].attributes.canonicalTitle);
+//   async function renderTopAnime(animeApiData) {
+//     for (let index = 0; index < animeApiData.data.length; index++) {
+//       console.log("test");
+//       // creating html elements
+//       let animeDivEl = $("<div>");
+//       let animeImgEl = $("<img>");
+//       let animeDivCaption = $("<div>");
+//       let animeCaption = $("<h5>");
 
-      // appending elements
-      $(".top-anime-carousel").append(animeDivEl);
-      animeDivEl.append(animeImgEl);
-      animeDivEl.append(animeDivCaption);
-      animeDivCaption.append(animeCaption);
-    }
-  }
+//       // setting attributes
+//       animeDivEl.addClass("anime-item");
+//       animeImgEl.addClass("anime-img");
+//       animeDivCaption.addClass("anime-caption");
+//       animeImgEl.attr(
+//         "src",
+//         animeApiData.data[index].attributes.posterImage.tiny
+//       );
+//       animeCaption.text(animeApiData.data[index].attributes.canonicalTitle);
 
-  async function searchByPopularity(param) {
-    let requestUrl = "https://kitsu.io/api/edge/anime?sort=popularityRank";
-    let response = await fetch(requestUrl);
-    let jsonData = await response.json();
-    console.log(requestUrl);
-    renderPopularAnime(jsonData);
-    $(".anime-carousel").slick({
-      slidesToShow: 5,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 2000,
-    });
-  }
+//       // appending elements
+//       $(".top-anime-carousel").append(animeDivEl);
+//       animeDivEl.append(animeImgEl);
+//       animeDivEl.append(animeDivCaption);
+//       animeDivCaption.append(animeCaption);
+//     }
+//   }
 
-  async function renderPopularAnime(animeApiData) {
-    for (let index = 0; index < animeApiData.data.length; index++) {
-      console.log("test");
-      // creating html elements
-      let animeDivEl = $("<div>");
-      let animeImgEl = $("<img>");
-      let animeDivCaption = $("<div>");
-      let animeCaption = $("<h5>");
+//   async function searchByPopularity(param) {
+//     let requestUrl = "https://kitsu.io/api/edge/anime?sort=popularityRank";
+//     let response = await fetch(requestUrl);
+//     let jsonData = await response.json();
+//     console.log(requestUrl);
+//     renderPopularAnime(jsonData);
+//     $(".anime-carousel").slick({
+//       slidesToShow: 5,
+//       slidesToScroll: 1,
+//       autoplay: true,
+//       autoplaySpeed: 3500,
+//     });
+//   }
 
-      // setting attributes
-      animeDivEl.addClass("anime-item");
-      animeImgEl.addClass("anime-img");
-      animeDivCaption.addClass("anime-caption");
-      animeImgEl.attr(
-        "src",
-        animeApiData.data[index].attributes.posterImage.tiny
-      );
-      animeCaption.text(animeApiData.data[index].attributes.canonicalTitle);
+//   async function renderPopularAnime(animeApiData) {
+//     for (let index = 0; index < animeApiData.data.length; index++) {
+//       console.log("test");
+//       // creating html elements
+//       let animeDivEl = $("<div>");
+//       let animeImgEl = $("<img>");
+//       let animeDivCaption = $("<div>");
+//       let animeCaption = $("<h5>");
 
-      // appending elements
-      $(".popular-anime-carousel").append(animeDivEl);
-      animeDivEl.append(animeImgEl);
-      animeDivEl.append(animeDivCaption);
-      animeDivCaption.append(animeCaption);
-    }
-  }
+//       // setting attributes
+//       animeDivEl.addClass("anime-item");
+//       animeImgEl.addClass("anime-img");
+//       animeDivCaption.addClass("anime-caption");
+//       animeImgEl.attr(
+//         "src",
+//         animeApiData.data[index].attributes.posterImage.tiny
+//       );
+//       animeCaption.text(animeApiData.data[index].attributes.canonicalTitle);
 
-  async function searchByRomance(param) {
-    let requestUrl =
-      "https://kitsu.io/api/edge/anime?filter[categories]=romance";
-    let response = await fetch(requestUrl);
-    let jsonData = await response.json();
-    console.log(requestUrl);
-    renderRomanceAnime(jsonData);
-  }
+//       // appending elements
+//       $(".popular-anime-carousel").append(animeDivEl);
+//       animeDivEl.append(animeImgEl);
+//       animeDivEl.append(animeDivCaption);
+//       animeDivCaption.append(animeCaption);
+//     }
+//   }
 
-  async function renderRomanceAnime(animeApiData) {
-    for (let index = 0; index < animeApiData.data.length; index++) {
-      console.log("test");
-      // creating html elements
-      let animeDivEl = $("<div>");
-      let animeImgEl = $("<img>");
-      let animeDivCaption = $("<div>");
-      let animeCaption = $("<h5>");
+//   async function searchByRomance(param) {
+//     let requestUrl =
+//       "https://kitsu.io/api/edge/anime?filter[categories]=romance";
+//     let response = await fetch(requestUrl);
+//     let jsonData = await response.json();
+//     console.log(requestUrl);
+//     renderRomanceAnime(jsonData);
+//   }
 
-      // setting attributes
-      animeDivEl.addClass("anime-item");
-      animeImgEl.addClass("anime-img");
-      animeDivCaption.addClass("anime-caption");
-      animeImgEl.attr(
-        "src",
-        animeApiData.data[index].attributes.posterImage.tiny
-      );
-      animeCaption.text(animeApiData.data[index].attributes.canonicalTitle);
+//   async function renderRomanceAnime(animeApiData) {
+//     for (let index = 0; index < animeApiData.data.length; index++) {
+//       console.log("test");
+//       // creating html elements
+//       let animeDivEl = $("<div>");
+//       let animeImgEl = $("<img>");
+//       let animeDivCaption = $("<div>");
+//       let animeCaption = $("<h5>");
 
-      // appending elements
-      $(".romance-anime-carousel").append(animeDivEl);
-      animeDivEl.append(animeImgEl);
-      animeDivEl.append(animeDivCaption);
-      animeDivCaption.append(animeCaption);
-    }
-  }
+//       // setting attributes
+//       animeDivEl.addClass("anime-item");
+//       animeImgEl.addClass("anime-img");
+//       animeDivCaption.addClass("anime-caption");
+//       animeImgEl.attr(
+//         "src",
+//         animeApiData.data[index].attributes.posterImage.tiny
+//       );
+//       animeCaption.text(animeApiData.data[index].attributes.canonicalTitle);
 
-  async function searchByMovie(param) {
-    let requestUrl = "https://kitsu.io/api/edge/anime?filter[subtype]=movie";
-    let response = await fetch(requestUrl);
-    let jsonData = await response.json();
-    console.log(requestUrl);
-    renderAnimeMovie(jsonData);
-  }
+//       // appending elements
+//       $(".romance-anime-carousel").append(animeDivEl);
+//       animeDivEl.append(animeImgEl);
+//       animeDivEl.append(animeDivCaption);
+//       animeDivCaption.append(animeCaption);
+//     }
+//   }
 
-  async function renderAnimeMovie(animeApiData) {
-    for (let index = 0; index < animeApiData.data.length; index++) {
-      console.log("test");
-      // creating html elements
-      let animeDivEl = $("<div>");
-      let animeImgEl = $("<img>");
-      let animeDivCaption = $("<div>");
-      let animeCaption = $("<h5>");
+//   async function searchByMovie(param) {
+//     let requestUrl = "https://kitsu.io/api/edge/anime?filter[subtype]=movie";
+//     let response = await fetch(requestUrl);
+//     let jsonData = await response.json();
+//     console.log(requestUrl);
+//     renderAnimeMovie(jsonData);
+//   }
 
-      // setting attributes
-      animeDivEl.addClass("anime-item");
-      animeImgEl.addClass("anime-img");
-      animeDivCaption.addClass("anime-caption");
-      animeImgEl.attr(
-        "src",
-        animeApiData.data[index].attributes.posterImage.tiny
-      );
-      animeCaption.text(animeApiData.data[index].attributes.canonicalTitle);
+//   async function renderAnimeMovie(animeApiData) {
+//     for (let index = 0; index < animeApiData.data.length; index++) {
+//       console.log("test");
+//       // creating html elements
+//       let animeDivEl = $("<div>");
+//       let animeImgEl = $("<img>");
+//       let animeDivCaption = $("<div>");
+//       let animeCaption = $("<h5>");
 
-      // appending elements
-      $(".movie-anime-carousel").append(animeDivEl);
-      animeDivEl.append(animeImgEl);
-      animeDivEl.append(animeDivCaption);
-      animeDivCaption.append(animeCaption);
-    }
-  }
+//       // setting attributes
+//       animeDivEl.addClass("anime-item");
+//       animeImgEl.addClass("anime-img");
+//       animeDivCaption.addClass("anime-caption");
+//       animeImgEl.attr(
+//         "src",
+//         animeApiData.data[index].attributes.posterImage.tiny
+//       );
+//       animeCaption.text(animeApiData.data[index].attributes.canonicalTitle);
 
-  searchByPopularity();
-  searchByTopRated();
-  searchByMovie();
-  searchByRomance();
-});
+//       // appending elements
+//       $(".movie-anime-carousel").append(animeDivEl);
+//       animeDivEl.append(animeImgEl);
+//       animeDivEl.append(animeDivCaption);
+//       animeDivCaption.append(animeCaption);
+//     }
+//   }
+
+//   searchByPopularity();
+//   searchByTopRated();
+//   searchByMovie();
+//   searchByRomance();
+// });

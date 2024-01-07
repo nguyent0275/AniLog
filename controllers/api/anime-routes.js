@@ -2,20 +2,24 @@ const router = require("express").Router();
 const { Anime, CategoryName, Category } = require("../../models");
 
 // the application end point is /api/anime
-
 router.get("/", async(req, res) => {
-    try{
-        // finds all animes
-        const animeData = await Anime.findAll({
-            // gets each anime's associated category name
-            // include: [{model: CategoryName, model: Category}]
-        });
-        //200 status code means sucessful connection and returns the data from the get route, 500 means error and will serve the error
-        res.status(200).json(animeData)
-    } catch (err) {
-        res.status(500).json(err)
-    }
+res.render('home');
 })
+
+
+// router.get("/", async(req, res) => {
+//     try{
+//         // finds all animes
+//         const animeData = await Anime.findAll({
+//             // gets each anime's associated category name
+//             // include: [{model: CategoryName, model: Category}]
+//         });
+//         //200 status code means sucessful connection and returns the data from the get route, 500 means error and will serve the error
+//         res.status(200).json(animeData)
+//     } catch (err) {
+//         res.status(500).json(err) 
+//     }
+// })
 
 router.get("/:id", async(req, res) => {
     try{
