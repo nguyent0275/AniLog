@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { Status, User } = require("../../models");
+const bcrypt = require("bcrypt");
 
 // the application end point is /api/user
 
@@ -39,10 +40,16 @@ router.get("/:id", async(req, res) => {
 router.post("/", async (req,res) => {
     try {
         // creates a new user
-        const userData = await User.create(req.body);
-        res.status(200).json(userData)
+        const newUser = req.body;
+
+        // hash the password from 'req.body' and save to newUser
+        newUser.password = await bcrypt.hash(req.body.password, 10);
+        // create the newUser with the hashed password and save to DB
+        const userData = await User.create(newUser);
+
+        res.status(200).json(userData);
     } catch (err) {
-        res.status(500).json(err)
+        res.status(400).json(err);
     }
 })
 
