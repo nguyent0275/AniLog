@@ -26,7 +26,9 @@ router.get("/:id", async(req, res) => {
         }
         );
         //200 status code means sucessful connection and returns the data from the get route, 500 means error and will serve the error
-        res.status(200).json(statusData)
+        // res.status(200).json(statusData)
+        console.log(statusData)
+        res.render("list")
     } catch (err) {
         res.status(500).json(err)
     }
