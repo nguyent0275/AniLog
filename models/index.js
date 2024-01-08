@@ -5,44 +5,44 @@ const User = require('./User');
 const Status = require('./Status');
 const CategoryName = require('./CategoryName');
 
+User.hasMany(Status, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+})
 
-// Status.belongsTo(User, {
-//   foreignKey: 'user_id',
-//   onDelete: 'CASCADE'
-// });
+Status.belongsTo(User, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+})
 
-// User.hasMany(Status, {
-//   foreignKey: 'user_id',
-//   onDelete: 'CASCADE'
-// })
+Anime.hasMany(Status, {
+    foreignKey: 'anime_id',
+    onDelete: 'CASCADE'
+})
 
+Status.belongsTo(Anime, {
+    foreignKey: 'anime_id',
+    onDelete: 'CASCADE'
+})
 
-// Status.belongsTo(Anime, {
-//   foreignKey: 'anime_id',
-//   onDelete: 'CASCADE'
-// });
+Anime.hasMany(CategoryName, {
+    foreignKey: 'anime_name',
+    onDelete: 'SET NULL'
+})
 
-
-// Anime.belongsToMany(Category, {
-//   through: CategoryName,
-//   foreignKey: 'anime_id',
-// });
-
-
-// Category.belongsToMany(Anime, {
-//   through: CategoryName,
-//   foreignKey: 'category_category_id',
+// CategoryName.belongsToMany(Anime, {
+//     foreignKey: 'anime_name',
+//     onDelete: 'SET NULL'
 // })
 
 // CategoryName.belongsTo(Category, {
 //     foreignKey: 'category_id',
-//     onDelete: 'CASCADE'
+//     onDelete: 'SET NULL'
 // })
 
-// CategoryName.belongsToMany(Anime, {
-//     through: CategoryName,
-//     foreignKey: 'anime_name',
-//     onDelete: 'CASCADE'
+// Category.hasOne(CategoryName, {
+//     foreignKey: 'category_id',
+//     onDelete: 'SET NULL'
 // })
 
 module.exports = {
