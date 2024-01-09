@@ -1,7 +1,7 @@
 const seedUser = require("./user-seeds");
 const seedAnime = require("./anime-seeds");
 const seedCategory = require("./category-seeds");
-const seedCategoryName = require("./categoryName-seeds");
+const seedAnimeCategory = require("./animeCategory-seeds");
 const seedStatus = require("./status-seeds");
 
 const sequelize = require("../config/connection");
@@ -21,8 +21,8 @@ const seedAll = async () => {
   await seedStatus();
   console.log("\n---- STATUSES SEEDED -----\n");
 
-  await seedCategoryName();
-  console.log("\n----- CATEGORY NAME SEEDED -----\n");
+  await seedAnimeCategory();
+  console.log("\n----- ANIME CATEGORY SEEDED -----\n");
 
   process.exit(0);
 };
