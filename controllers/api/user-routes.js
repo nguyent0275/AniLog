@@ -43,7 +43,6 @@ router.get("/:id", async(req, res) => {
 // creates user
 router.post("/", async (req,res) => {
     try {
-        // creates a new user
         const newUser = req.body;
     
         // checking for empty fields and returning appropriate message corresponding to the missing field
