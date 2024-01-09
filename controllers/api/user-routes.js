@@ -1,9 +1,11 @@
 const router = require("express").Router();
 const { Status, User } = require("../../models");
 const bcrypt = require("bcrypt");
+const SALT_FACTOR = 10
 
 // the application end point is /api/user
 
+// gets all users
 router.get("/", async(req, res) => {
     try{
         // finds all users
@@ -18,6 +20,7 @@ router.get("/", async(req, res) => {
     }
 })
 
+// gets user by id 
 router.get("/:id", async(req, res) => {
     try{
         // finds user by their primary key (uuid)
@@ -37,22 +40,63 @@ router.get("/:id", async(req, res) => {
     }
 })
 
+// creates user
 router.post("/", async (req,res) => {
     try {
         // creates a new user
         const newUser = req.body;
+    
+        // checking for empty fields and returning appropriate message corresponding to the missing field
+        if(!newUser.email){
+            res.json({message: 'Please enter a valid email'})
+        }else if(!newUser.user_name){
+            res.json({message: 'Please enter a valid username'})
+        }else if (!newUser.password){
+            res.json({message: 'Please enter a valid password'})
+        }else{
 
-        // hash the password from 'req.body' and save to newUser
-        newUser.password = await bcrypt.hash(req.body.password, 10);
-        // create the newUser with the hashed password and save to DB
+        // creates the user if all fields pass, the password is being hashed before the create with a hook on the model
         const userData = await User.create(newUser);
 
-        res.status(200).json(userData);
+        res.status(200).json(userData)};
     } catch (err) {
         res.status(400).json(err);
     }
 })
 
+// login route (finds a user by email then checks the input password against the database's stored password)
+router.post('/login', async (req,res) => {
+    try{
+        // finds one user by the request email (user input email when logging in)
+        const userData = await User.findOne({
+            where: {
+                email: req.body.email
+            }
+        })
+        console.log(userData)
+        // if no user data is returned, serves a login failure message and ends the route with the 'return'
+        if(!userData) {
+            res.status(404).json({message: 'Login failed. Please try again!'});
+            return;
+        }
+        // we are checking the user's inputted password towards the hashed password saved in the database that's associated with the findOne's email.
+        const validPassword = await bcrypt.compare(
+            req.body.password,
+            userData.password
+        );
+        // if the passwords do not match, login fails and route ends
+        if(!validPassword){
+            res.status(404).json({message: 'Incorrect Password. Please try again!'});
+            return;
+        }
+        // if they do match, login is suceeds 
+        res.status(200).json({message: 'Login Sucessful!'})
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
+
+// updates user by id 
 router.put("/:id", async (req, res) => {
     try {
         const userData = await User.update(req.body, {
@@ -72,6 +116,7 @@ router.put("/:id", async (req, res) => {
     }
 })
 
+// deletes user by id 
 router.delete("/:id", async (req, res) => {
     try {
         const userData = await User.destroy({
