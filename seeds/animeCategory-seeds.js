@@ -1,6 +1,6 @@
-const { CategoryName } = require("../models");
+const { AnimeCategory } = require("../models");
 
-const categoryNameData = [
+const animeCategoryData = [
   {
     anime_name: 1,
     category_id: 1,
@@ -63,6 +63,6 @@ const categoryNameData = [
   },
 ];
 
-const seedCategoryName = () => CategoryName.bulkCreate(categoryNameData);
+const seedAnimeCategory = () => AnimeCategory.bulkCreate(animeCategoryData);
 
-module.exports = seedCategoryName;
+module.exports = seedAnimeCategory;
