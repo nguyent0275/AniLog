@@ -47,18 +47,24 @@ router.post("/", async (req,res) => {
         const newUser = req.body;
     
         // checking for empty fields and returning appropriate message corresponding to the missing field
-        if(!newUser.email){
+        if (!newUser.email) {
             res.json({message: 'Please enter a valid email'})
-        }else if(!newUser.user_name){
+        } else if (!newUser.user_name) {
             res.json({message: 'Please enter a valid username'})
-        }else if (!newUser.password){
+        } else if (!newUser.password) {
             res.json({message: 'Please enter a valid password'})
-        }else{
+        } else {
 
         // creates the user if all fields pass, the password is being hashed before the create with a hook on the model
         const userData = await User.create(newUser);
 
-        res.status(200).json(userData)};
+        req.session.save(() => {
+            req.session.user_id = userData.id;
+            req.session.logged_in = true;
+      
+            res.status(200).json(userData);
+        });
+        }
     } catch (err) {
         res.status(400).json(err);
     }
@@ -66,7 +72,7 @@ router.post("/", async (req,res) => {
 
 // login route (finds a user by email then checks the input password against the database's stored password)
 router.post('/login', async (req,res) => {
-    try{
+    try {
         // finds one user by the request email (user input email when logging in)
         const userData = await User.findOne({
             where: {
@@ -75,8 +81,10 @@ router.post('/login', async (req,res) => {
         })
         console.log(userData)
         // if no user data is returned, serves a login failure message and ends the route with the 'return'
-        if(!userData) {
-            res.status(404).json({message: 'Login failed. Please try again!'});
+        if (!userData) {
+            res
+                .status(404)
+                .json({message: 'Login failed. Please try again!'});
             return;
         }
         // we are checking the user's inputted password towards the hashed password saved in the database that's associated with the findOne's email.
@@ -85,12 +93,19 @@ router.post('/login', async (req,res) => {
             userData.password
         );
         // if the passwords do not match, login fails and route ends
-        if(!validPassword){
-            res.status(404).json({message: 'Incorrect Password. Please try again!'});
+        if (!validPassword) {
+            res
+                .status(400)
+                .json({ message: 'Incorrect email or password, please try again' });
             return;
         }
-        // if they do match, login is suceeds 
-        res.status(200).json({message: 'Login Sucessful!'})
+      
+            req.session.save(() => {
+                req.session.user_id = userData.id;
+                req.session.logged_in = true;
+            
+                res.json({ user: userData, message: 'You are now logged in!' });
+        });
     } catch (err) {
         res.status(500).json(err)
     }
