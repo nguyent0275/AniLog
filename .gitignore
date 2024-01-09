@@ -1,6 +1,7 @@
 DS_STORE
 .env
-Thumbs.js
+Thumbs.db
+.vscode
 
 
 # Logs

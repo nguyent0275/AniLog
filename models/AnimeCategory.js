@@ -2,9 +2,9 @@ const { Model, DataTypes } = require("sequelize");
 
 const sequelize = require("../config/connection");
 
-class CategoryName extends Model {}
+class AnimeCategory extends Model {}
 
-CategoryName.init(
+AnimeCategory.init(
   {
     // comment back in if want to do retrieval by primary key (otherwise useless)
     // id: {
@@ -33,8 +33,8 @@ CategoryName.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "category_name",
+    modelName: "anime_category",
   }
 );
 
-module.exports = CategoryName;
+module.exports = AnimeCategory;
