@@ -23,24 +23,24 @@ Status.belongsTo(Anime)
 Anime.belongsToMany(Category, {
     through: 'AnimeCategory'
 })
-// change to anime_category_name
+
 Category.belongsToMany(Anime, {
     through: 'AnimeCategory'
 })
 
-// 1 to 1
-Category.hasOne(AnimeCategory, {
-    foreignKey: 'category_id',
-    onDelete: 'SET NULL'
-})
-AnimeCategory.belongsTo(Category)
+// // 1 to 1
+// Category.hasOne(AnimeCategory, {
+//     foreignKey: 'category_id',
+//     onDelete: 'SET NULL'
+// })
+// AnimeCategory.belongsTo(Category)
 
-// 1 to many
-Anime.hasMany(AnimeCategory, {
-    foreignKey: 'anime_name',
-    onDelete: 'SET NULL'
-})
-AnimeCategory.belongsTo(Anime)
+// // 1 to many
+// Anime.hasMany(AnimeCategory, {
+//     foreignKey: 'anime_name',
+//     onDelete: 'SET NULL'
+// })
+// AnimeCategory.belongsTo(Anime)
 
 module.exports = {
     Anime,
