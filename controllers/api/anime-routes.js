@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Anime, CategoryName, Category } = require("../../models");
+const { Anime, AnimeCategory, Category } = require("../../models");
 
 // the application end point is /api/anime
 router.get("/", async(req, res) => {
@@ -35,7 +35,6 @@ router.get('/search/:title', async (req,res) => {
         res.status(500).json(err)
     }
 })
-
 
 router.get("/:id", async(req, res) => {
     try{

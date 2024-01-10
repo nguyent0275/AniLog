@@ -29,9 +29,13 @@ router.get("/:user_name", async(req, res) => {
                 user_name : req.params.user_name
             },
             // gets user's associated status/list
-            include: [{model: Status}]
+            // equivalent of 2 left joins 
+            include: [{model: Status, include: {
+                model: Anime
+            }}]
         });
         const statuses = userData.statuses.map((status) => status.get({plain: true}))
+        console.log(statuses)
         res.render('list', {statuses})
         if(!userData){
             res.status(404).json({

@@ -46,18 +46,24 @@ const newFormHandler = async (event) => {
         animeDiv.append(title);
         animeDiv.append(imageCard);
         animeDiv.append(description);
+        animeDiv.append(addToListBtn);
 
         const animeToSave = { title: title.textContent };
-        addToListBtn.addEventListener("click", async function (e) {
-          const response = await fetch(`/api/status`, {
+        addToListBtn.addEventListener("click", async function (event) {
+          event.preventDefault(event);
+          const response = await fetch(`/api/status/add-to-list`, {
             method: "POST",
             body: JSON.stringify(animeToSave),
             headers: {
               "Content-Type": "application/json",
             },
           });
-          //   if (response.ok) {
-          //   }
+          if (response.ok) {
+            // change to remove div if added to list OR indicate to user that anime is on their list
+            console.log("added to list");
+          } else {
+            alert("failed to add to list");
+          }
         });
       }
     }

@@ -19,13 +19,24 @@ Anime.hasMany(Status, {
 })
 Status.belongsTo(Anime)
 
+User.belongsToMany(Anime, {
+    through: Status,
+    foreignKey: 'user_id'
+})
+
+Anime.belongsToMany(User, {
+    through: Status,
+    foreignKey: 'anime_id'
+})
+
+
 // many to many
 Anime.belongsToMany(Category, {
-    through: 'AnimeCategory'
+    through: AnimeCategory
 })
 
 Category.belongsToMany(Anime, {
-    through: 'AnimeCategory'
+    through: AnimeCategory
 })
 
 // // 1 to 1
