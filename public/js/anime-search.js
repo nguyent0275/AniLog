@@ -5,6 +5,7 @@ const newFormHandler = async (event) => {
   const title = document.querySelector(".anime-name").value.trim();
   console.log(title);
 
+
   const animeDiv = document.querySelector(".anime-div");
 
   //   clears the html after each search
