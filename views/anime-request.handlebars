@@ -11,8 +11,14 @@
       <button type="submit">Search</button>
     </div> --}}
     
+    {{#each animes as |anime|}}
     <div class="anime-div">
+      <h2>{{anime.title}}</h2>
+      <img src='{{anime.image>}}'>
+      <p>{{anime.description}}</p>
+      <button>Save</button>
     </div>
+    {{/each}}
   </form>
 
 {{!-- delete and retype and use dropdown to specify file / then delete the ('/public') IF SPECIFIED in server.js --}}
