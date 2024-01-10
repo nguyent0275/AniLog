@@ -25,7 +25,7 @@ router.get("/:id", async(req, res) => {
             where: {
                 user_id : req.params.id
             },
-            include: [{model: Anime, model: User}],
+            // include: [{model: Anime, model: User}],
         }
         );
         //200 status code means sucessful connection and returns the data from the get route, 500 means error and will serve the error
@@ -36,6 +36,7 @@ router.get("/:id", async(req, res) => {
         res.status(500).json(err)
     }
 })
+
 
 router.post("/", async (req,res) => {
     try {

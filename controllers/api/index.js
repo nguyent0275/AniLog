@@ -9,6 +9,6 @@ router.use('/user', userRoutes);
 router.use('/anime', animeRoutes);
 router.use('/status', statusRoutes);
 router.use('/category', categoryRoutes);
-router.use('/animeCate', animeCategoryRoutes)
+router.use('/animeCategory', animeCategoryRoutes)
 
 module.exports = router;

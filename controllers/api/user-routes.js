@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Status, User } = require("../../models");
+const { Status, User, Anime } = require("../../models");
 const bcrypt = require("bcrypt");
 const SALT_FACTOR = 10
 
@@ -20,21 +20,26 @@ router.get("/", async(req, res) => {
     }
 })
 
-// gets user by id 
-router.get("/:id", async(req, res) => {
+// gets user by username / shows their lists
+router.get("/:user_name", async(req, res) => {
     try{
         // finds user by their primary key (uuid)
-        const userData = await User.findByPk(req.params.id, {
+        const userData = await User.findOne({
+            where: {
+                user_name : req.params.user_name
+            },
             // gets user's associated status/list
-            // include: [{model: Status}]
+            include: [{model: Status}]
         });
+        const statuses = userData.statuses.map((status) => status.get({plain: true}))
+        res.render('list', {statuses})
         if(!userData){
             res.status(404).json({
                 message: "No user associated with that id"
             })
         }
         //200 status code means sucessful connection and returns the data from the get route, 500 means error and will serve the error
-        res.status(200).json(userData)
+        // res.status(200).json(userData)
     } catch (err) {
         res.status(500).json(err)
     }
