@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const withAuth = require('../utils/auth');
+const withAuth = require('../../utils/auth');
 const { Status, User, Anime } = require("../../models");
 const bcrypt = require("bcrypt");
 
@@ -182,6 +182,12 @@ router.delete("/delete", withAuth, async (req, res) => {
                     id: req.session.user_id
                 }
             });
+            
+            req.session.destroy(() => {
+                res.status(204).end();
+            });
+            
+            console.log("You ")
         }
 
         res.status(200).json(userData)
