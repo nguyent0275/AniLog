@@ -4,14 +4,16 @@
         Completed
       </caption>
       <tr>
-        <th>Img Card</th>
+        {{!-- <th>Img Card</th> --}}
         <th>Title</th>
         <th>Score</th>
         <th>Progress</th>
       </tr>
+      {{#each statuses as |status|}}
       <tr>
-        <td>Img Link</td>
-        <td>Attack on Titan</td>
-        <td>10</td>
-        <td>Completed</td>
+        {{!-- <td>Img Link</td> --}}
+        <td>{{status.anime_id}}</td>
+        <td>{{status.rating}}</td>
+        <td>{{status.watch_status}}</td>
       </tr>
+      {{/each}}
