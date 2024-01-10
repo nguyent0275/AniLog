@@ -19,6 +19,7 @@ Anime.hasMany(Status, {
 })
 Status.belongsTo(Anime)
 
+// many to many (allows access of anime table from user model through the status table)
 User.belongsToMany(Anime, {
     through: Status,
     foreignKey: 'user_id'
@@ -28,7 +29,6 @@ Anime.belongsToMany(User, {
     through: Status,
     foreignKey: 'anime_id'
 })
-
 
 // many to many
 Anime.belongsToMany(Category, {
