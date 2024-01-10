@@ -37,6 +37,7 @@ router.get("/:id", async(req, res) => {
     }
 })
 
+
 router.post("/", async (req,res) => {
     try {
         // creates a new status
