@@ -1,15 +1,19 @@
 <body>
 
-<input
-  class="anime-name hs-search-field__input form-control mr-sm-2"
-  type="text"
-  placeholder="Search"
-  aria-label="Search"
-/>
-<button type="submit" class="anime-search-form">Search</button>
+  <form class="anime-search-form">
+    <div class="form-group">
+      <input
+        class="anime-name hs-search-field__input form-control mr-sm-2"
+        type="text"
+        placeholder="Search Anime"
+        aria-label="Search"
+      />
+      <button type="submit">Search</button>
+    </div>
+    <div class="anime-div">
+    </div>
+  </form>
 
-<div class="anime-div">
-</div>
-
-<script src="/public/js/anime-search.js"></script>
+{{!-- delete and retype and use dropdown to specify file / then delete the ('/public') IF SPECIFIED in server.js --}}
+  <script src="/js/anime-search.js"></script>
 </body>
