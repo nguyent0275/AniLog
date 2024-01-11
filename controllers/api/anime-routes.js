@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Anime, CategoryName, Category } = require("../../models");
+const { Anime, AnimeCategory, Category } = require("../../models");
 
 // the application end point is /api/anime
 router.get("/", async(req, res) => {
@@ -18,21 +18,6 @@ router.get("/", async(req, res) => {
         res.status(200).json(animeData)
     } catch (err) {
         res.status(500).json(err) 
-    }
-})
-
-// paramater search is by title
-router.get('/search/:title', async (req,res) => {
-    try{
-        // third party api fetch based on user input
-        const response = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${req.params.title}`)
-        // return data from the api fetch 
-        const animeData = await response.json();
-
-        // sending the data to front end (/public/js/anime-search.js)
-        res.json(animeData)
-    } catch (err) {
-        res.status(500).json(err)
     }
 })
 
