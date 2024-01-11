@@ -21,26 +21,6 @@ router.get("/", async(req, res) => {
     }
 })
 
-// paramater search is by title
-router.get('/search/:title', async (req,res) => {
-    try{
-        // third party api fetch based on user input
-        const response = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${req.params.title}`)
-        // console.log(response)
-        // return data from the api fetch 
-        const animeData = await response.json();
-        console.log(animeData)
-        // const animes = animeData.animes.map((anime) => {
-        //     anime.get({ plain: true})
-        // })
-        // console.log(animes)
-        // sending the data to front end (/public/js/anime-search.js)
-        res.render('anime-request', { animes })
-        res.status(200).json(animeData)
-    } catch (err) {
-        res.status(500).json(err)
-    }
-})
 
 router.get("/:id", async(req, res) => {
     try{

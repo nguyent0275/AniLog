@@ -3,60 +3,6 @@ $(document).ready(function () {
 //   const categoryFilter = "/anime?filter[categories]=adventure";
 //   const textFilter = "/anime?filter[text]=";
 
-//   async function getSearchQuery(event) {
-//     await event.preventDefault();
-//     let searchQuery = $(".search-bar").val();
-//     await searchByInput(searchQuery);
-//   }
-
-//   async function searchByInput(query) {
-//     let newUrl = baseUrl + textFilter;
-//     let queryParameters = new URLSearchParams(query);
-//     let requestUrl = newUrl + queryParameters;
-
-//     let response = await fetch(requestUrl);
-//     let jsonData = await response.json();
-//     console.log(requestUrl);
-//     console.log(jsonData);
-//     await renderSearch(jsonData)
-//   }
-
-//   $(".btn").on("click", getSearchQuery)
-
-//   async function renderSearch(animeApiData) {
-//     console.log(animeApiData);
-//     let mainContainer = $('#main-container')
-//     mainContainer.children().remove();
-
-
-//     for (let index = 0; index < animeApiData.data.length; index++) {
-//         console.log('test')
-//         // create
-//         let animeDivContainer = $('<div>')
-//         let animeImgCard = $('<img>')
-//         let listButton = $('<button>')
-//         let animeDescContainer = $('<div>')
-//         let animeTitle = $('<h3>')
-//         let animeDescription = $('<p>')
-
-//         // attr
-//         animeDivContainer.addClass('div-container');
-//         animeDescContainer.addClass('div-container');
-//         animeImgCard.attr('src', animeApiData.data[index].attributes.posterImage.tiny)
-//         listButton.text('Add to List')
-//         animeTitle.text(animeApiData.data[index].attributes.canonicalTitle)
-//         animeDescription.text(animeApiData.data[index].attributes.description)
-
-//         // append
-//         mainContainer.append(animeDivContainer)
-//         animeDivContainer.append(animeImgCard)
-//         animeDivContainer.append(listButton)
-//         animeDivContainer.append(animeDescContainer)
-//         animeDescContainer.append(animeTitle)
-//         animeDescContainer.append(animeDescription)
-//     };
-//   };
-
   async function searchByTopRated() {
     let requestUrl = "https://kitsu.io/api/edge/anime?sort=ratingRank";
     let response = await fetch(requestUrl);

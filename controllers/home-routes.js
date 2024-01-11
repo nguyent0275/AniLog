@@ -33,7 +33,7 @@ router.get("/profile", withAuth, async (req, res) => {
         },
       ],
     });
-    console.log(userData)
+    console.log(userData);
     const statuses = userData.statuses.map((status) => {
       status.get({ plain: true });
     });
@@ -44,8 +44,29 @@ router.get("/profile", withAuth, async (req, res) => {
       });
     }
   } catch (err) {
-    res.status(500).json(err)
+    res.status(500).json(err);
   }
 });
+
+router.get('/search', async (req,res) => {
+  try {
+    res.render('browse')
+  }catch (err) {
+    res.status(500).json(err)
+  }
+})
+
+// paramater search is by title
+router.get('/search/:title', async (req,res) => {
+  try{
+      // third party api fetch based on user input
+      const response = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${req.params.title}`)
+      // return data from the api fetch 
+      const animeData = await response.json();
+      res.json(animeData)
+  } catch (err) {
+      res.status(500).json(err)
+  }
+})
 
 module.exports = router;

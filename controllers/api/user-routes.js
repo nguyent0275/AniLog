@@ -43,7 +43,8 @@ router.get("/:user_name", async (req, res) => {
       status.get({ plain: true })
     );
     console.log(statuses);
-    res.render("list", { statuses });
+    res.status(200).json(userData)
+    // res.render("list", { statuses });
     if (!userData) {
       res.status(404).json({
         message: "No user associated with that id",
