@@ -37,20 +37,6 @@ router.get("/:id", async(req, res) => {
     }
 })
 
-// have to make sure you're logged in to work (not currently working)
-router.post("/add-to-list", async (req,res) => {
-    try{
-        const newStatus = await Status.create({
-            ...req.body,
-            // adds to list of the logged in user
-            user_id : req.session.user_id
-        })
-        res.status(200).json(newStatus)
-    } catch (err){
-        res.status(500).json(err)
-    }
-})
-
 // adds an anime to your list
 router.post("/save", async (req,res) => {
     console.log(req.body)
