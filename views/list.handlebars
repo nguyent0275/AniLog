@@ -1,4 +1,6 @@
 
+<button id="delete-user" type="submit">Delete User</button>
+
     <table id="completed-table">
       <caption class="table caption-top">
         Completed
@@ -12,8 +14,10 @@
       {{#each statuses as |status|}}
       <tr>
         {{!-- <td>Img Link</td> --}}
-        <td>{{status.anime_id}}</td>
+        <td>{{status.anime.title}}</td>
         <td>{{status.rating}}</td>
         <td>{{status.watch_status}}</td>
       </tr>
       {{/each}}
+
+      <script src="/js/delete-user.js"></script>
