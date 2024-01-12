@@ -64,31 +64,46 @@ router.get("/:user_name", async (req, res) => {
 // creates user
 router.post("/", async (req, res) => {
     try {
-    // const newUser = req.body;
+        const newUser = req.body;
 
-    // checking for empty fields and returning appropriate message corresponding to the missing field
-    // model already checks for unique emails and username (maybe add error message if field is not unique)
-    // if (!newUser.email) {
-    //   res.json({ message: "Please enter a valid email" });
-    // } else if (!newUser.user_name) {
-    //   res.json({ message: "Please enter a valid username" });
-    // } else if (!newUser.password) {
-    //   res.json({ message: "Please enter a valid password" });
-    // } else {
-      // creates the user if all fields pass, the password is being hashed before the create with a hook on the model
-        const userData = await User.create(req.body);
+        // checking for empty fields and returning appropriate message corresponding to the missing field
+        // model already checks for unique emails and username (maybe add error message if field is not unique)
+        if (!newUser.email) {
+            res.status(400).json({ message: "Please enter a valid email" });
+        } else if (!newUser.user_name) {
+            res.status(400).json({ message: "Please enter a valid username" });
+        } else if (!newUser.password) {
+            res.status(400).json({ message: "Please enter a valid password" });
+        } else {
 
+            // creates the user if all fields pass, the password is being hashed before the create with a hook on the model
+            const userData = await User.create(req.body);
 
-        req.session.save(() => {
-        req.session.user_id = userData.id;
-        req.session.logged_in = true;
+            req.session.save(() => {
+                req.session.user_id = userData.id;
+                req.session.logged_in = true;
 
-        res.status(200).json(userData);
-        console.log(req.session)
-    });
-    // }
+                res.status(200).json(userData);
+                console.log(req.session)
+            });
+        }
     } catch (err) {
-        res.status(400).json(err);
+        //for (e of err.errors) {
+        //    
+        //    if (e.path === "password") {
+        //        res.status(400).json({message: "WHAT THE FUCK TGHE PASSWORD IS WRONG!"});
+        //    }
+        //}
+
+        const errors = err.errors.map(x => x.path);
+
+        if (errors.indexOf("user_name") !== -1) {
+            res.status(400).json({ message: "This username is taken." });
+        } else if (errors.indexOf("email") !== -1) {
+            res.status(400).json({ message: "This is not an email or email is unavailable." });
+        } else if (errors.indexOf("password") !== -1) {
+            res.status(400).json({ message: "This password does not meet requirements." });
+        }
     }
 });
 
@@ -127,10 +142,6 @@ router.post('/login', async (req,res) => {
         req.session.logged_in = true;
             
         res.json({ user: userData, message: 'You are now logged in!' });
-
-        // THESE ARE USED FOR TESTING. DELETE AT THE END !!
-        // console.log(req.session.user_id)
-        // console.log(req.session.logged_in)
     
     } catch (err) {
         res.status(500).json(err)
@@ -168,27 +179,6 @@ router.post('/logout', (req, res) => {
     }
 });
 
-// // deletes user by id 
-// router.delete("/:id", async (req, res) => {
-//     try {
-        
-//         const userData = await User.destroy({
-//             where: {
-//                 id: req.params.id
-//             }
-//         });
-//         if(!userData){
-//             res.status(404).json({
-//                 message: "No user associated with that id"
-//             })
-//             return;
-//         }
-//         res.status(200).json(userData)
-//     } catch (err) {
-//         res.status(500).json(err)
-//     }
-// });
-
 // deletes user by id // STILL NEEDS TO BE TESTED
 router.delete("/delete", withAuth, async (req, res) => {
     try {
@@ -197,7 +187,6 @@ router.delete("/delete", withAuth, async (req, res) => {
                 where: {
                     id: req.session.user_id
                 }
-            
             });
 
             req.session.destroy(() => {
