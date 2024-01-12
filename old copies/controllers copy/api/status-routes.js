@@ -1,12 +1,11 @@
 const router = require("express").Router();
-const session = require("express-session");
-const { Status, User } = require("../../models");
+const { Anime, CategoryName, Category, Status, User } = require("../../models");
 
 // the application end point is /api/status
 
 router.get("/", async(req, res) => {
     try{
-        // finds all statusese
+        // finds all categories
         const statusData = await Status.findAll({
             // gets each category's associated category name
             // include: [{model: CategoryName, model: Category}]
@@ -41,7 +40,6 @@ router.get("/:id", async(req, res) => {
 // adds an anime to your list
 router.post("/save", async (req,res) => {
     console.log(req.body)
-    console.log(req.session.id)
     try {
         // creates a new status
         const newStatus = await Status.create({

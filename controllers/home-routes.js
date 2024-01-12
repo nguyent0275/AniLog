@@ -1,12 +1,12 @@
 const router = require("express").Router();
-const { Anime, User, Status } = require("../models");
+const { User, Status } = require("../models");
 const withAuth = require("../utils/auth");
 // i want to make sure that i can see my env vars
 require("dotenv").config();
 
 router.get("/", async (req, res) => {
   try {
-    res.render("home");
+    res.render("home", {loggedIn: req.session.loggedIn});
   } catch (err) {
     res.status(500).json(err);
   }
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 
 router.get("/login", async (req, res) => {
   try {
-    res.render("login");
+    res.render("login", {loggedIn: req.session.loggedIn});
   } catch (err) {
     res.status(500).json(err);
   }
@@ -50,7 +50,7 @@ router.get("/profile", withAuth, async (req, res) => {
 
 router.get('/search', async (req,res) => {
   try {
-    res.render('browse')
+    res.render('browse', {loggedIn: req.session.loggedIn})
   }catch (err) {
     res.status(500).json(err)
   }
