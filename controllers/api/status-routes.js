@@ -37,12 +37,18 @@ router.get("/:id", async(req, res) => {
     }
 })
 
-
-router.post("/", async (req,res) => {
+// adds an anime to your list
+router.post("/save", async (req,res) => {
+    console.log(req.body)
     try {
         // creates a new status
-        const statusData = await Status.create(req.body);
-        res.status(200).json(statusData)
+        const newStatus = await Status.create({
+            // copying the request body that is sent from the front end
+            ...req.body,
+            // uses the session id to identify specific logged in user, then adds the status to that user's list
+            user_id: req.session.id
+        });
+        res.status(200).json(newStatus)
     } catch (err) {
         res.status(500).json(err)
     }
