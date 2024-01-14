@@ -1,8 +1,27 @@
 
 .anime-carousel {
-    width: 60%;
-    display: flex;
-    border: red 1px solid;
+    display: inline-block;
+    width: 100%;
+    border: red 3px double;
+    border-radius: 3px;
+    background-color: #090909;
+    color: navajowhite;
+    letter-spacing: 3px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: gold;
+}
+.card-title {
+line-height: 2.5;
+text-align: center;
+text-decoration: overline;
+text-decoration-color: gold;
+text-decoration-style: wavy;
+font-family: Helvetica Neue;
+font-size: 24px;
+margin-bottom: var(--bs-card-title-spacer-y);
+color: navajowhite;
+-webkit-text-stroke-color: gold;
+background-color: #090909;
 }
 
 /* https://community.hubspot.com/t5/CMS-Development/Magnifying-glass-icon-in-search-bar/m-p/338441 */
@@ -18,3 +37,4 @@ input.hs-search-field__input {
     box-shadow: none;
     /* -webkit-appearance: none; */
 }
+

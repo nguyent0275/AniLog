@@ -1,26 +1,41 @@
 <!-- CAROUSEL -->
-<h4>Most Popular</h4>
+
+<body>
+
+<div class="card"><h4 class="card-title">.. Most Popular ..</h4>
 <div class="popular-anime-carousel anime-carousel">
 </div>
+</div>
 
-<h4>Top Rated</h4>
+<div class="card"><h4 class="card-title">.. Top Rated ..</h4>
 <div class="top-anime-carousel anime-carousel">
 </div>
 
-<h4>Romance</h4>
+<div class="card"><h4 class="card-title">.. Romance ..</h4>
 <div class="romance-anime-carousel anime-carousel">
 </div>
 
-<h4>Movie</h4>
+<div class="card"><h4 class="card-title">.. Movie ..</h4>
 <div class="movie-anime-carousel anime-carousel">
 </div>
 
 {{!-- need the import here to render jquery on the anime.js file --}}
 {{!-- putting it on main.handlebars will not allow you to render it first --}}
+
 <script
   src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
   integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
   crossorigin="anonymous"
   referrerpolicy="no-referrer"
 ></script>
+
 <script src="js/anime.js"></script>
+
+{{!-- Need the slick script link in order to apply the function to the page --}}
+<script
+      type="text/javascript"
+      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+></script>
+
+
+</body>

@@ -44,12 +44,12 @@ $(document).ready(function () {
     let jsonData = await response.json();
     console.log(requestUrl);
     renderPopularAnime(jsonData);
-    // $(".anime-carousel").slick({
-    //   slidesToShow: 5,
-    //   slidesToScroll: 1,
-    //   autoplay: true,
-    //   autoplaySpeed: 3500,
-    // });
+    $(".anime-carousel").slick({
+      slidesToShow: 5,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 3500,
+    });
   }
 
   async function renderPopularAnime(animeApiData) {
