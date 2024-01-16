@@ -116,7 +116,7 @@ const newFormHandler = async (event) => {
           } else {
             // redirects user to login page (add condition check for if loggedIn, if they're logged in serve a regular error in case of error)
             // user can't add the same anime multiple time, need to do a check for that (perhaps in backend make anime_name {unique: true})
-            document.location.replace('/login');
+            // document.location.replace('/login');
           }
         });
       }
