@@ -67,7 +67,9 @@ $(document).ready(function () {
         if (response.ok) {
           console.log("added to list");
         } else {
-          document.location.replace("/login");
+          // redirects user to login page (add condition check for if loggedIn, if they're logged in serve a regular error in case of error)
+          // user can't add the same anime multiple time, need to do a check for that (perhaps in backend make anime_name {unique: true})
+          // document.location.replace("/login");
         }
       });
     }
@@ -76,10 +78,10 @@ $(document).ready(function () {
   for (let index = 0; index < apiFetchArray.length; index++) {
     apiFetchRequest(index);
   }
-      $(".anime-carousel").slick({
-      slidesToShow: 5,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 3500,
-    });
+  // $(".anime-carousel").slick({
+  //   slidesToShow: 5,
+  //   slidesToScroll: 1,
+  //   autoplay: true,
+  //   autoplaySpeed: 3500,
+  // });
 });
