@@ -1,25 +1,24 @@
 const router = require("express").Router();
-const withAuth = require('../../utils/auth');
-const { Status, User, Anime } = require("../../models");
+const withAuth = require("../../utils/auth");
+const { Status, User} = require("../../models");
 const bcrypt = require("bcrypt");
-const SALT_FACTOR = 10;
 
 // the application end point is /api/user
 
 // gets all users
-router.get("/", async(req, res) => {
-    try{
-        // finds all users
-        const userData = await User.findAll({
-            // gets each user's associated status/list
-            // include: [{model: Status}]
-        });
-        //200 status code means sucessful connection and returns the data from the get route, 500 means error and will serve the error
-        res.status(200).json(userData)
-    } catch (err) {
-        res.status(500).json(err)
-    }
-})
+router.get("/", async (req, res) => {
+  try {
+    // finds all users
+    const userData = await User.findAll({
+      // gets each user's associated status/list
+      // include: [{model: Status}]
+    });
+    //200 status code means sucessful connection and returns the data from the get route, 500 means error and will serve the error
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // gets user by username / shows their lists
 router.get("/:user_name", async (req, res) => {
@@ -29,6 +28,7 @@ router.get("/:user_name", async (req, res) => {
       where: {
         user_name: req.params.user_name,
       },
+
       // gets user's associated status/list
       // equivalent of 2 left joins
       include: [
@@ -40,11 +40,13 @@ router.get("/:user_name", async (req, res) => {
         },
       ],
     });
+
     const statuses = userData.statuses.map((status) =>
       status.get({ plain: true })
     );
+
     console.log(statuses);
-    res.status(200).json(userData)
+    res.status(200).json(userData);
     // res.render("list", { statuses });
     if (!userData) {
       res.status(404).json({
@@ -61,78 +63,89 @@ router.get("/:user_name", async (req, res) => {
 // creates user
 router.post("/", async (req, res) => {
   try {
-    // const newUser = req.body;
+    const newUser = req.body;
 
     // checking for empty fields and returning appropriate message corresponding to the missing field
     // model already checks for unique emails and username (maybe add error message if field is not unique)
-    // if (!newUser.email) {
-    //   res.json({ message: "Please enter a valid email" });
-    // } else if (!newUser.user_name) {
-    //   res.json({ message: "Please enter a valid username" });
-    // } else if (!newUser.password) {
-    //   res.json({ message: "Please enter a valid password" });
-    // } else {
+    if (!newUser.email) {
+      res.status(400).json({ message: "Please enter a valid email" });
+    } else if (!newUser.user_name) {
+      res.status(400).json({ message: "Please enter a valid username" });
+    } else if (!newUser.password) {
+      res.status(400).json({ message: "Please enter a valid password" });
+    } else {
       // creates the user if all fields pass, the password is being hashed before the create with a hook on the model
       const userData = await User.create(req.body);
-
 
       req.session.save(() => {
         req.session.user_id = userData.id;
         req.session.logged_in = true;
 
         res.status(200).json(userData);
-        console.log(req.session)
+        console.log(req.session);
       });
-    // }
+    }
   } catch (err) {
-    res.status(400).json(err);
+    //for (e of err.errors) {
+    //
+    //    if (e.path === "password") {
+    //        res.status(400).json({message: "WHAT THE FUCK TGHE PASSWORD IS WRONG!"});
+    //    }
+    //}
+
+    const errors = err.errors.map((x) => x.path);
+
+    if (errors.indexOf("user_name") !== -1) {
+      res.status(400).json({ message: "This username is taken." });
+    } else if (errors.indexOf("email") !== -1) {
+      res
+        .status(400)
+        .json({ message: "This is not an email or email is unavailable." });
+    } else if (errors.indexOf("password") !== -1) {
+      res
+        .status(400)
+        .json({ message: "This password does not meet requirements." });
+    }
   }
 });
 
 // login route (finds a user by email then checks the input password against the database's stored password)
-router.post('/login', async (req,res) => {
-    try {
-        // finds one user by the request email (user input email when logging in)
-        const userData = await User.findOne({
-            where: {
-                email: req.body.email
-            }
-        })
-        console.log(userData)
-        // if no user data is returned, serves a login failure message and ends the route with the 'return'
-        if (!userData) {
-            res
-                .status(404)
-                .json({message: 'Login failed. Please try again!'});
-            return;
-        }
-        // we are checking the user's inputted password towards the hashed password saved in the database that's associated with the findOne's email.
-        const validPassword = await bcrypt.compare(
-            req.body.password,
-            userData.password
-        );
-
-        // if the passwords do not match, login fails and route ends
-        if (!validPassword) {
-            res
-                .status(400)
-                .json({ message: 'Incorrect email or password, please try again' });
-            return;
-        }
-      
-        req.session.user_id = userData.id;
-        req.session.logged_in = true;
-            
-        res.json({ user: userData, message: 'You are now logged in!' });
-
-        // THESE ARE USED FOR TESTING. DELETE AT THE END !!
-        // console.log(req.session.user_id)
-        // console.log(req.session.logged_in)
-    
-    } catch (err) {
-        res.status(500).json(err)
+router.post("/login", async (req, res) => {
+  try {
+    // finds one user by the request email (user input email when logging in)
+    const userData = await User.findOne({
+      where: {
+        email: req.body.email,
+      },
+    });
+    console.log(userData);
+    // if no user data is returned, serves a login failure message and ends the route with the 'return'
+    if (!userData) {
+      res.status(404).json({ message: "Login failed. Please try again!" });
+      return;
     }
-})
+    // we are checking the user's inputted password towards the hashed password saved in the database that's associated with the findOne's email.
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      userData.password
+    );
+
+    // if the passwords do not match, login fails and route ends
+    if (!validPassword) {
+      res
+        .status(400)
+        .json({ message: "Incorrect email or password, please try again" });
+      return;
+    }
+
+    req.session.user_id = userData.id;
+    req.session.logged_in = true;
+
+    res.json({ user: userData, message: "You are now logged in!" });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // updates user by id
 router.put("/:id", async (req, res) => {
@@ -155,58 +168,38 @@ router.put("/:id", async (req, res) => {
 });
 
 // gets rid of session when logging out
-router.post('/logout', (req, res) => {
-    if (req.session.logged_in) {
-        req.session.destroy(() => {
-            res.status(204).end();
-        });
-    } else {
-        res.status(404).end();
-    }
+router.post("/logout", (req, res) => {
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
 });
-
-// // deletes user by id 
-// router.delete("/:id", async (req, res) => {
-//     try {
-        
-//         const userData = await User.destroy({
-//             where: {
-//                 id: req.params.id
-//             }
-//         });
-//         if(!userData){
-//             res.status(404).json({
-//                 message: "No user associated with that id"
-//             })
-//             return;
-//         }
-//         res.status(200).json(userData)
-//     } catch (err) {
-//         res.status(500).json(err)
-//     }
-// });
 
 // deletes user by id // STILL NEEDS TO BE TESTED
 router.delete("/delete", withAuth, async (req, res) => {
-    try {
-        if (req.session.logged_in) {
-            const userData = await User.destroy({
-                where: {
-                    id: req.session.user_id
-                }
-            });
-            
-            req.session.destroy(() => {
-                res.status(204).end();
-            });
-            
-            console.log("You ")
-        }
+  try {
+    if (req.session.logged_in) {
+      const userData = await User.destroy({
+        where: {
+          id: req.session.user_id,
+        },
+      });
 
-        res.status(200).json(userData)
-    } catch (err) {
-        res.status(500).json(err)
+      req.session.destroy(() => {
+        console.log("worked");
+        res.status(204).end();
+      });
+
+      console.log("You have success");
+
+      res.status(200).json(userData);
     }
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
