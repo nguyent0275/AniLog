@@ -23,7 +23,8 @@ router.get("/login", async (req, res) => {
 router.get("/profile", async (req, res) => {
   try {
     // console.log(req.session.user_id)
-    const userData = await User.findByPk(req.session.user_id, {
+    const userData = await User.findAll({
+      where: user_id = req.session.user_id,
       attributes: { exclude: ["password"] },
       include: [
         {
@@ -31,15 +32,11 @@ router.get("/profile", async (req, res) => {
         },
       ],
     });
-    console.log(userData);
-    const statuses = userData.dataValues.statuses.map((status) => {
-      status.get({ plain: true });
-    });
-    // console.log(statuses);
-    res.render("list", {statuses, loggedIn: req.session.logged_in});
-    // failing here, because we are trying to find user by the req.session.user_id which is random string instead of user_id in the models
-    // need to figure out how to pass the user id into the request 
-    // or how to create a user with req.session_id (does session id change on every login or is it unique)
+    // console.log(userData);
+    const animes = userData.map((anime) => anime.get({plain: true}));
+    // statuses is returning undefined 
+    console.log(animes);
+    res.render("list", { animes });
     if (!userData) {
       res.status(404).json({
         message: "No user associated with that id",
