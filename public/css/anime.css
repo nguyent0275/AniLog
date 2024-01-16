@@ -4,11 +4,11 @@
     width: 100%;
     border: #5959b9 3px double;
     border-radius: 3px;
-    background-color: #575151;
+    background-color: #888484;
     color: navajowhite;
     letter-spacing: 3px;
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: gold;
+    -webkit-text-stroke-color: #610fed;
 }
 .card-title {
 line-height: 2.5;
