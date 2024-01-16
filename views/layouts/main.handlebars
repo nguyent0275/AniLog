@@ -42,18 +42,18 @@
         </button>
 
         <!-- if logged in show your profile, else show logIn -->
-        {{!-- {{#if loggedIn}} --}}
+        {{#if loggedIn}}
 
         <li class="nav-item">
           <a class="nav-link" href="/profile">My Profile</a>
         </li>
 
-        {{!-- {{else}} --}}
+        {{else}}
 
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/login">Login</a>
         </li>
-        {{!-- {{/if}} --}}
+        {{/if}}
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/search">Browse</a>
         </li>

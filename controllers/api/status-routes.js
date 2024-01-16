@@ -48,7 +48,7 @@ router.post("/save", async (req,res) => {
             // copying the request body that is sent from the front end
             ...req.body,
             // uses the session id to identify specific logged in user, then adds the status to that user's list
-            user_id: req.session.id
+            user_id: req.session.user_id
         });
         res.status(200).json(newStatus)
     } catch (err) {

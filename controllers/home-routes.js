@@ -6,7 +6,7 @@ require("dotenv").config();
 
 router.get("/", async (req, res) => {
   try {
-    res.render("home", {loggedIn: req.session.loggedIn});
+    res.render("home", {loggedIn: req.session.logged_in});
   } catch (err) {
     res.status(500).json(err);
   }
@@ -14,30 +14,32 @@ router.get("/", async (req, res) => {
 
 router.get("/login", async (req, res) => {
   try {
-    res.render("login", {loggedIn: req.session.loggedIn});
+    res.render("login", {loggedIn: req.session.logged_in});
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-router.get("/profile", withAuth, async (req, res) => {
+router.get("/profile", async (req, res) => {
   try {
+    // console.log(req.session.user_id)
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ["password"] },
       include: [
         {
           model: Status,
-          include: {
-            model: Anime,
-          },
         },
       ],
     });
     console.log(userData);
-    const statuses = userData.statuses.map((status) => {
+    const statuses = userData.dataValues.statuses.map((status) => {
       status.get({ plain: true });
     });
-    res.render("list", { statuses });
+    // console.log(statuses);
+    res.render("list", {statuses, loggedIn: req.session.logged_in});
+    // failing here, because we are trying to find user by the req.session.user_id which is random string instead of user_id in the models
+    // need to figure out how to pass the user id into the request 
+    // or how to create a user with req.session_id (does session id change on every login or is it unique)
     if (!userData) {
       res.status(404).json({
         message: "No user associated with that id",
@@ -50,7 +52,7 @@ router.get("/profile", withAuth, async (req, res) => {
 
 router.get('/search', async (req,res) => {
   try {
-    res.render('browse', {loggedIn: req.session.loggedIn})
+    res.render('browse', {loggedIn: req.session.logged_in})
   }catch (err) {
     res.status(500).json(err)
   }

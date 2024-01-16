@@ -86,13 +86,6 @@ router.post("/", async (req, res) => {
       });
     }
   } catch (err) {
-    //for (e of err.errors) {
-    //
-    //    if (e.path === "password") {
-    //        res.status(400).json({message: "WHAT THE FUCK TGHE PASSWORD IS WRONG!"});
-    //    }
-    //}
-
     const errors = err.errors.map((x) => x.path);
 
     if (errors.indexOf("user_name") !== -1) {
