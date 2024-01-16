@@ -85,7 +85,7 @@ const newFormHandler = async (event) => {
             watchStatusDropDownSelect.append(watchStatusOptions)
           }
 
-          // creating the raings drop down
+          // creating the ratings drop down
           const ratingsArray = ['null', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           for (let index = 0; index < ratingsArray.length; index++) {
             const ratingsOptions = document.createElement("option")
@@ -98,8 +98,6 @@ const newFormHandler = async (event) => {
         // what is being taken from the front end and sent to backend to save in user's list
           const animeToSave = { title: title.textContent, rating: ratingsDropDownSelect.value, watch_status: watchStatusDropDownSelect.value};
           console.log(animeToSave)
-          // const ratingValue = this. 
-          // const watchStatusValue = this. 
           event.preventDefault(event);
           const response = await fetch(`/api/status/save`, {
             method: "POST",
