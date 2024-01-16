@@ -19,10 +19,12 @@ Status.init(
         key: "id",
       },
     },
-    anime_title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
+    anime_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "anime",
+        key: "id",
+      },
     },
     rating: {
       type: DataTypes.INTEGER,
