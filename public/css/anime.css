@@ -2,7 +2,7 @@
 .anime-carousel {
     width: 60%;
     display: flex;
-    border: red 1px solid;
+    border: rgb(29, 27, 158) 1px solid;
 }
 
 /* https://community.hubspot.com/t5/CMS-Development/Magnifying-glass-icon-in-search-bar/m-p/338441 */
