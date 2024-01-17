@@ -22,7 +22,6 @@ Status.init(
     anime_title: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
     },
     rating: {
       type: DataTypes.INTEGER,

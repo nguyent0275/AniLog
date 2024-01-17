@@ -23,7 +23,6 @@ router.get("/login", async (req, res) => {
 router.get("/profile", async (req, res) => {
   console.log('here')
   try {
-    // console.log(req.session.user_id)
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ["password"] },
       include: [
@@ -32,15 +31,13 @@ router.get("/profile", async (req, res) => {
         },
       ],
     });
-    const user = userData.get({plain: true})
-    console.log(user)
-    console.log(JSON.stringify(user, null, 2));
+    const user = userData.get({plain : true})
     if (!userData) {
       res.status(404).json({
         message: "No user associated with that id",
       });
     }else {
-      res.render("list", { user, loggedIn: req.session.logged_in })
+      res.render("list", {user, loggedIn: req.session.logged_in})
     }
   } catch (err) {
     res.status(500).json(err);
