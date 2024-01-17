@@ -40,8 +40,6 @@ router.get("/:id", async(req, res) => {
 
 // adds an anime to your list
 router.post("/save", async (req,res) => {
-    console.log(req.body)
-    console.log(req.session.id)
     try {
         // creates a new status
         const newStatus = await Status.create({

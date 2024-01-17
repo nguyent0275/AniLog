@@ -2,7 +2,7 @@ const loginFormHandler = async (event) => {
     event.preventDefault(event);
     console.log('logging in')
 
-    const email = document.getElementById('signup-input').value.trim();
+    const email = document.getElementById('email-login').value.trim();
     const password = document.getElementById('password-login').value.trim();
 
     // console.log(email, password)
