@@ -60,6 +60,7 @@ form {
 }
 
 label {
+    color: white;
     width: auto;
     height: auto;
     justify-content: center;

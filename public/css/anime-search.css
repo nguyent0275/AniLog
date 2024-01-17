@@ -1,15 +1,25 @@
+
+form{
+height: 0;
+}
+
 .form-group{
     border: none;
     background-image: none;
 }
 
+label{
+    height: 0;
+    color: rgb(194, 3, 3);
+}
+
 body{
-    background-color: #575151;
+    background-color: #090909;
 }
 
 h2{
-    text-align: left;
-    padding-top: 20px;
+    justify-content: left;
+    margin: auto;
     padding-left: 5px;
 }
 
@@ -18,9 +28,9 @@ img{
 }
 
 li{
-    color: #610fed;
+    color: rgb(194, 3, 3);
 }
 
 p{
-    color: #610fed;
+    color: rgb(194, 3, 3);
 }
