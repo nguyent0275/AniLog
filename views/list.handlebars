@@ -10,11 +10,10 @@
         <th>Progress</th>
       </tr>
       {{#each user.statuses as |anime|}}
-      <tr>
+      <tr id={{@index}}>
         <td>{{anime.anime_title}}</td>
         <td>{{anime.rating}}</td>
         <td>{{anime.watch_status}}</td>
-        <td><button class="edit-button">Edit</button></td>
       </tr>
       {{/each}}
     </table>
