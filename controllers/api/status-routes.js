@@ -54,14 +54,16 @@ router.post("/save", async (req,res) => {
     }
 })
 
-router.put("/:id", async (req, res) => {
+router.put("update/:anime_title", async (req, res) => {
     try {
         const statusData = await Status.update(req.body, {
-            // updates by the status id
+            // locates user by their user id and anime title
         where: {
-            id: req.params.id,
+            anime_title: req.anime_title,
+            user_id: req.session.user_id
         },
     });
+    console.log(statusData)
     if(!statusData){
         res.status(404).json({
             message: "No status associated with that id"
