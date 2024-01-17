@@ -40,6 +40,9 @@ router.get("/:id", async (req, res) => {
 // adds an anime to your list
 router.post("/save", async (req, res) => {
   try {
+    if(!req.session.user_id){
+      alert('You are not logged in')
+    }else {
     // creates a new status
     const newStatus = await Status.create({
       // copying the request body that is sent from the front end
@@ -48,7 +51,7 @@ router.post("/save", async (req, res) => {
       user_id: req.session.user_id,
     });
     res.status(200).json(newStatus);
-  } catch (err) {
+  }} catch (err) {
     res.status(500).json(err);
   }
 });
@@ -56,7 +59,7 @@ router.post("/save", async (req, res) => {
 router.put("/update", async (req, res) => {
   try {
     const statusData = await Status.update(
-        // what is being updated
+      // what is being updated
       {
         watch_status: req.watch_status,
         rating: req.rating,

@@ -77,12 +77,10 @@ $(document).ready(function () {
             "Content-Type": "application/json",
           },
         });
-        if (response.ok) {
-          console.log("added to list");
+        if (!response.ok) {
+          document.location.replace('/login')
         } else {
-          // redirects user to login page (add condition check for if loggedIn, if they're logged in serve a regular error in case of error)
-          // user can't add the same anime multiple time, need to do a check for that (perhaps in backend make anime_name {unique: true})
-          // document.location.replace("/login");
+          console.log('Added to List')
         }
       });
     }
