@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Anime, CategoryName, Category, Status, User } = require("../../models");
+const { Anime, CategoryName, Category, Status } = require("../../models");
 
 // the application end point is /api/status
 
@@ -19,36 +19,24 @@ router.get("/", async(req, res) => {
 
 router.get("/:id", async(req, res) => {
     try{
-        // finds all the statuses of a singular user by their id
-        const statusData = await Status.findAll({
+        // finds status by their primary key (uuid)
+        const statusData = await Status.findByPk(req.params.id, {
             // gets status's associated status/list
-            where: {
-                user_id : req.params.id
-            },
-            // include: [{model: Anime, model: User}],
+            // include: [{model: CategoryName, model: Category}]
         }
         );
         //200 status code means sucessful connection and returns the data from the get route, 500 means error and will serve the error
         res.status(200).json(statusData)
-        console.log(statusData)
-        // res.render("list")
     } catch (err) {
         res.status(500).json(err)
     }
 })
 
-// adds an anime to your list
-router.post("/save", async (req,res) => {
-    console.log(req.body)
+router.post("/", async (req,res) => {
     try {
         // creates a new status
-        const newStatus = await Status.create({
-            // copying the request body that is sent from the front end
-            ...req.body,
-            // uses the session id to identify specific logged in user, then adds the status to that user's list
-            user_id: req.session.id
-        });
-        res.status(200).json(newStatus)
+        const statusData = await Status.create(req.body);
+        res.status(200).json(statusData)
     } catch (err) {
         res.status(500).json(err)
     }
