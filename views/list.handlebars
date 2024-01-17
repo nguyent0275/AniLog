@@ -11,12 +11,12 @@
         <th>Score</th>
         <th>Progress</th>
       </tr>
-      {{#each statuses as |status|}}
+      {{#each user.statuses as |anime|}}
       <tr>
         {{!-- <td>Img Link</td> --}}
-        <td>{{status.anime_title}}</td>
-        <td>{{status.rating}}</td>
-        <td>{{status.watch_status}}</td>
+        <td>{{anime.anime_title}}</td>
+        <td>{{anime.rating}}</td>
+        <td>{{anime.watch_status}}</td>
       </tr>
       {{/each}}
 
