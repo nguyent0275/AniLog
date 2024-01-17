@@ -40,6 +40,7 @@ router.get("/profile", async (req, res) => {
       res.render("list", {user, loggedIn: req.session.logged_in})
     }
   } catch (err) {
+    // want to redirect to home page if user is not logged in
     res.status(500).json(err);
   }
 });

@@ -42,7 +42,7 @@ doneBtn.addEventListener('click', async function (event) {
   }
   console.log(animeToUpdate)
   event.preventDefault()
-  const response = await fetch (`api/status/update/:anime_title`, {
+  const response = await fetch (`api/status/update`, {
     method: 'PUT',
     body: JSON.stringify(animeToUpdate),
     headers: {
@@ -94,3 +94,4 @@ for (let index = 0; index < tableRows.length; index++) {
   });
 
 }
+

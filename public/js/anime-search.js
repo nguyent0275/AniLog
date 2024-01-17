@@ -95,11 +95,6 @@ const newFormHandler = async (event) => {
           }
 
         addToListBtn.addEventListener("click", async function (event) {
-        // what is being taken from the front end and sent to backend to save in user's list
-        // insert is taking '?' values, may have to do with user_id storage
-        // is the databases's autoincrementing primary key user.id being used?
-        // or is it the request session id which is 'bkzKRgsK3fXR1xlU17STfjpq0wvGs92Y'
-        // either way, need to sort that out and find out which one we are using
           const animeToSave = { anime_title: title.textContent, rating: ratingsDropDownSelect.value, watch_status: watchStatusDropDownSelect.value};
           console.log(animeToSave)
           event.preventDefault(event);

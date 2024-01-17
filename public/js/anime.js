@@ -29,6 +29,7 @@ $(document).ready(function () {
       console.log("test");
       // creating html elements
       const animeDivEl = $("<div>");
+      const animeImgContainer = $("<div>");
       const animeImgEl = $("<img>");
       const animeDivCaption = $("<div>");
       const animeCaption = $("<h5>");
@@ -36,25 +37,37 @@ $(document).ready(function () {
 
       // setting attributes
       animeDivEl.addClass("anime-item");
+      animeImgContainer.addClass("anime-image-container");
       animeImgEl.addClass("anime-img");
       animeDivCaption.addClass("anime-caption");
+      addToListBtn.addClass("hide-button");
       animeImgEl.attr(
         "src",
         animeApiData.data[index].attributes.posterImage.tiny
       );
-      animeCaption.text(animeApiData.data[index].attributes.canonicalTitle);
+      // if the anime has an english title in the api, we will use otherwise we will user the canonical title
+      if (animeApiData.data[index].attributes.titles.en) {
+        animeCaption.text(animeApiData.data[index].attributes.titles.en);
+      } else {
+        animeCaption.text(animeApiData.data[index].attributes.canonicalTitle);
+      }
       addToListBtn.text("Add to List");
 
       // appending elements
       $(carouselCategoryArray[i] + "-anime-carousel").append(animeDivEl);
-      animeDivEl.append(animeImgEl);
+      animeDivEl.append(animeImgContainer);
+      animeImgContainer.append(animeImgEl);
+      animeImgContainer.append(addToListBtn);
       animeDivEl.append(animeDivCaption);
       animeDivCaption.append(animeCaption);
-      animeDivEl.append(addToListBtn);
 
       // adds the ability to directly add to list if use is logged in, if not logged in will redirect to the login page
       addToListBtn.on("click", async function (event) {
-        const animeToSave = { anime_title: animeCaption.text() };
+        const animeToSave = {
+          anime_title: animeCaption.text(),
+          rating: 0,
+          watch_status: "watching",
+        };
         console.log(animeToSave);
         event.preventDefault();
         const response = await fetch(`/api/status/save`, {
