@@ -87,6 +87,7 @@ router.post("/", async (req, res) => {
     }
   } catch (err) {
     const errors = err.errors.map((x) => x.path);
+    // res.status(400).json(err);
 
     if (errors.indexOf("user_name") !== -1) {
       res.status(400).json({ message: "This username is taken." });
