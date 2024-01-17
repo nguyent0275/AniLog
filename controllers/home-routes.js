@@ -22,9 +22,7 @@ router.get("/login", async (req, res) => {
 
 router.get("/profile", async (req, res) => {
   try {
-    // console.log(req.session.user_id)
-    const userData = await User.findAll({
-      where: user_id = req.session.user_id,
+    const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ["password"] },
       include: [
         {
@@ -32,15 +30,13 @@ router.get("/profile", async (req, res) => {
         },
       ],
     });
-    // console.log(userData);
-    const animes = userData.map((anime) => anime.get({plain: true}));
-    // statuses is returning undefined 
-    console.log(animes);
-    res.render("list", { animes });
+    const user = userData.get({plain : true})
     if (!userData) {
       res.status(404).json({
         message: "No user associated with that id",
       });
+    }else {
+      res.render("list", {user, loggedIn: req.session.logged_in})
     }
   } catch (err) {
     res.status(500).json(err);
