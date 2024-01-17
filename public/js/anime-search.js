@@ -86,7 +86,7 @@ const newFormHandler = async (event) => {
           }
 
           // creating the raings drop down
-          const ratingsArray = ['null', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+          const ratingsArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           for (let index = 0; index < ratingsArray.length; index++) {
             const ratingsOptions = document.createElement("option")
             ratingsOptions.setAttribute('value', ratingsArray[index])
@@ -116,7 +116,7 @@ const newFormHandler = async (event) => {
           } else {
             // redirects user to login page (add condition check for if loggedIn, if they're logged in serve a regular error in case of error)
             // user can't add the same anime multiple time, need to do a check for that (perhaps in backend make anime_name {unique: true})
-            document.location.replace('/login');
+            // document.location.replace('/login');
           }
         });
       }
