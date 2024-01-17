@@ -4,7 +4,7 @@ CREATE DATABASE anime_db;
 USE anime_db;
 
 -- CREATE TABLE user (
--- id INT auto_increment primary key not null
+-- id INT auto_increment primary key not null,
 -- user_name varchar(30) not null,
 -- pass_word varchar(30) not null,
 -- email varchar(30) not null

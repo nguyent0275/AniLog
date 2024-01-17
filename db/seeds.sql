@@ -32,12 +32,6 @@
 -- (4, 'completed', 10, 1),
 -- (4, 'completed', 3, 5);
 
-INSERT INTO status(user_id, watch_status, rating, anime_id)
-VALUES(5, 'watching', 8, 2),
-(5, 'planning', null, 3),
-(5, 'dropped', 2, 1),
-(5, 'completed', 9, 5);
-
 -- INSERT INTO category_name(anime_name,category_id)
 -- VALUES(1,1),
 -- (1,2),

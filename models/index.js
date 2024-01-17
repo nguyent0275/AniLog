@@ -3,60 +3,52 @@ const Anime = require('./Anime');
 const Category = require('./Category');
 const User = require('./User');
 const Status = require('./Status');
-const AnimeCategory = require('./AnimeCategory');
+const CategoryName = require('./CategoryName');
 
-// 1 to many
-User.hasMany(Status, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE'
-})
-Status.belongsTo(User)
 
-// 1 to many
-Anime.hasMany(Status, {
-    foreignKey: 'anime_id',
-    onDelete: 'CASCADE'
-})
-Status.belongsTo(Anime)
+// Status.belongsTo(User, {
+//   foreignKey: 'user_id',
+//   onDelete: 'CASCADE'
+// });
 
-// many to many (allows access of anime table from user model through the status table)
-User.belongsToMany(Anime, {
-    through: Status,
-    foreignKey: 'user_id'
-})
+// User.hasMany(Status, {
+//   foreignKey: 'user_id',
+//   onDelete: 'CASCADE'
+// })
 
-Anime.belongsToMany(User, {
-    through: Status,
-    foreignKey: 'anime_id'
-})
 
-// many to many
-Anime.belongsToMany(Category, {
-    through: AnimeCategory
-})
+// Status.belongsTo(Anime, {
+//   foreignKey: 'anime_id',
+//   onDelete: 'CASCADE'
+// });
 
-Category.belongsToMany(Anime, {
-    through: AnimeCategory
-})
 
-// // 1 to 1
-// Category.hasOne(AnimeCategory, {
+// Anime.belongsToMany(Category, {
+//   through: CategoryName,
+//   foreignKey: 'anime_id',
+// });
+
+
+// Category.belongsToMany(Anime, {
+//   through: CategoryName,
+//   foreignKey: 'category_category_id',
+// })
+
+// CategoryName.belongsTo(Category, {
 //     foreignKey: 'category_id',
-//     onDelete: 'SET NULL'
+//     onDelete: 'CASCADE'
 // })
-// AnimeCategory.belongsTo(Category)
 
-// // 1 to many
-// Anime.hasMany(AnimeCategory, {
+// CategoryName.belongsToMany(Anime, {
+//     through: CategoryName,
 //     foreignKey: 'anime_name',
-//     onDelete: 'SET NULL'
+//     onDelete: 'CASCADE'
 // })
-// AnimeCategory.belongsTo(Anime)
 
 module.exports = {
     Anime,
     Category,
-    AnimeCategory,
+    CategoryName,
     Status,
     User
 };
