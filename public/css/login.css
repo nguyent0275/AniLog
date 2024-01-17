@@ -60,6 +60,7 @@ form {
 }
 
 label {
+    color: white;
     width: auto;
     height: auto;
     justify-content: center;
@@ -122,4 +123,10 @@ label, .form-input {
 .forgot-password {
     display: block;
     margin-top: 1%;
-}  */
+}
+h2{
+    color: black;
+}
+label{
+    color: black;
+}

@@ -1,11 +1,26 @@
 #completed-table {
   display: block;
+  color: rgb(194, 3, 3);
 }
 
 #watching-table {
   display: none;
+  color: rgb(194, 3, 3);
 }
 
 #planning-table {
   display: none;
+  color:rgb(194, 3, 3);
+}
+
+caption{
+  color: rgb(194, 3, 3);
+}
+
+footer {
+  background-color: #090909;
+  padding-top: 80px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+  color: white;
 }
