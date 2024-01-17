@@ -22,7 +22,6 @@ Status.init(
     anime_title: {
       type: DataTypes.STRING,
       allowNull: false,
-      // prevents user from adding the same anime twice
       unique: true
     },
     rating: {

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { User, Status } = require("../models");
 const withAuth = require("../utils/auth");
+// i want to make sure that i can see my env vars
 require("dotenv").config();
 
 router.get("/", async (req, res) => {
@@ -17,7 +18,7 @@ router.get("/login", async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-}); 
+});
 
 router.get("/profile", async (req, res) => {
   console.log('here')

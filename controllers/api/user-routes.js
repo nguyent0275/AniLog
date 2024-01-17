@@ -77,9 +77,9 @@ router.post("/", async (req, res) => {
       // creates the user if all fields pass, the password is being hashed before the create with a hook on the model
       const userData = await User.create(req.body);
 
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
+      req.session.save(() => {
+        req.session.user_id = userData.id;
+        req.session.logged_in = true;
 
         res.status(200).json(userData);
         console.log(req.session);
