@@ -6,10 +6,14 @@
 td{
   padding: 5px;
   font-size: 20;
+  padding-right: 25px;
+  padding-top: 15px;
 }
 
 th{
   padding: 5px;
+  font-size: 30;
+  padding-right: 25px;
 }
 
 #watching-table {
@@ -24,7 +28,7 @@ th{
 
 caption{
   color: rgb(194, 3, 3);
-  font-size: 20;
+  font-size: 30;
 }
 
 footer {

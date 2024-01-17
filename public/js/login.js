@@ -29,7 +29,7 @@ const signUpFormHandler = async (event) => {
     event.preventDefault(event);
 
     const user_name = document.getElementById('username-signup').value.trim();
-    const email = document.getElementById('signup-input').value.trim();
+    const email = document.getElementById('email-signup').value.trim();
     const password = document.getElementById('password-signup').value.trim();
     const confirmPassword = document.getElementById('confirm-password-signup').value.trim();
 
