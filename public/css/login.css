@@ -75,6 +75,8 @@ label, .form-input {
 }
 
 .form-input {
+    font-family: Arial, Helvetica, sans-serif;
+    font-variant: normal;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
     border: 2px gold solid;
