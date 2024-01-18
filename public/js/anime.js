@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(async function () {
   //   const baseUrl = "https://kitsu.io/api/edge";
   //   const categoryFilter = "/anime?filter[categories]=adventure";
   //   const textFilter = "/anime?filter[text]=";
@@ -15,13 +15,15 @@ $(document).ready(function () {
   const carouselCategoryArray = [".top", ".popular", ".romance", ".movie"];
 
   // function runs a fetch on one of the urls in the array and then runs a function for rendering html elements
-  const apiFetchRequest = async (index) => {
+  var apiData = null;
+
+  async function apiFetchRequest(index) {
     let requestUrl = apiFetchArray[index];
     let response = await fetch(requestUrl);
-    let jsonData = await response.json();
-    console.log(jsonData);
-    renderAnimeCarouselCards(jsonData, index);
-  };
+    apiData = await response.json();
+    console.log(apiData);
+    return apiData;
+  }
 
   // function for rendering the html element for each carousel
   const renderAnimeCarouselCards = (animeApiData, i) => {
@@ -29,6 +31,7 @@ $(document).ready(function () {
       console.log("test");
       // creating html elements
       const animeDivEl = $("<div>");
+      const animeImgContainer = $("<div>");
       const animeImgEl = $("<img>");
       const animeDivCaption = $("<div>");
       const animeCaption = $("<h5>");
@@ -36,25 +39,37 @@ $(document).ready(function () {
 
       // setting attributes
       animeDivEl.addClass("anime-item");
+      animeImgContainer.addClass("anime-image-container");
       animeImgEl.addClass("anime-img");
       animeDivCaption.addClass("anime-caption");
+      addToListBtn.addClass("hide-button");
       animeImgEl.attr(
         "src",
         animeApiData.data[index].attributes.posterImage.tiny
       );
-      animeCaption.text(animeApiData.data[index].attributes.canonicalTitle);
+      // if the anime has an english title in the api, we will use otherwise we will user the canonical title
+      if (animeApiData.data[index].attributes.titles.en) {
+        animeCaption.text(animeApiData.data[index].attributes.titles.en);
+      } else {
+        animeCaption.text(animeApiData.data[index].attributes.canonicalTitle);
+      }
       addToListBtn.text("Add to List");
 
       // appending elements
       $(carouselCategoryArray[i] + "-anime-carousel").append(animeDivEl);
-      animeDivEl.append(animeImgEl);
+      animeDivEl.append(animeImgContainer);
+      animeImgContainer.append(animeImgEl);
+      animeImgContainer.append(addToListBtn);
       animeDivEl.append(animeDivCaption);
       animeDivCaption.append(animeCaption);
-      animeDivEl.append(addToListBtn);
 
       // adds the ability to directly add to list if use is logged in, if not logged in will redirect to the login page
       addToListBtn.on("click", async function (event) {
-        const animeToSave = { anime_title: animeCaption.text() };
+        const animeToSave = {
+          anime_title: animeCaption.text(),
+          rating: 0,
+          watch_status: "watching",
+        };
         console.log(animeToSave);
         event.preventDefault();
         const response = await fetch(`/api/status/save`, {
@@ -64,24 +79,30 @@ $(document).ready(function () {
             "Content-Type": "application/json",
           },
         });
-        if (response.ok) {
-          console.log("added to list");
+        if (!response.ok) {
+          if (response.status === 401) {
+            console.log("User is not logged in");
+            window.location.replace("/login");
+          } else if (response.status === 500) {
+            alert("Anime is already in your list");
+          } else {
+            console.log("Error");
+          }
         } else {
-          // redirects user to login page (add condition check for if loggedIn, if they're logged in serve a regular error in case of error)
-          // user can't add the same anime multiple time, need to do a check for that (perhaps in backend make anime_name {unique: true})
-          // document.location.replace("/login");
+          console.log("Added to list");
         }
       });
     }
+    $(`${carouselCategoryArray[i]}-anime-carousel`).slick({
+      slidesToShow: 6,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 3500,
+    });
   };
 
   for (let index = 0; index < apiFetchArray.length; index++) {
-    apiFetchRequest(index);
+    const data = await apiFetchRequest(index);
+    renderAnimeCarouselCards(data, index);
   }
-  // $(".anime-carousel").slick({
-  //   slidesToShow: 5,
-  //   slidesToScroll: 1,
-  //   autoplay: true,
-  //   autoplaySpeed: 3500,
-  // });
 });
