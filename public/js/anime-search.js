@@ -33,10 +33,13 @@ const newFormHandler = async (event) => {
         // need to create elements for what get stored into user list (i.e ratings dropdown, watching status dropdown, and imagecard?)
         const animeApiData = animeData.data[index].attributes;
         // create
+        const individualAnimeDiv = document.createElement("div");
         const title = document.createElement("h2");
+        const imageContainer = document.createElement("div");
         const imageCard = document.createElement("img");
         const animeInfo = document.createElement("ul");
         const description = document.createElement("p");
+        const editAnimeDiv = document.createElement("div");
         const addToListBtn = document.createElement("button");
         const watchStatusDropDownLabel = document.createElement("label");
         const watchStatusDropDownSelect = document.createElement("select");
@@ -44,10 +47,18 @@ const newFormHandler = async (event) => {
         const ratingsDropDownSelect = document.createElement("select");
 
         // attr
-        title.textContent = animeApiData.canonicalTitle;
+        individualAnimeDiv.setAttribute("class", "anime-container");
+        if (animeApiData.titles.en) {
+          title.textContent = animeApiData.titles.en;
+        } else {
+          title.textContent = animeApiData.canonicalTitle;
+        }
+        imageContainer.setAttribute("class", "img-container");
         imageCard.src = animeApiData.posterImage.tiny;
         animeInfo.setAttribute("id", "info-list-" + index);
+        animeInfo.setAttribute("class", "info-ul");
         description.textContent = animeApiData.description;
+        editAnimeDiv.setAttribute("class", "edit-container");
         addToListBtn.textContent = "Add to List";
         watchStatusDropDownLabel.textContent = "Watch Status";
         watchStatusDropDownSelect.setAttribute("id", "watch-status-" + index);
@@ -57,13 +68,16 @@ const newFormHandler = async (event) => {
         ratingsDropDownSelect.setAttribute("name", "ratings");
 
         // append
-        animeDiv.append(title);
-        animeDiv.append(imageCard);
-        animeDiv.append(animeInfo);
-        animeDiv.append(description);
-        animeDiv.append(addToListBtn);
-        animeDiv.append(watchStatusDropDownLabel);
-        animeDiv.append(ratingsDropDownLabel);
+        animeDiv.append(individualAnimeDiv);
+        individualAnimeDiv.append(title);
+        individualAnimeDiv.append(imageContainer);
+        imageContainer.append(imageCard);
+        imageContainer.append(animeInfo);
+        imageContainer.append(editAnimeDiv);
+        individualAnimeDiv.append(description);
+        editAnimeDiv.append(addToListBtn);
+        editAnimeDiv.append(watchStatusDropDownLabel);
+        editAnimeDiv.append(ratingsDropDownLabel);
         watchStatusDropDownLabel.append(watchStatusDropDownSelect);
         ratingsDropDownLabel.append(ratingsDropDownSelect);
 
@@ -84,6 +98,7 @@ const newFormHandler = async (event) => {
         ];
         for (let index = 0; index < animeInfoArray.length; index++) {
           const animeInfoList = document.createElement("li");
+          animeInfoList.setAttribute("class", "info-li");
           animeInfoList.textContent =
             animeInfoNameArray[index] + animeInfoArray[index];
           animeInfo.append(animeInfoList);
@@ -127,15 +142,15 @@ const newFormHandler = async (event) => {
               "Content-Type": "application/json",
             },
           });
-          if(!response.ok){
-            if(response.status === 401){
-              console.log('User is not logged in')
-              window.location.replace('/login')
-            }else{
-              console.log('Error')
+          if (!response.ok) {
+            if (response.status === 401) {
+              console.log("User is not logged in");
+              window.location.replace("/login");
+            } else {
+              console.log("Error");
             }
-          }else {
-            console.log('Added to list')
+          } else {
+            console.log("Added to list");
           }
         });
       }

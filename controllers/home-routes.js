@@ -6,7 +6,7 @@ require("dotenv").config();
 
 router.get("/", async (req, res) => {
   try {
-    res.render("home", {loggedIn: req.session.logged_in});
+    res.render("home", {loggedIn: req.session.logged_in, userName: req.session.user_name});
   } catch (err) {
     res.status(500).json(err);
   }
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 
 router.get("/login", async (req, res) => {
   try {
-    res.render("login", {loggedIn: req.session.logged_in});
+    res.render("login", {loggedIn: req.session.logged_in, userName: req.session.user_name});
   } catch (err) {
     res.status(500).json(err);
   }
@@ -37,7 +37,7 @@ router.get("/profile", async (req, res) => {
         message: "No user associated with that id",
       });
     }else {
-      res.render("list", {user, loggedIn: req.session.logged_in})
+      res.render("list", {user, loggedIn: req.session.logged_in, userName: req.session.user_name})
     }
   } catch (err) {
     // want to redirect to home page if user is not logged in

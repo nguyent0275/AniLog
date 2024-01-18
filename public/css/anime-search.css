@@ -3,6 +3,10 @@ form{
 height: 0;
 }
 
+#search-form-div{
+    margin-bottom: 5%;
+}
+
 .form-group{
     border: none;
     background-image: none;
@@ -17,6 +21,11 @@ label{
 
 body{
     background-color: #333333;
+}
+
+.anime-div{
+    display: flex;
+    flex-wrap: wrap;
 }
 
 h2{
@@ -38,4 +47,24 @@ p{
     color: white;
     font-size: 18;
     padding-left: 8px;
+}
+
+.img-container {
+    display: flex;
+    position: relative;
+}
+
+.info-ul{
+    list-style-image: url('/images/sharingan.jpg');
+}
+
+.edit-container{
+    display: block;
+    position: absolute;
+    top: 75%;
+    right: 25%
+}
+
+.anime-container{
+    max-width: 50%;
 }

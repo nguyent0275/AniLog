@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const withAuth = require("../../utils/auth");
-const { Status, User} = require("../../models");
+const {User} = require("../../models");
 const bcrypt = require("bcrypt");
 
 // the application end point is /api/user
@@ -15,46 +15,6 @@ router.get("/", async (req, res) => {
     });
     //200 status code means sucessful connection and returns the data from the get route, 500 means error and will serve the error
     res.status(200).json(userData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// gets user by username / shows their lists
-router.get("/:user_name", async (req, res) => {
-  try {
-    // finds user by their primary key (uuid)
-    const userData = await User.findOne({
-      where: {
-        user_name: req.params.user_name,
-      },
-
-      // gets user's associated status/list
-      // equivalent of 2 left joins
-      include: [
-        {
-          model: Status,
-          include: {
-            model: Anime,
-          },
-        },
-      ],
-    });
-
-    const statuses = userData.statuses.map((status) =>
-      status.get({ plain: true })
-    );
-
-    console.log(statuses);
-    res.status(200).json(userData);
-    // res.render("list", { statuses });
-    if (!userData) {
-      res.status(404).json({
-        message: "No user associated with that id",
-      });
-    }
-    //200 status code means sucessful connection and returns the data from the get route, 500 means error and will serve the error
-    // res.status(200).json(userData)
   } catch (err) {
     res.status(500).json(err);
   }
@@ -80,6 +40,7 @@ router.post("/", async (req, res) => {
       req.session.save(() => {
         req.session.user_id = userData.id;
         req.session.logged_in = true;
+        req.session.user_name = userData.user_name;
 
         res.status(200).json(userData);
         console.log(req.session);
@@ -121,7 +82,7 @@ router.post("/login", async (req, res) => {
     // we are checking the user's inputted password towards the hashed password saved in the database that's associated with the findOne's email.
     const validPassword = await bcrypt.compare(
       req.body.password,
-      userData.password
+      userData.password,
     );
 
     // if the passwords do not match, login fails and route ends
@@ -134,6 +95,7 @@ router.post("/login", async (req, res) => {
 
     req.session.user_id = userData.id;
     req.session.logged_in = true;
+    req.session.user_name = userData.user_name;
 
     res.json({ user: userData, message: "You are now logged in!" });
   } catch (err) {
@@ -141,7 +103,19 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// gets rid of session when logging out
+router.post("/logout", (req, res) => {
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
+});
+
 // updates user by id
+// use this route for forget password / forget email
 router.put("/:id", async (req, res) => {
   try {
     const userData = await User.update(req.body, {
@@ -158,17 +132,6 @@ router.put("/:id", async (req, res) => {
     res.statusMessage(200).json(userData);
   } catch (err) {
     res.status(500).json(err);
-  }
-});
-
-// gets rid of session when logging out
-router.post("/logout", (req, res) => {
-  if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
   }
 });
 
