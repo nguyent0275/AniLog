@@ -1,4 +1,3 @@
-
 form{
 height: 0;
 }
@@ -39,3 +38,11 @@ p{
     font-size: 18;
     padding-left: 8px;
 }
+
+@media (max-width: 768px) {
+    /* Styles for screens with a width of 768 pixels or less */
+    h2 {
+      font-size: 1.5em;
+    }
+  
+  }
