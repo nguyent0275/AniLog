@@ -38,3 +38,7 @@ footer {
   font-size: small;
   color: white;
 }
+
+#edit-anime-box{
+  display: block;
+}

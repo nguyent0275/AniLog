@@ -57,6 +57,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin: 1.15rem 0 0 1.15rem
 }
 .slick-track:before,
 .slick-track:after
