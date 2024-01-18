@@ -10,11 +10,13 @@ height: 0;
 
 label{
     height: 0;
-    color: rgb(194, 3, 3);
+    color: white;
+    font-size: 18;
+    padding-left: 7px;
 }
 
 body{
-    background-color: #090909;
+    background-color: #333333;
 }
 
 h2{
@@ -28,9 +30,12 @@ img{
 }
 
 li{
-    color: rgb(194, 3, 3);
+    color: white;
+    font-size: 16;
 }
 
 p{
-    color: rgb(194, 3, 3);
+    color: white;
+    font-size: 18;
+    padding-left: 8px;
 }
