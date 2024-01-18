@@ -1,6 +1,6 @@
 // const editListBtn = document.querySelector('.edit-button')
 const editAnimeBox = document.getElementById("edit-anime-box");
-editAnimeBox.style.display = "none";
+const popup = document.getElementById('popup')
 
 // create edit anime box
 const editAnimeDiv = document.createElement("div");
@@ -15,9 +15,12 @@ const deleteAnimeBtn = document.createElement("button");
 
 // attr
 titleHeader.textContent = "Anime Title: ";
+animeTitle.setAttribute('class', 'edit-anime-title')
+watchStatusDropDownLabel.setAttribute('class', 'watch-label')
 watchStatusDropDownLabel.textContent = "Watch Status";
 watchStatusDropDownSelect.setAttribute("id", "watch-status");
 watchStatusDropDownSelect.setAttribute("name", "watch-status");
+ratingsDropDownLabel.setAttribute('class', 'rating-label')
 ratingsDropDownLabel.textContent = "Rating";
 ratingsDropDownSelect.setAttribute("id", "rating");
 ratingsDropDownSelect.setAttribute("name", "ratings");
@@ -36,7 +39,7 @@ editAnimeDiv.append(deleteAnimeBtn);
 
 // done button that sends the updated information to backend to save
 doneBtn.addEventListener("click", async function (event) {
-  editAnimeBox.style.display = "none";
+  popup.classList.remove('open-popup')
   // send data to backend as well
   const animeToUpdate = {
     anime_title: animeTitle.innerHTML,
@@ -113,13 +116,12 @@ const tableRows = document.querySelectorAll("tr");
 // creating edit and delete buttons for each row of anime data
 for (let index = 0; index < tableRows.length; index++) {
   const editListBtn = document.createElement("button");
-  const rowIndex = document.getElementById(index);
-  console.log(rowIndex);
+  const buttonIndex = document.getElementById('button-' + index);
   editListBtn.textContent = "Edit";
-  rowIndex.append(editListBtn);
+  buttonIndex.append(editListBtn);
 
   editListBtn.addEventListener("click", function () {
-    editAnimeBox.style.display = "block";
+    popup.classList.add('open-popup')
     animeTitle.textContent = document.getElementById(
       "title-" + index
     ).innerHTML;

@@ -62,7 +62,7 @@ $(document).ready(async function () {
       animeImgContainer.append(addToListBtn);
       animeDivEl.append(animeDivCaption);
       animeDivCaption.append(animeCaption);
-      
+
       // adds the ability to directly add to list if use is logged in, if not logged in will redirect to the login page
       addToListBtn.on("click", async function (event) {
         const animeToSave = {
@@ -83,6 +83,8 @@ $(document).ready(async function () {
           if (response.status === 401) {
             console.log("User is not logged in");
             window.location.replace("/login");
+          } else if (response.status === 500) {
+            alert("Anime is already in your list");
           } else {
             console.log("Error");
           }
