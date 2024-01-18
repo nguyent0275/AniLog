@@ -8,11 +8,13 @@ $(document).ready(async function () {
     "https://kitsu.io/api/edge/anime?sort=ratingRank",
     "https://kitsu.io/api/edge/anime?sort=popularityRank",
     "https://kitsu.io/api/edge/anime?filter[categories]=romance",
+    "https://kitsu.io/api/edge/anime?filter[categories]=sports",
+    "https://kitsu.io/api/edge/anime?filter[categories]=shoujo",
     "https://kitsu.io/api/edge/anime?filter[subtype]=movie",
   ];
 
   // array of class names of the carousels from the home.handlebars
-  const carouselCategoryArray = [".top", ".popular", ".romance", ".movie"];
+  const carouselCategoryArray = [".top", ".popular", ".romance", ".sports", '.shoujo', ".movie"];
 
   // function runs a fetch on one of the urls in the array and then runs a function for rendering html elements
   var apiData = null;
