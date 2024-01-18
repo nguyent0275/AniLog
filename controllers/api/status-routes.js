@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
     //200 status code means sucessful connection and returns the data from the get route, 500 means error and will serve the error
     res.status(200).json(statusData);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err.toString());
   }
 });
 
@@ -33,68 +33,51 @@ router.get("/:id", async (req, res) => {
     console.log(statusData);
     // res.render("list")
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err.toString());
   }
 });
 
 // adds an anime to your list
 router.post("/save", async (req, res) => {
   try {
-    if(!req.session.user_id){
-      alert('You are not logged in')
-    }else {
-    // creates a new status
-    const newStatus = await Status.create({
-      // copying the request body that is sent from the front end
-      ...req.body,
-      // uses the session id to identify specific logged in user, then adds the status to that user's list
-      user_id: req.session.user_id,
-    });
-    res.status(200).json(newStatus);
-  }} catch (err) {
-    res.status(500).json(err);
+    if (!req.session.user_id) {
+      res.status(401).send("User is not logged in");
+    } else {
+      // creates a new status
+      const newStatus = await Status.create({
+        // copying the request body that is sent from the front end
+        ...req.body,
+        // uses the session id to identify specific logged in user, then adds the status to that user's list
+        user_id: req.session.user_id,
+      });
+      res.status(200).json(newStatus);
+    }
+  } catch (err) {
+    res.status(500).json(err.toString());
   }
 });
 
 router.put("/update", async (req, res) => {
   try {
-    const statusData = await Status.update(
+    const animeToUpdate = {
+      watch_status: req.body.watch_status,
+      rating: req.body.rating,
+      anime_title: req.body.anime_title,
+      user_id: req.session.user_id,
+    };
+    console.log(animeToUpdate);
+    const statusData = await Status.upsert(
       // what is being updated
-      {
-        watch_status: req.watch_status,
-        rating: req.rating,
-      },
+      animeToUpdate,
       // locates user by their user id and anime title
       {
         where: {
-          anime_title: req.anime_title,
-          user_id: req.session.user_id,
+          anime_title: animeToUpdate.anime_title,
+          user_id: animeToUpdate.user_id,
         },
       }
     );
-    // status date is returning an array of 0 ????
     console.log(statusData);
-    if (!statusData) {
-      res.status(404).json({
-        message: "No status associated with that id",
-      });
-      return;
-    }
-    res.statusMessage(200).json(statusData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// not currently working
-// "Cannot delete or update a parent row: a foreign key constraint fails (`anime_db`.`category_name`, CONSTRAINT `category_name_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`))",
-router.delete("/:id", async (req, res) => {
-  try {
-    const statusData = await Status.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
     if (!statusData) {
       res.status(404).json({
         message: "No status associated with that id",
@@ -103,7 +86,31 @@ router.delete("/:id", async (req, res) => {
     }
     res.status(200).json(statusData);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err.toString());
+  }
+});
+
+// not currently working
+// "Cannot delete or update a parent row: a foreign key constraint fails (`anime_db`.`category_name`, CONSTRAINT `category_name_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`))",
+router.delete("/delete", async (req, res) => {
+  try {
+    console.log(req.body);
+    const statusData = await Status.destroy({
+      where: {
+        anime_title: req.body.anime_title,
+        user_id: req.session.user_id,
+      },
+    });
+    console.log(statusData);
+    if (!statusData) {
+      res.status(404).json({
+        message: "No status associated with that id",
+      });
+      return;
+    }
+    res.status(200).json(statusData);
+  } catch (err) {
+    res.status(500).json(err.toString());
   }
 });
 

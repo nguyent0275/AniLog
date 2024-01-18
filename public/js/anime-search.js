@@ -127,10 +127,15 @@ const newFormHandler = async (event) => {
               "Content-Type": "application/json",
             },
           });
-          if (!response.ok) {
-            document.location.replace("/login");
-          } else {
-            console.log("Added to List");
+          if(!response.ok){
+            if(response.status === 401){
+              console.log('User is not logged in')
+              window.location.replace('/login')
+            }else{
+              console.log('Error')
+            }
+          }else {
+            console.log('Added to list')
           }
         });
       }

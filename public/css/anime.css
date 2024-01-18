@@ -38,6 +38,9 @@ button{
 
 .anime-image-container {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hide-button{
@@ -52,4 +55,12 @@ button{
 
 .hide-button:hover {
   display: block;
+}
+
+h5{
+  text-align: center;
+}
+
+.anime-img{
+  padding-left: 0;
 }
