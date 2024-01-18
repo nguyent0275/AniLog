@@ -27,9 +27,11 @@
 #logout {
   position: absolute;
   right: 2%;
-  bottom: .9rem;
+  bottom: 0.9rem;
+  background-color: #333333;
+  color: white;
 }
-button{
+button {
   -webkit-text-stroke-color: red;
 }
 
@@ -44,13 +46,13 @@ button{
   align-items: center;
 }
 
-.hide-button{
+.hide-button {
   display: none;
   position: absolute;
   top: 81%;
 }
 
-.anime-img:hover + .hide-button{
+.anime-img:hover + .hide-button {
   display: block;
 }
 
@@ -58,20 +60,20 @@ button{
   display: block;
 }
 
-h5{
+h5 {
   text-align: center;
 }
 
-.anime-img{
+.anime-img {
   padding-left: 0;
 }
 
-#h3-username{
+#h3-username {
   position: absolute;
   right: 6%;
 }
 
-.container-fluid{
+.container-fluid {
   display: flex;
   align-items: center;
 }

@@ -1,106 +1,105 @@
-form{
-height: 0;
+form {
+  height: 0;
 }
 
-#search-form-div{
-    margin-bottom: 5%;
+#search-form-div {
+  margin-bottom: 5%;
 }
 
-.form-group{
-    border: none;
-    background-image: none;
+.form-group {
+  border: none;
+  background-image: none;
 }
 
-label{
-    height: 0;
-    color: white;
-    font-size: 18;
-    padding-left: 7px;
+label {
+  height: 0;
+  color: white;
+  font-size: 18;
+  padding-left: 7px;
 }
 
-body{
-    background-color: #333333;
+body {
+  background-color: #333333;
 }
 
-.anime-div{
-    display: flex;
-    flex-wrap: wrap;
+.anime-div {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-h2{
-    justify-content: left;
-    margin: auto;
-    padding-left: 5px;
+h2 {
+  justify-content: left;
+  margin: auto;
+  padding-left: 5px;
 }
 
-img{
-    padding-left: 10px;
+img {
+  padding-left: 10px;
 }
 
-li{
-    color: white;
-    font-size: 16;
+li {
+  color: white;
+  font-size: 16;
 }
 
-p{
-    color: white;
-    font-size: 18;
-    padding-left: 8px;
+p {
+  color: white;
+  font-size: 18;
+  padding-left: 8px;
 }
 
 .img-container {
-    display: flex;
-    position: relative;
+  display: flex;
+  position: relative;
 }
 
-.info-ul{
-    list-style-image: url('/images/sharingan.jpg');
+.info-ul {
+  list-style-image: url("/images/sharingan.jpg");
 }
 
 .edit-container {
-    display: block;
-    position: sticky;
+  display: block;
+  position: sticky;
 }
 
-.anime-container{
-    max-width: 50%;
+.anime-container {
+  max-width: 50%;
 }
-
 
 @media screen and (max-width: 767px) {
-    /* Adjust styles for smaller screens here */
-    h2 {
-        padding-left: 0;
-    }
+  /* Adjust styles for smaller screens here */
+  h2 {
+    padding-left: 0;
+  }
 
-    img {
-        padding-left: 0;
-    }
+  img {
+    padding-left: 0;
+  }
 
-    .anime-container {
-        max-width: 100%; /* Make it full width on smaller screens */
-    }
+  .anime-container {
+    max-width: 100%; /* Make it full width on smaller screens */
+  }
 
-    .edit-container {
-        left: 50%;
-    }
+  .edit-container {
+    left: 50%;
+  }
 }
 
 @media screen and (max-width: 1024px) {
-    /* Adjust styles for mid-sized screens here */
-    h2 {
-        padding-left: 0;
-    }
+  /* Adjust styles for mid-sized screens here */
+  h2 {
+    padding-left: 0;
+  }
 
-    img {
-        padding-left: 0;
-    }
+  img {
+    padding-left: 0;
+  }
 
-    .anime-container {
-        max-width: 100%; /* Make it full width on smaller screens */
-    }
+  .anime-container {
+    max-width: 100%; /* Make it full width on smaller screens */
+  }
 
-    .edit-container {
-        left: 50%;
-    }
+  .edit-container {
+    left: 50%;
+  }
 }

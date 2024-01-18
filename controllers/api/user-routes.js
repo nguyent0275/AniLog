@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const withAuth = require("../../utils/auth");
-const {User} = require("../../models");
+const { User } = require("../../models");
 const bcrypt = require("bcrypt");
 
 // the application end point is /api/user
@@ -82,7 +82,7 @@ router.post("/login", async (req, res) => {
     // we are checking the user's inputted password towards the hashed password saved in the database that's associated with the findOne's email.
     const validPassword = await bcrypt.compare(
       req.body.password,
-      userData.password,
+      userData.password
     );
 
     // if the passwords do not match, login fails and route ends
