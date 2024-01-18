@@ -14,7 +14,14 @@ $(document).ready(async function () {
   ];
 
   // array of class names of the carousels from the home.handlebars
-  const carouselCategoryArray = [".top", ".popular", ".romance", ".sports", '.shoujo', ".movie"];
+  const carouselCategoryArray = [
+    ".top",
+    ".popular",
+    ".romance",
+    ".sports",
+    ".shoujo",
+    ".movie",
+  ];
 
   // function runs a fetch on one of the urls in the array and then runs a function for rendering html elements
   var apiData = null;
@@ -70,7 +77,7 @@ $(document).ready(async function () {
         const animeToSave = {
           anime_title: animeCaption.text(),
           rating: 0,
-          watch_status: "watching",
+          watch_status: "planning to watch",
         };
         console.log(animeToSave);
         event.preventDefault();
@@ -99,7 +106,7 @@ $(document).ready(async function () {
       slidesToShow: 6,
       slidesToScroll: 1,
       autoplay: true,
-      autoplaySpeed: 3500,
+      autoplaySpeed: 2000,
     });
   };
 

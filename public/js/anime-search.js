@@ -29,7 +29,7 @@ const newFormHandler = async (event) => {
 
     // if the response returned successfully, run the function
     if (response.ok) {
-      for (let index = 0; index < 8; index++) {
+      for (let index = 0; index < animeData.data.length; index++) {
         // need to create elements for what get stored into user list (i.e ratings dropdown, watching status dropdown, and imagecard?)
         const animeApiData = animeData.data[index].attributes;
         // create

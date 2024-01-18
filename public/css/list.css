@@ -3,7 +3,7 @@
   color: white;
 }
 
-td{
+td {
   padding: 5px;
   font-size: 20;
   padding-right: 25px;
@@ -11,21 +11,21 @@ td{
   border-right: 1px solid black;
 }
 
-th{
+th {
   padding: 5px;
   font-size: 30;
   padding-right: 25px;
   border-right: 1px solid black;
 }
-tr{
-  border: 1px solid black
+tr {
+  border: 1px solid black;
 }
 
-#big-list-container{
+#big-list-container {
   display: flex;
 }
 
-caption{
+caption {
   color: white;
   font-size: 30;
 }
@@ -38,7 +38,7 @@ footer {
   color: white;
 }
 
-.popup{
+.popup {
   background: #fff;
   border-radius: 6px;
   position: absolute;
@@ -53,38 +53,24 @@ footer {
   transition: transform 0.4s, top 0.4s;
 }
 
-.open-popup{
+.open-popup {
   visibility: visible;
   top: 50%;
   transform: translate(-50%, -50%) scale(1);
 }
 
-.watch-label{
-  color:#333333;
+.watch-label {
+  color: #333333;
   letter-spacing: normal;
   padding-left: 1px;
 }
-.rating-label{
+.rating-label {
   color: #333333;
   letter-spacing: normal;
 }
 
-.edit-anime-title{
+.edit-anime-title {
   color: #333333;
-}
-
-/* Styles for tablets (1024px and under) */
-@media only screen and (max-width: 1024px) {
-  .popup {
-    padding: 0 20px 20px;
-  }
-}
-
-/* Styles for mobile devices (768px and under) */
-@media only screen and (max-width: 768px) {
-  .popup {
-    padding: 0 15px 15px;
-  }
 }
 
 /* Styles when popup is open */
@@ -102,18 +88,44 @@ footer {
   letter-spacing: normal;
 }
 
-.watch-label {
-  padding-left: 1px;
-  margin-bottom: 10px; /* Adjust the margin to create space between elements */
+#done-edit-button {
+  background-color: lightgreen;
 }
 
-.rating-label {
-  margin-top: 15px;
-  margin-bottom: 20px; /* Adjust the margin to create space between elements */
+#delete-anime-button {
+  background-color: red;
 }
 
-/* Button styles */
-.popup button {
-  margin-top: 10px; /* Adjust the margin to create space between text and buttons */
-  display: block; /* Ensure each button is on its own line */
+#delete-user {
+  background-color: red;
+}
+
+/* Styles for tablets (1024px and under) */
+@media only screen and (max-width: 1026px) {
+  .popup {
+    padding: 0 20px 20px;
+  }
+
+  .watch-label {
+    padding-left: 1px;
+    margin-bottom: 10px; /* Adjust the margin to create space between elements */
+  }
+
+  .rating-label {
+    margin-top: 15px;
+    margin-bottom: 20px; /* Adjust the margin to create space between elements */
+  }
+
+  /* Button styles */
+  .popup button {
+    margin-top: 10px; /* Adjust the margin to create space between text and buttons */
+    display: block; /* Ensure each button is on its own line */
+  }
+}
+
+/* Styles for mobile devices (768px and under) */
+@media only screen and (max-width: 768px) {
+  .popup {
+    padding: 0 15px 15px;
+  }
 }
