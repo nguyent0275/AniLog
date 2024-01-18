@@ -6,29 +6,21 @@ class Status extends Model {}
 
 Status.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true
-    },
     user_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "user",
         key: "id",
       },
+      allowNull: false,
     },
-    anime_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "anime",
-        key: "id",
-      },
+    anime_title: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     rating: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
     },
     watch_status: {
       type: DataTypes.STRING,
@@ -41,6 +33,12 @@ Status.init(
     freezeTableName: true,
     underscored: true,
     modelName: "status",
+    indexes: [
+      {
+        unique: true,
+        fields: ["user_id", "anime_title"],
+      },
+    ],
   }
 );
 
