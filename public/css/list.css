@@ -72,3 +72,48 @@ footer {
 .edit-anime-title{
   color: #333333;
 }
+
+/* Styles for tablets (1024px and under) */
+@media only screen and (max-width: 1024px) {
+  .popup {
+    padding: 0 20px 20px;
+  }
+}
+
+/* Styles for mobile devices (768px and under) */
+@media only screen and (max-width: 768px) {
+  .popup {
+    padding: 0 15px 15px;
+  }
+}
+
+/* Styles when popup is open */
+.open-popup {
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Additional styles for labels and titles */
+.watch-label,
+.rating-label,
+.edit-anime-title {
+  color: #333333;
+  letter-spacing: normal;
+}
+
+.watch-label {
+  padding-left: 1px;
+  margin-bottom: 10px; /* Adjust the margin to create space between elements */
+}
+
+.rating-label {
+  margin-top: 15px;
+  margin-bottom: 20px; /* Adjust the margin to create space between elements */
+}
+
+/* Button styles */
+.popup button {
+  margin-top: 10px; /* Adjust the margin to create space between text and buttons */
+  display: block; /* Ensure each button is on its own line */
+}
