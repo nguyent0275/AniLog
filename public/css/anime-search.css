@@ -57,11 +57,9 @@ p{
     list-style-image: url('/images/sharingan.jpg');
 }
 
-.edit-container{
+.edit-container {
     display: block;
-    position: absolute;
-    top: 75%;
-    right: 25%
+    position: sticky;
 }
 
 .anime-container{
@@ -69,10 +67,40 @@ p{
 }
 
 
-@media (max-width: 768px) {
-    /* Styles for screens with a width of 768 pixels or less */
+@media screen and (max-width: 767px) {
+    /* Adjust styles for smaller screens here */
     h2 {
-      font-size: 1.5em;
+        padding-left: 0;
     }
-  
-  }
+
+    img {
+        padding-left: 0;
+    }
+
+    .anime-container {
+        max-width: 100%; /* Make it full width on smaller screens */
+    }
+
+    .edit-container {
+        left: 50%;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    /* Adjust styles for mid-sized screens here */
+    h2 {
+        padding-left: 0;
+    }
+
+    img {
+        padding-left: 0;
+    }
+
+    .anime-container {
+        max-width: 100%; /* Make it full width on smaller screens */
+    }
+
+    .edit-container {
+        left: 50%;
+    }
+}

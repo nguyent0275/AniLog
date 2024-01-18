@@ -42,3 +42,14 @@ footer {
 #edit-anime-box{
   display: block;
 }
+
+/* @media (max-width: 768px) {
+  .edit-anime-box{
+    display: block;
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    max-width: 100%;
+    padding: 10px;
+}
+} */
