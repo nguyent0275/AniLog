@@ -86,7 +86,7 @@ const newFormHandler = async (event) => {
           }
 
           // creating the raings drop down
-          const ratingsArray = ['null', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+          const ratingsArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           for (let index = 0; index < ratingsArray.length; index++) {
             const ratingsOptions = document.createElement("option")
             ratingsOptions.setAttribute('value', ratingsArray[index])
@@ -96,10 +96,12 @@ const newFormHandler = async (event) => {
 
         addToListBtn.addEventListener("click", async function (event) {
         // what is being taken from the front end and sent to backend to save in user's list
-          const animeToSave = { title: title.textContent, rating: ratingsDropDownSelect.value, watch_status: watchStatusDropDownSelect.value};
+        // insert is taking '?' values, may have to do with user_id storage
+        // is the databases's autoincrementing primary key user.id being used?
+        // or is it the request session id which is 'bkzKRgsK3fXR1xlU17STfjpq0wvGs92Y'
+        // either way, need to sort that out and find out which one we are using
+          const animeToSave = { anime_title: title.textContent, rating: ratingsDropDownSelect.value, watch_status: watchStatusDropDownSelect.value};
           console.log(animeToSave)
-          // const ratingValue = this. 
-          // const watchStatusValue = this. 
           event.preventDefault(event);
           const response = await fetch(`/api/status/save`, {
             method: "POST",
@@ -112,7 +114,9 @@ const newFormHandler = async (event) => {
             // change to remove div if added to list OR indicate to user that anime is on their list
             console.log("added to list");
           } else {
-            alert("failed to add to list");
+            // redirects user to login page (add condition check for if loggedIn, if they're logged in serve a regular error in case of error)
+            // user can't add the same anime multiple time, need to do a check for that (perhaps in backend make anime_name {unique: true})
+            // document.location.replace('/login');
           }
         });
       }

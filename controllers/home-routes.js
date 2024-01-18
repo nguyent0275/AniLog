@@ -1,12 +1,12 @@
 const router = require("express").Router();
-const { Anime, User, Status } = require("../models");
+const { User, Status } = require("../models");
 const withAuth = require("../utils/auth");
 // i want to make sure that i can see my env vars
 require("dotenv").config();
 
 router.get("/", async (req, res) => {
   try {
-    res.render("home");
+    res.render("home", {loggedIn: req.session.logged_in});
   } catch (err) {
     res.status(500).json(err);
   }
@@ -14,34 +14,30 @@ router.get("/", async (req, res) => {
 
 router.get("/login", async (req, res) => {
   try {
-    res.render("login");
+    res.render("login", {loggedIn: req.session.logged_in});
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-router.get("/profile", withAuth, async (req, res) => {
+router.get("/profile", async (req, res) => {
+  console.log('here')
   try {
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ["password"] },
       include: [
         {
           model: Status,
-          include: {
-            model: Anime,
-          },
         },
       ],
     });
-    console.log(userData);
-    const statuses = userData.statuses.map((status) => {
-      status.get({ plain: true });
-    });
-    res.render("list", { statuses });
+    const user = userData.get({plain : true})
     if (!userData) {
       res.status(404).json({
         message: "No user associated with that id",
       });
+    }else {
+      res.render("list", {user, loggedIn: req.session.logged_in})
     }
   } catch (err) {
     res.status(500).json(err);
@@ -50,7 +46,7 @@ router.get("/profile", withAuth, async (req, res) => {
 
 router.get('/search', async (req,res) => {
   try {
-    res.render('browse')
+    res.render('browse', {loggedIn: req.session.logged_in})
   }catch (err) {
     res.status(500).json(err)
   }

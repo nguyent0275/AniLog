@@ -1,11 +1,40 @@
 #completed-table {
   display: block;
+  color: white;
+}
+
+td{
+  padding: 5px;
+  font-size: 20;
+  padding-right: 25px;
+  padding-top: 15px;
+}
+
+th{
+  padding: 5px;
+  font-size: 30;
+  padding-right: 25px;
 }
 
 #watching-table {
   display: none;
+  color: white;
 }
 
 #planning-table {
   display: none;
+  color: white;
+}
+
+caption{
+  color: white;
+  font-size: 30;
+}
+
+footer {
+  background-color: #333333;
+  padding-top: 80px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+  color: white;
 }
