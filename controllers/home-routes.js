@@ -47,7 +47,7 @@ router.get("/profile", async (req, res) => {
 
 router.get('/search', async (req,res) => {
   try {
-    res.render('browse', {loggedIn: req.session.logged_in})
+    res.render('browse', {loggedIn: req.session.logged_in, userName: req.session.user_name})
   }catch (err) {
     res.status(500).json(err)
   }
