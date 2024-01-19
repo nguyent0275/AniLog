@@ -1,14 +1,14 @@
-form {
-  height: 0;
+ .anime-search-form{
+height: 0;
 }
 
 #search-form-div {
   margin-bottom: 5%;
 }
 
-.form-group {
-  border: none;
-  background-image: none;
+#browse-form{
+    border: none;
+    background-image: none;
 }
 
 label {
@@ -18,8 +18,8 @@ label {
   padding-left: 7px;
 }
 
-body {
-  background-color: #333333;
+.browse-body{
+    background-color: #333333;
 }
 
 .anime-div {
@@ -53,8 +53,8 @@ p {
   position: relative;
 }
 
-.info-ul {
-  list-style-image: url("/images/sharingan.jpg");
+ .info-ul{
+    list-style-image: url('/images/sharingan.jpg');
 }
 
 .edit-container {
@@ -62,9 +62,13 @@ p {
   position: sticky;
 }
 
-.anime-container {
-  max-width: 50%;
-}
+.anime-container{
+    max-width: 50%;
+} 
+
+
+
+
 
 @media screen and (max-width: 767px) {
   /* Adjust styles for smaller screens here */
