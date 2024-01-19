@@ -230,6 +230,16 @@ label, .form-input {
     }
 }
 
+    @media screen and (max-width: 480px) {
+    .card{
+        background-color: #333333;
+    }
+
+    .login-img{
+        color: #333333;
+    }
+    }
+
 
 
 
