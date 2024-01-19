@@ -63,7 +63,7 @@ label, .form-input {
     border: 2px gold solid;
 }
 
-#email-login, #name {
+#login, #name {
     border-bottom-left-radius: 100px;
 }
 
