@@ -73,7 +73,8 @@ p {
 @media screen and (max-width: 767px) {
   /* Adjust styles for smaller screens here */
   h2 {
-    padding-left: 0;
+   text-align: left;
+    padding-top: 60px;
   }
 
   img {
@@ -84,14 +85,21 @@ p {
     max-width: 100%; /* Make it full width on smaller screens */
   }
 
+  .form-group{
+    border: none;
+    background-image: none;
+  }
+
   .edit-container {
     left: 50%;
+    padding: 10px;
   }
 }
 
 @media screen and (max-width: 1024px) {
   /* Adjust styles for mid-sized screens here */
   h2 {
+    padding-top: 15px;
     padding-left: 0;
   }
 
@@ -106,4 +114,44 @@ p {
   .edit-container {
     left: 50%;
   }
+  label{
+    padding-bottom: 40px;
 }
+}
+
+@media screen and (max-width: 480px) {
+    /* Adjust styles for smaller screens here */
+    .navbar{
+        width: 100%;
+    }
+    h2 {
+      padding-left: 0;
+      padding-top: 30px;
+    }
+  
+    img {
+      padding-left: 0;
+    }
+  
+    .anime-container {
+      max-width: 100%; /* Make it full width on smaller screens */
+    }
+
+    label{
+        padding-bottom: 60px;
+    }
+  
+    .edit-container {
+       left: 50%;
+       padding: 10px;
+      }
+
+      .watch-status,
+      .ratings {
+        width: 100%; /* Make the items full width within .edit-container */
+        box-sizing: border-box; /* Include padding and border in the width */
+        padding-top: 10px; /* Add margin between the items */
+        padding-bottom: 10px;
+        display: flex;
+      } 
+  }
