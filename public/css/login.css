@@ -1,5 +1,5 @@
 body {
-    background-color: #090909;
+    background-color: #333333;
     /* height: 0vh; */
 }
 
@@ -100,6 +100,79 @@ label, .form-input {
     top: 39%;
     right: 30%;
 }
+.login-message {
+    display: none;
+    position: absolute;
+    border-radius: 32%;
+    z-index: 0;
+    width: 36%;
+    height: 39%;
+    top: 20%;
+    right: 0%;
+}
+
+.signup-message {
+    display: none;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 0;
+    width: 36%;
+    height: 39%;
+    top: 24%;
+    right: 0%;
+}
+
+
+#submit1:hover .login-message {
+    background-color: #090909;
+    border-color: white;
+    display: initial;
+    position: absolute;
+    border-radius: 32%;
+    z-index: 0;
+    width: 36%;
+    height: 39%;
+    top: 20%;
+    right: 0%;
+}
+
+#submit2:hover .signup-message {
+    background-color: #090909;
+    border-color: white;
+    display: initial;
+    position: absolute;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 0;
+    width: 36%;
+    height: 39%;
+    top: 24%;
+    right: 0%;
+} 
+
+
+footer {
+    /* background-color: #090909;
+    padding-top: 80px; */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    color: white;
+}
+
+footer:hover {
+    color: white;
+    text-shadow: 1px -13px 4px orangered;
+    stroke-width: 1px;
+    -webkit-text-stroke-color: gold;
+    background-image: linear-gradient(202deg, rgb(194, 3, 3) 7.14%, rgba(111, 107, 5, 0) 57.14%);
+    border-radius: 5px;
+}
+
+
+footer{
+    background-color: #333333;
+    margin-top: 350px;
+}
 
 @media screen and (max-width: 1024px) {
     body {
@@ -159,6 +232,11 @@ label, .form-input {
         left: 0; /* Adjust left position for smaller screens */
         top: 0; /* Adjust top position for smaller screens */
     }
+
+
+    .character-bg{
+        padding-left: 15px;
+    }
 }
 
 @media screen and (max-width: 767px) {
@@ -193,15 +271,18 @@ label, .form-input {
     }
 
     .form-group {
-        justify-content: center; /* Adjust alignment for mobile */
-        margin: 8 0 4 0; /* Adjust margin for mobile */
-        padding: 0 6 5 6; /* Adjust padding for mobile */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 8px 0; /* Adjust margin for mobile */
+        padding: 15px 6px 10px 20px; /* Adjust padding for mobile */
         width: 100%;
-        height: auto; /* Adjust height for mobile */
+        box-sizing: border-box; /* Include padding and border in the width calculation */
     }
 
+
     label, .form-input {
-        padding: 4 0 0 0;
+        padding: 10 0 0 0;
         margin: 3 0 1 0;
         width: 100%; /* Adjust width for mobile */
         height: auto; /* Adjust height for mobile */
@@ -219,22 +300,82 @@ label, .form-input {
         left: 0; /* Adjust left position for mobile */
         top: 0; /* Adjust top position for mobile */
     }
+
+    .character-bg{
+        display: none;
+    }
 }
 
-    @media screen and (max-width: 480px) {
-    .card{
+@media screen and (max-width: 480px) {
+    body {
         background-color: #333333;
+        overflow: scroll;
     }
 
-    .login-img{
-        color: #333333;
+    .row {
+        display: flex;
+        height: auto;
+        width: auto;
+        flex-direction: column;
+        align-items: center;
     }
+
+    .col-md-6 {
+        margin: 1% 0 0 0;
+        padding: 0 3% 3% 3%;
+        height: auto;
+        width: auto;
     }
 
+    h2 {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    form {
+        padding-left: 5%;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 8px 0;
+        padding: 15px 6px 10px 20px;
+        width: 150%;
+        box-sizing: border-box;
+    }
+
+    label, .form-input {
+        padding: 0 0;
+        margin: 3px 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form-input {
+        border-radius: 0;
+        border: 2px gold solid;
+    }
+
+    .login-img {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        left: 0;
+        top: 0;
+    }
+
+    .character-bg {
+        display: none;
+    }
+}
 
 
 
-.login-message {
+
+/* .login-message {
     display: none;
     position: absolute;
     border-radius: 32%;
@@ -300,7 +441,7 @@ footer:hover {
     -webkit-text-stroke-color: gold;
     background-image: linear-gradient(202deg, rgb(194, 3, 3) 7.14%, rgba(111, 107, 5, 0) 57.14%);
     border-radius: 5px;
-}
+} */
 
 
 

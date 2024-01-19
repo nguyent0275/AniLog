@@ -73,7 +73,8 @@ p {
 @media screen and (max-width: 767px) {
   /* Adjust styles for smaller screens here */
   h2 {
-    padding-left: 0;
+   text-align: left;
+    padding-top: 60px;
   }
 
   img {
@@ -82,6 +83,11 @@ p {
 
   .anime-container {
     max-width: 100%; /* Make it full width on smaller screens */
+  }
+
+  .form-group{
+    border: none;
+    background-image: none;
   }
 
   .edit-container {
@@ -115,6 +121,9 @@ p {
 
 @media screen and (max-width: 480px) {
     /* Adjust styles for smaller screens here */
+    .navbar{
+        width: 100%;
+    }
     h2 {
       padding-left: 0;
       padding-top: 30px;
