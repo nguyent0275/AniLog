@@ -1,10 +1,4 @@
 const seedUser = require("./user-seeds");
-<<<<<<< HEAD
-const seedAnime = require("./anime-seeds");
-const seedCategory = require("./category-seeds");
-const seedCategoryName = require("./categoryName-seeds");
-=======
->>>>>>> Develop
 const seedStatus = require("./status-seeds");
 
 const sequelize = require("../config/connection");
@@ -19,12 +13,6 @@ const seedAll = async () => {
   await seedStatus();
   console.log("\n---- STATUSES SEEDED -----\n");
 
-<<<<<<< HEAD
-  await seedCategoryName();
-  console.log("\n----- CATEGORY NAME SEEDED -----\n");
-
-=======
->>>>>>> Develop
   process.exit(0);
 };
 
