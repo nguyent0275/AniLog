@@ -5,21 +5,6 @@ const bcrypt = require("bcrypt");
 
 // the application end point is /api/user
 
-// gets all users
-router.get("/", async (req, res) => {
-  try {
-    // finds all users
-    const userData = await User.findAll({
-      // gets each user's associated status/list
-      // include: [{model: Status}]
-    });
-    //200 status code means sucessful connection and returns the data from the get route, 500 means error and will serve the error
-    res.status(200).json(userData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
 // creates user
 router.post("/", async (req, res) => {
   try {
@@ -111,27 +96,6 @@ router.post("/logout", (req, res) => {
     });
   } else {
     res.status(404).end();
-  }
-});
-
-// updates user by id
-// use this route for forget password / forget email
-router.put("/:id", async (req, res) => {
-  try {
-    const userData = await User.update(req.body, {
-      where: {
-        id: req.params.id,
-      },
-    });
-    if (!userData) {
-      res.status(404).json({
-        message: "No user associated with that id",
-      });
-      return;
-    }
-    res.statusMessage(200).json(userData);
-  } catch (err) {
-    res.status(500).json(err);
   }
 });
 

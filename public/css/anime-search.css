@@ -1,14 +1,14 @@
- .anime-search-form{
-height: 0;
+.anime-search-form {
+  height: 0;
 }
 
 #search-form-div {
   margin-bottom: 5%;
 }
 
-#browse-form{
-    border: none;
-    background-image: none;
+#browse-form {
+  border: none;
+  background-image: none;
 }
 
 label {
@@ -18,8 +18,8 @@ label {
   padding-left: 7px;
 }
 
-.browse-body{
-    background-color: #333333;
+.browse-body {
+  background-color: #333333;
 }
 
 .anime-div {
@@ -53,8 +53,8 @@ p {
   position: relative;
 }
 
- .info-ul{
-    list-style-image: url('/images/sharingan.jpg');
+.info-ul {
+  list-style-image: url("/images/sharingan.jpg");
 }
 
 .edit-container {
@@ -62,18 +62,14 @@ p {
   position: sticky;
 }
 
-.anime-container{
-    max-width: 50%;
-} 
-
-
-
-
+.anime-container {
+  max-width: 50%;
+}
 
 @media screen and (max-width: 767px) {
   /* Adjust styles for smaller screens here */
   h2 {
-   text-align: left;
+    text-align: left;
     padding-top: 60px;
   }
 
@@ -85,7 +81,7 @@ p {
     max-width: 100%; /* Make it full width on smaller screens */
   }
 
-  .form-group{
+  .form-group {
     border: none;
     background-image: none;
   }
@@ -114,44 +110,44 @@ p {
   .edit-container {
     left: 50%;
   }
-  label{
+  label {
     padding-bottom: 40px;
-}
+  }
 }
 
 @media screen and (max-width: 480px) {
-    /* Adjust styles for smaller screens here */
-    .navbar{
-        width: 100%;
-    }
-    h2 {
-      padding-left: 0;
-      padding-top: 30px;
-    }
-  
-    img {
-      padding-left: 0;
-    }
-  
-    .anime-container {
-      max-width: 100%; /* Make it full width on smaller screens */
-    }
-
-    label{
-        padding-bottom: 60px;
-    }
-  
-    .edit-container {
-       left: 50%;
-       padding: 10px;
-      }
-
-      .watch-status,
-      .ratings {
-        width: 100%; /* Make the items full width within .edit-container */
-        box-sizing: border-box; /* Include padding and border in the width */
-        padding-top: 10px; /* Add margin between the items */
-        padding-bottom: 10px;
-        display: flex;
-      } 
+  /* Adjust styles for smaller screens here */
+  .navbar {
+    width: 100%;
   }
+  h2 {
+    padding-left: 0;
+    padding-top: 30px;
+  }
+
+  img {
+    padding-left: 0;
+  }
+
+  .anime-container {
+    max-width: 100%; /* Make it full width on smaller screens */
+  }
+
+  label {
+    padding-bottom: 60px;
+  }
+
+  .edit-container {
+    left: 50%;
+    padding: 10px;
+  }
+
+  .watch-status,
+  .ratings {
+    width: 100%; /* Make the items full width within .edit-container */
+    box-sizing: border-box; /* Include padding and border in the width */
+    padding-top: 10px; /* Add margin between the items */
+    padding-bottom: 10px;
+    display: flex;
+  }
+}

@@ -4,39 +4,6 @@ const { Status, User } = require("../../models");
 
 // the application end point is /api/status
 
-router.get("/", async (req, res) => {
-  try {
-    // finds all statusese
-    const statusData = await Status.findAll({
-      // gets each category's associated category name
-      // include: [{model: CategoryName, model: Category}]
-    });
-    //200 status code means sucessful connection and returns the data from the get route, 500 means error and will serve the error
-    res.status(200).json(statusData);
-  } catch (err) {
-    res.status(500).json(err.toString());
-  }
-});
-
-router.get("/:id", async (req, res) => {
-  try {
-    // finds all the statuses of a singular user by their id
-    const statusData = await Status.findAll({
-      // gets status's associated status/list
-      where: {
-        user_id: req.params.id,
-      },
-      // include: [{model: Anime, model: User}],
-    });
-    //200 status code means sucessful connection and returns the data from the get route, 500 means error and will serve the error
-    res.status(200).json(statusData);
-    console.log(statusData);
-    // res.render("list")
-  } catch (err) {
-    res.status(500).json(err.toString());
-  }
-});
-
 // adds an anime to your list
 router.post("/save", async (req, res) => {
   try {
