@@ -1,27 +1,25 @@
+.hero {
+  padding: 10rem;
+  background-color: #a6b1e1;
+}
+
+.card {
+  background-color: #f4eeff;
+  width: 75%;
+}
+
 .anime-carousel {
   display: flex;
-  width: 100%;
-  border: rgb(194, 3, 3) 3px double;
-  border-radius: 3px;
-  background-color: #333333;
-  color: navajowhite;
-  letter-spacing: 3px;
+  justify-content: space-evenly;
+  padding-left: 4rem;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: white;
 }
 
 .card-title {
-  line-height: 2.5;
-  text-align: center;
-  text-decoration: overline;
-  text-decoration-color: gold;
-  text-decoration-style: wavy;
   font-family: Helvetica Neue;
   font-size: 24px;
-  margin-bottom: var(--bs-card-title-spacer-y);
-  color: navajowhite;
-  -webkit-text-stroke-color: gold;
-  background-color: rgb(194, 3, 3);
+  color: grey;
 }
 
 #logout {
@@ -42,8 +40,30 @@ button {
 .anime-image-container {
   position: relative;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  width: 200px;
+  height: 300px;
+}
+
+.anime-image-container img {
+  width: 80%;
+  height: auto;
+}
+
+.anime-caption {
+  position: relative;
+  left: 4px;
+  text-align: center;
+  width: 150px;
+  height: 210px;
+}
+
+.anime-caption h5 {
+  font-size: 1.1rem;
+  color: grey;
+  font-weight: 1000;
 }
 
 .hide-button {
@@ -60,13 +80,13 @@ button {
   display: block;
 }
 
-h5 {
+/* h5 {
   text-align: center;
-}
+} */
 
-.anime-img {
+/* .anime-img {
   padding-left: 0;
-}
+} */
 
 #h3-username {
   position: absolute;
@@ -77,6 +97,8 @@ h5 {
   display: flex;
   align-items: center;
 }
+
+/* AniLog */
 
 @media screen and (max-width: 480px) {
   .anime-carousel {

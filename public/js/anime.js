@@ -69,7 +69,7 @@ $(document).ready(async function () {
       animeDivEl.append(animeImgContainer);
       animeImgContainer.append(animeImgEl);
       animeImgContainer.append(addToListBtn);
-      animeDivEl.append(animeDivCaption);
+      animeImgContainer.append(animeDivCaption);
       animeDivCaption.append(animeCaption);
 
       // adds the ability to directly add to list if use is logged in, if not logged in will redirect to the login page
@@ -103,9 +103,9 @@ $(document).ready(async function () {
       });
     }
     $(`${carouselCategoryArray[i]}-anime-carousel`).slick({
-      slidesToShow: 6,
+      slidesToShow: 4,
       slidesToScroll: 1,
-      autoplay: true,
+      // autoplay: true,
       autoplaySpeed: 2000,
     });
   };

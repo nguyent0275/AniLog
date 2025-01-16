@@ -1,12 +1,13 @@
 .navbar {
-  background-color: rgb(29, 27, 158);
+  background-color: #424874;
 }
 
-main {
-  background-color: blanchedalmond;
+body {
+  background-color: #f4eeff;
 }
 
 footer {
   display: flex;
   justify-content: center;
+  background-color: #424874;
 }
