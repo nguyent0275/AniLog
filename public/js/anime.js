@@ -30,14 +30,14 @@ $(document).ready(async function () {
     let requestUrl = apiFetchArray[index];
     let response = await fetch(requestUrl);
     apiData = await response.json();
-    console.log(apiData);
+    // console.log(apiData);
     return apiData;
   }
 
   // function for rendering the html element for each carousel
   const renderAnimeCarouselCards = (animeApiData, i) => {
     for (let index = 0; index < animeApiData.data.length; index++) {
-      console.log("test");
+      // console.log("test");
       // creating html elements
       const animeDivEl = $("<div>");
       const animeImgContainer = $("<div>");
@@ -79,7 +79,7 @@ $(document).ready(async function () {
           rating: 0,
           watch_status: "planning to watch",
         };
-        console.log(animeToSave);
+        // console.log(animeToSave);
         event.preventDefault();
         const response = await fetch(`/api/status/save`, {
           method: "POST",
