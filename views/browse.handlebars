@@ -1,30 +1,58 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="en">
+  <head>
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/css/anime-search.css" />
+  </head>
 
-<body class="browse-body">
-  <div id="search-form-div">
-    <form class="anime-search-form">
-      <div class="form-group" class="browse-form">
-        <input
-          class="anime-name hs-search-field__input form-control mr-sm-2"
-          type="text"
-          placeholder="Search Anime"
-          aria-label="Search"
-        />
-        <button type="submit">Search</button>
-      </div>
-    </form>
-  </div>
+  <body class="browse-body">
+    <div id="search-form-div">
+      <form class="anime-search-form">
+        <div class="form-group" class="browse-form">
+          <div class="filters">
+            <div class="name">
+              <h5>Name</h5>
+              <input class="anime-name" type="text" placeholder="" />
+            </div>
+            <div class="genre">
+              <h5>Genre</h5>
+              <select name="genre" id="">
+                <option value="placeholder">Any</option>
+              </select>
+            </div>
+            <div class="year">
+              <h5>Year</h5>
+              <select name="genre" id="">
+                <option value="placeholder">Any</option>
+              </select>
+            </div>
+            <div class="season">
+              <h5>Season</h5>
+              <select name="genre" id="">
+                <option value="placeholder">Any</option>
+              </select>
+            </div>
+            <div class="format">
+              <h5>Format</h5>
+              <select name="genre" id="">
+                <option value="placeholder">Any</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
 
-  <div class="anime-div">
-  </div>
+    {{! Anime is populated here based on search and filters }}
+    <div class="anime-div">
+    </div>
 
-  {{! delete and retype and use dropdown to specify file / then delete the ('/public') IF SPECIFIED in server.js }}
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"
-  ></script>
-  <script src="/js/logout.js"></script>
+    {{! delete and retype and use dropdown to specify file / then delete the ('/public') IF SPECIFIED in server.js }}
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
 
-  <script src="/js/anime-search.js"></script>
-</body>
+    <script src="/js/anime-search.js"></script>
+  </body>
+</html>

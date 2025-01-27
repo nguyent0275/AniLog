@@ -11,59 +11,61 @@
   background-image: none;
 }
 
-label {
-  height: 0;
-  color: white;
-  font-size: 18;
-  padding-left: 7px;
-}
-
-.browse-body {
-  background-color: #333333;
-}
-
 .anime-div {
   display: flex;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 }
 
-h2 {
-  justify-content: left;
-  margin: auto;
-  padding-left: 5px;
+.anime-item {
+  width: 10%;
 }
 
-img {
-  padding-left: 10px;
-}
-
-li {
-  color: white;
-  font-size: 16;
-}
-
-p {
-  color: white;
-  font-size: 18;
-  padding-left: 8px;
-}
-
-.img-container {
-  display: flex;
+.anime-image-container {
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 300px;
 }
 
-.info-ul {
-  list-style-image: url("/images/sharingan.jpg");
+.anime-image-container img {
+  width: 80%;
+  height: auto;
 }
 
-.edit-container {
-  display: block;
-  position: sticky;
+.anime-caption {
+  position: relative;
+  left: 4px;
+  text-align: center;
+  width: 150px;
+  height: 210px;
 }
 
-.anime-container {
-  max-width: 50%;
+.anime-caption h5 {
+  font-size: 1.8rem;
+  color: grey;
+  font-weight: 1000;
+}
+
+/* Anilog  */
+.filters {
+  display: flex;
+  justify-content: space-around;
+}
+
+.title-container {
+  position: relative;
+  left: 4px;
+  text-align: center;
+}
+
+.title-container h5 {
+  font-size: 1.8rem;
+  color: grey;
+  font-weight: 1000;
 }
 
 @media screen and (max-width: 767px) {
