@@ -19,6 +19,7 @@
 
 .anime-item {
   width: 10%;
+  margin: 1rem 5rem;
 }
 
 .anime-image-container {
@@ -45,7 +46,7 @@
 }
 
 .anime-caption h5 {
-  font-size: 1.8rem;
+  font-size: 1rem;
   color: grey;
   font-weight: 1000;
 }
