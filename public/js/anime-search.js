@@ -1,4 +1,4 @@
-const animeDiv = document.querySelector(".anime-div");
+const animeDiv = document.querySelector('.anime-div');
 
 const addYearFilter = function () {
   let nextYear = new Date().getFullYear() + 1;
@@ -7,30 +7,30 @@ const addYearFilter = function () {
   // adding years to the array all the way back to 1980
   for (let i = 0; i < yearSpan; i++) {
     let year = nextYear--;
-    let yearOption = document.createElement("option");
-    yearOption.setAttribute("value", year);
+    let yearOption = document.createElement('option');
+    yearOption.setAttribute('value', year);
     yearOption.textContent = year;
-    document.getElementById("year").append(yearOption);
+    document.getElementById('year').append(yearOption);
   }
 };
 
 const addSeasonFilter = function () {
-  let seasonFilter = ["Winter", "Spring", "Summer", "Fall"];
+  let seasonFilter = ['Winter', 'Spring', 'Summer', 'Fall'];
   for (let i = 0; i < seasonFilter.length; i++) {
-    let seasonOption = document.createElement("option");
-    seasonOption.setAttribute("value", seasonFilter[i]);
+    let seasonOption = document.createElement('option');
+    seasonOption.setAttribute('value', seasonFilter[i]);
     seasonOption.textContent = seasonFilter[i];
-    document.getElementById("season").append(seasonOption);
+    document.getElementById('season').append(seasonOption);
   }
 };
 
 const addFormatFilter = function () {
-  let formatFilter = ["ONA", "OVA", "TV", "Movie", "Music", "Special"];
+  let formatFilter = ['ONA', 'OVA', 'TV', 'Movie', 'Music', 'Special'];
   for (let i = 0; i < formatFilter.length; i++) {
-    let formatOption = document.createElement("option");
-    formatOption.setAttribute("value", formatFilter[i]);
+    let formatOption = document.createElement('option');
+    formatOption.setAttribute('value', formatFilter[i]);
     formatOption.textContent = formatFilter[i];
-    document.getElementById("format").append(formatOption);
+    document.getElementById('format').append(formatOption);
   }
 };
 
@@ -60,7 +60,12 @@ const categoriesFilter = async function () {
   let categoryFilter = [];
   for (let k = 0; k < fetchLinkArray.length; k++) {
     for (let l = 0; l < fetchLinkArray[k].data.length; l++) {
-      categoryFilter.push(fetchLinkArray[k].data[l].attributes.title);
+      let categoryIDName = [];
+      categoryIDName.push(
+        fetchLinkArray[k].data[l].attributes.title,
+        fetchLinkArray[k].data[l].id
+      );
+      categoryFilter.push(categoryIDName);
     }
   }
   categoryFilter.sort();
@@ -71,10 +76,11 @@ const categoriesFilter = async function () {
 // adds the category filters as genre options in the dropdown menu
 function addCategoryFilters(categoryFilter) {
   for (let i = 0; i < categoryFilter.length; i++) {
-    let genreOption = document.createElement("option");
-    genreOption.setAttribute("value", categoryFilter[i]);
-    genreOption.textContent = categoryFilter[i];
-    document.getElementById("genre").append(genreOption);
+    let genreOption = document.createElement('option');
+    genreOption.setAttribute('data-id', categoryFilter[i][1]);
+    genreOption.setAttribute('value', categoryFilter[i][0]);
+    genreOption.textContent = categoryFilter[i][0];
+    document.getElementById('genre').append(genreOption);
   }
 }
 
@@ -85,60 +91,67 @@ addFormatFilter();
 
 const searchAnime = async function () {
   //   clears the html after each search
-  animeDiv.innerHTML = "";
+  animeDiv.innerHTML = '';
 
   //   getting the user value from the search bar
-  let title = document.querySelector(".anime-name").value.trim();
-  let genre = document.getElementById("genre").value.trim();
-  let year = document.getElementById("year").value.trim();
-  let season = document.getElementById("season").value.trim().toLowerCase();
-  let format = document.getElementById("format").value.trim().toLowerCase();
+  let title = document.querySelector('.anime-name').value.trim();
+  let genre = document.getElementById('genre').value.trim().toLowerCase();
+  let year = document.getElementById('year').value.trim();
+  let season = document.getElementById('season').value.trim().toLowerCase();
+  let format = document.getElementById('format').value.trim().toLowerCase();
   // console.log(title, genre, year, season, format);
 
   await formHandler(title, genre, year, season, format);
 };
 
-//  `/search/${title}?filter[categories]=${genre}??filter[seasonYear]=${year}filter[season]=${season}?filter[subtype]=${format}`
+//  `/search/${title}?filter[categories]=${genre}&filter[seasonYear]=${year}&filter[season]=${season}&filter[subtype]=${format}`
 
 const formHandler = async (title, genre, year, season, format) => {
   //   if there is a value, run the function
 
   let response;
 
-  // HAVE TO USE "&" FOR MULTIPLE FILTERS NOT "?"
-  // CHECK IF ONE OF THE FILTERS IS ACTIVE AND APPEND
-  // IF MULTIPLE ARE ACTIVE THEN USE THE & STRING TOGETHER
+  // if (genre) {
+  //   genre = genre.replace(' ', '%20');
+  // }
 
-  if (genre || year || season || format) {
-    console.log(genre, year, format, title);
-    let requestUrl = `https://kitsu.io/api/edge/anime${
-      !genre ? "" : `?filter[categories]=${genre}`
-    }${!year ? "" : `?filter[seasonYear]=${year}`}
-      ${!season ? "" : `?filter[season]=${season}`}
-      ${!format ? "" : `?filter[subtype]=${format}`}`;
-    console.log(requestUrl);
-    response = await fetch(requestUrl, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    console.log(response);
-  }
   if (title) {
     // calling the route in the controller, which fields the third party api call
     // data is retrieved from third party api and sent back to the front end
     response = await fetch(`/search/${title}`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
-  }
+    // console.log(response);
 
+    if (genre || year || season || format) {
+      // console.log(genre, year, format, title);
+      // prettier-ignore
+      let filterParams = `${!genre ? `` : `&filter[categories]=${genre}`}${!year ? `` : `&filter[seasonYear]=${year}`}${!season ? `` : `&filter[season]=${season}`}${!format ? `` : `&filter[subtype]=${format}`}`;
+      response = await fetch(`/search/${title}${filterParams}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      // console.log(response);
+    }
+  } else {
+    // prettier-ignore
+    let requestUrl = `https://kitsu.io/api/edge/anime?${!genre ? `` : `&filter[categories]=${genre}`}${!year ? `` : `&filter[seasonYear]=${year}`}${!season ? `` : `&filter[season]=${season}`}${!format ? `` : `&filter[subtype]=${format}`}`;
+    response = await fetch(requestUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    // console.log(response);
+  }
   // backend data now in the front end
   const animeData = await response.json();
-  console.log(animeData);
+  // console.log(animeData);
 
   // if the response returned successfully, run the function
   if (response.ok) {
@@ -146,21 +159,21 @@ const formHandler = async (title, genre, year, season, format) => {
       // need to create elements for what get stored into user list
       const animeApiData = animeData.data[index].attributes;
       // create
-      const individualAnimeDiv = document.createElement("div");
-      const titleDiv = document.createElement("div");
-      const title = document.createElement("h5");
-      const imageContainer = document.createElement("div");
-      const imageCard = document.createElement("img");
+      const individualAnimeDiv = document.createElement('div');
+      const titleDiv = document.createElement('div');
+      const title = document.createElement('h5');
+      const imageContainer = document.createElement('div');
+      const imageCard = document.createElement('img');
 
       // attr
-      individualAnimeDiv.setAttribute("class", "anime-item");
-      titleDiv.setAttribute("class", "anime-caption");
+      individualAnimeDiv.setAttribute('class', 'anime-item');
+      titleDiv.setAttribute('class', 'anime-caption');
       if (animeApiData.titles.en) {
         title.textContent = animeApiData.titles.en;
       } else {
         title.textContent = animeApiData.canonicalTitle;
       }
-      imageContainer.setAttribute("class", "anime-image-container");
+      imageContainer.setAttribute('class', 'anime-image-container');
       imageCard.src = animeApiData.posterImage.tiny;
 
       // append
@@ -178,20 +191,18 @@ const formHandler = async (title, genre, year, season, format) => {
 var typingTimer; //timer identifier
 var doneTypingInterval = 200; //time in ms
 
-const searchBar = document.querySelector("input");
-searchBar.addEventListener("keyup", function () {
+const searchBar = document.querySelector('input');
+searchBar.addEventListener('keyup', function () {
   clearTimeout(typingTimer);
   typingTimer = setTimeout(searchAnime, doneTypingInterval);
 });
 
-searchBar.addEventListener("keydown", function () {
+searchBar.addEventListener('keydown', function () {
   clearTimeout(typingTimer);
 });
 
-document.querySelector(".filters").addEventListener("change", (e) => {
-  console.log("change");
-  console.log(e.target.tagName);
-  if (e.target.tagName == "SELECT") {
+document.querySelector('.filters').addEventListener('change', e => {
+  if (e.target.tagName == 'SELECT') {
     searchAnime();
   }
 });
