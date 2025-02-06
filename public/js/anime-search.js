@@ -115,6 +115,7 @@ const formHandler = async (title, genre, year, season, format) => {
     genre = genre.replaceAll(" ", "-");
   }
 
+  // searches by title
   if (title) {
     // calling the route in the controller, which fields the third party api call
     // data is retrieved from third party api and sent back to the front end
@@ -124,8 +125,8 @@ const formHandler = async (title, genre, year, season, format) => {
         "Content-Type": "application/json",
       },
     });
-    // console.log(response);
 
+    // searches by title and filters
     if (genre || year || season || format) {
       // console.log(genre, year, format, title);
       // prettier-ignore
@@ -136,9 +137,9 @@ const formHandler = async (title, genre, year, season, format) => {
           "Content-Type": "application/json",
         },
       });
-      // console.log(response);
     }
   } else {
+    // searches by just filters
     // prettier-ignore
     let requestUrl = `https://kitsu.io/api/edge/anime?${!genre ? `` : `&filter[categories]=${genre}`}${!year ? `` : `&filter[seasonYear]=${year}`}${!season ? `` : `&filter[season]=${season}`}${!format ? `` : `&filter[subtype]=${format}`}`;
     response = await fetch(requestUrl, {
@@ -147,16 +148,17 @@ const formHandler = async (title, genre, year, season, format) => {
         "Content-Type": "application/json",
       },
     });
-    // console.log(response);
   }
+
   // backend data now in the front end
   const animeData = await response.json();
-  // console.log(animeData);
+  console.log(animeData);
 
   // if the response returned successfully, run the function
   if (response.ok) {
     for (let index = 0; index < animeData.data.length; index++) {
       // need to create elements for what get stored into user list
+      const animeId = animeData.data[index].id;
       const animeApiData = animeData.data[index].attributes;
       // create
       const individualAnimeDiv = document.createElement("div");
@@ -182,6 +184,14 @@ const formHandler = async (title, genre, year, season, format) => {
       imageContainer.append(imageCard);
       imageContainer.append(titleDiv);
       titleDiv.append(title);
+
+      // makes the image and title clickable to redirect to info page about specific anime
+      imageContainer.addEventListener("click", function () {
+        window.location.assign(`/anime/${animeId}`);
+      });
+      titleDiv.addEventListener("click", function () {
+        window.location.assign(`/anime/${animeId}`);
+      });
     }
   }
 };

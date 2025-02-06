@@ -1,12 +1,12 @@
-const router = require('express').Router();
-const {User, Status} = require('../models');
-const withAuth = require('../utils/auth');
+const router = require("express").Router();
+const { User, Status } = require("../models");
+const withAuth = require("../utils/auth");
 // i want to make sure that i can see my env vars
-require('dotenv').config();
+require("dotenv").config();
 
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    res.render('home', {
+    res.render("home", {
       loggedIn: req.session.logged_in,
       userName: req.session.user_name,
     });
@@ -15,9 +15,9 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/login', async (req, res) => {
+router.get("/login", async (req, res) => {
   try {
-    res.render('login', {
+    res.render("login", {
       loggedIn: req.session.logged_in,
       userName: req.session.user_name,
     });
@@ -26,24 +26,23 @@ router.get('/login', async (req, res) => {
   }
 });
 
-router.get('/profile', async (req, res) => {
-  console.log('here');
+router.get("/profile", async (req, res) => {
   try {
     const userData = await User.findByPk(req.session.user_id, {
-      attributes: {exclude: ['password']},
+      attributes: { exclude: ["password"] },
       include: [
         {
           model: Status,
         },
       ],
     });
-    const user = userData.get({plain: true});
+    const user = userData.get({ plain: true });
     if (!userData) {
       res.status(404).json({
-        message: 'No user associated with that id',
+        message: "No user associated with that id",
       });
     } else {
-      res.render('list', {
+      res.render("list", {
         user,
         loggedIn: req.session.logged_in,
         userName: req.session.user_name,
@@ -55,9 +54,9 @@ router.get('/profile', async (req, res) => {
   }
 });
 
-router.get('/search', async (req, res) => {
+router.get("/search", async (req, res) => {
   try {
-    res.render('browse', {
+    res.render("browse", {
       loggedIn: req.session.logged_in,
       userName: req.session.user_name,
     });
@@ -67,16 +66,28 @@ router.get('/search', async (req, res) => {
 });
 
 // paramater search is by title
-router.get('/search/:title', async (req, res) => {
+router.get("/search/:title", async (req, res) => {
   try {
     // third party api fetch based on user input
     const response = await fetch(
       `https://kitsu.io/api/edge/anime?filter[text]=${req.params.title}`
     );
     // return data from the api fetch
-    console.log(response);
     const animeData = await response.json();
     res.json(animeData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// render invidividual anime page with all it's info
+router.get("/anime/:id", async (req, res) => {
+  try {
+    res.render("anime", {
+      animeId: req.params.id,
+      loggedIn: req.session.logged_in,
+      userName: req.session.user_name,
+    });
   } catch (err) {
     res.status(500).json(err);
   }
