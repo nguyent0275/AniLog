@@ -1,3 +1,66 @@
+.content {
+  padding: 0 2rem;
+}
+
+.anime-poster {
+  max-height: 400px;
+  max-width: 250px;
+}
+
+.synopsis-container h5 {
+  padding: 5rem 0.8rem 0 0.8rem;
+}
+
+.synopsis-container p {
+  padding: 0.8rem 0.8rem 0 0.8rem;
+}
+
+.button-container {
+  padding: 0.8rem 0 0.8rem 2.5rem;
+}
+
+.list-btn {
+  width: 10%;
+}
+
 ul {
   list-style-type: none;
+}
+
+.info-list li {
+  font-weight: 800;
+}
+
+.related-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.header-container {
+  display: flex;
+  border: 1px solid black;
+}
+
+.content-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.info-container {
+  width: 15%;
+  border: 1px solid black;
+}
+
+.media-container {
+  width: 85%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.related-media-container {
+  padding: 0 0.8rem;
+}
+
+.video-container {
+  padding-left: 0.8rem;
 }
