@@ -79,7 +79,6 @@ $(document).ready(async function () {
           rating: 0,
           watch_status: "planning to watch",
         };
-        // console.log(animeToSave);
         event.preventDefault();
         const response = await fetch(`/api/status/save`, {
           method: "POST",

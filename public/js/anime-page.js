@@ -23,7 +23,8 @@ const renderAnime = async function () {
     for (let i = 0; i < relatedData.data.length; i++) {
       // only adds specific related data (prevents overflow)
       if (
-        relatedData.data[i].attributes.role == "adaptation" ||
+        // opting out of manga media (only showing anime)
+        // relatedData.data[i].attributes.role == "adaptation" ||
         relatedData.data[i].attributes.role == "side_story" ||
         relatedData.data[i].attributes.role == "sequel"
       ) {
@@ -71,6 +72,7 @@ const renderAnime = async function () {
       `${baseURL}${animeId}/categories?${paginationLimit}${paginationOffset}`
     );
     const categoryData = await categoryResponse.json();
+    console.log(categoryData);
 
     for (let i = 0; i < categoryData.data.length; i++) {
       let categoryTitleandCount = [
@@ -93,6 +95,7 @@ const renderAnime = async function () {
 
   // storing return values of each function as a variable to pass to the HTML render function
   let anime = await initialFetch();
+  console.log(anime);
   let relatedMediaHTML = await getRelatedMedia();
   let categoryHTML = await getCategories();
 
@@ -104,35 +107,42 @@ renderAnime();
 function renderHTML(anime, categoryHTML, relatedMediaHTML) {
   // checks the month the anime came out and returns a string that identifies the season
   function formatSeason() {
+    let year = anime.startDate.slice(0, 4);
     switch (anime.startDate.slice(5, 7)) {
       case "01":
-        return "Winter";
+        return "Winter " + year;
       case "02":
-        return "Winter";
+        return "Winter " + year;
       case "03":
-        return "Winter";
+        return "Winter " + year;
       case "04":
-        return "Spring";
+        return "Spring " + year;
       case "05":
-        return "Spring";
+        return "Spring " + year;
       case "06":
-        return "Spring";
+        return "Spring " + year;
       case "07":
-        return "Summer";
+        return "Summer " + year;
       case "08":
-        return "Summer";
+        return "Summer " + year;
       case "09":
-        return "Summer";
+        return "Summer " + year;
       case "10":
-        return "Fall";
+        return "Fall " + year;
       case "11":
-        return "Fall";
+        return "Fall " + year;
       case "12":
-        return "Fall";
+        return "Fall " + year;
     }
   }
 
+  let season = formatSeason();
+
   function formatDate(date) {
+    // for ongoing animes
+    if (!date) {
+      return `Ongoing`;
+    }
     let year = date.slice(0, 4);
     let month = date.slice(5, 7);
     let day = date.slice(8, 10);
@@ -164,7 +174,6 @@ function renderHTML(anime, categoryHTML, relatedMediaHTML) {
     }
   }
   formatDate(anime.startDate);
-  let season = formatSeason();
 
   // looks for the nth occurence of a subString inside a string
   function formatSynopsis() {
@@ -191,7 +200,8 @@ function renderHTML(anime, categoryHTML, relatedMediaHTML) {
         <img src="${anime.posterImage.small}" alt="" class="anime-poster" />
       </div>
       <div class="synopsis-container">
-        <h5>${anime.canonicalTitle}</h5>
+      <hr class="line">
+        <h5 class="anime-title">${anime.canonicalTitle}</h5>
         <p class="synopsis">${synopsis[0]} </br> </br> 
         ${synopsis[1]}</p>
       </div>
@@ -239,4 +249,36 @@ function renderHTML(anime, categoryHTML, relatedMediaHTML) {
       </div>
     </div>
   </div>`;
+
+  async function addToList(event) {
+    console.log("test");
+    // creates object that will be sent to backend and saved to user's list
+    const animeToSave = {
+      anime_title: document.querySelector(".anime-title").textContent,
+      rating: 0,
+      watch_status: "planning to watch",
+    };
+    event.preventDefault();
+    const response = await fetch(`/api/status/save`, {
+      method: "POST",
+      body: JSON.stringify(animeToSave),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      if (response.status === 401) {
+        console.log("User is not logged in");
+        window.location.replace("/login");
+      } else if (response.status === 500) {
+        alert("Anime is already in your list");
+      } else {
+        console.log("Error");
+      }
+    } else {
+      console.log("Added to list");
+    }
+  }
+
+  document.querySelector(".list-btn").addEventListener("click", addToList);
 }

@@ -1,5 +1,5 @@
 .content {
-  padding: 0 2rem;
+  padding: 1rem 2rem;
 }
 
 .anime-poster {
@@ -7,8 +7,20 @@
   max-width: 250px;
 }
 
+.line {
+  position: absolute;
+  width: auto;
+  display: block;
+  left: calc(2rem + 250px);
+  border-bottom: 5px solid pink;
+}
+
+.synopsis-container {
+  top: -5rem;
+}
+
 .synopsis-container h5 {
-  padding: 5rem 0.8rem 0 0.8rem;
+  padding: 4.5rem 0.8rem 0 0.8rem;
 }
 
 .synopsis-container p {

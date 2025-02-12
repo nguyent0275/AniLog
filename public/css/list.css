@@ -1,42 +1,33 @@
-#list-table {
-  display: block;
-  color: white;
-}
-
-td {
-  padding: 5px;
-  font-size: 20;
-  padding-right: 25px;
-  padding-top: 15px;
-  border-right: 1px solid black;
-}
-
-th {
-  padding: 5px;
-  font-size: 30;
-  padding-right: 25px;
-  border-right: 1px solid black;
-}
-tr {
-  border: 1px solid black;
-}
-
 #big-list-container {
   display: flex;
 }
 
-caption {
-  color: white;
-  font-size: 30;
+.filter-container {
+  margin-right: 0.8rem;
 }
 
-/* footer {
-  background-color: #333333;
-  padding-top: 80px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: small;
-  color: white;
-} */
+.progress-filters {
+  position: relative;
+  right: 1.5rem;
+}
+
+.progress-filters > ul {
+  list-style-type: none;
+}
+
+.progress-filters > * {
+  margin-top: 0.8rem;
+}
+
+.rating,
+.status {
+  text-align: center;
+}
+
+#score,
+#progress {
+  text-align: center;
+}
 
 .popup {
   background: #fff;
@@ -53,79 +44,9 @@ caption {
   transition: transform 0.4s, top 0.4s;
 }
 
-.open-popup {
-  visibility: visible;
-  top: 50%;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.watch-label {
-  color: #333333;
-  letter-spacing: normal;
-  padding-left: 1px;
-}
-.rating-label {
-  color: #333333;
-  letter-spacing: normal;
-}
-
-.edit-anime-title {
-  color: #333333;
-}
-
 /* Styles when popup is open */
 .open-popup {
   visibility: visible;
   top: 50%;
   transform: translate(-50%, -50%) scale(1);
-}
-
-/* Additional styles for labels and titles */
-.watch-label,
-.rating-label,
-.edit-anime-title {
-  color: #333333;
-  letter-spacing: normal;
-}
-
-#done-edit-button {
-  background-color: lightgreen;
-}
-
-#delete-anime-button {
-  background-color: red;
-}
-
-#delete-user {
-  background-color: red;
-}
-
-/* Styles for tablets (1024px and under) */
-@media only screen and (max-width: 1026px) {
-  .popup {
-    padding: 0 20px 20px;
-  }
-
-  .watch-label {
-    padding-left: 1px;
-    margin-bottom: 10px; /* Adjust the margin to create space between elements */
-  }
-
-  .rating-label {
-    margin-top: 15px;
-    margin-bottom: 20px; /* Adjust the margin to create space between elements */
-  }
-
-  /* Button styles */
-  .popup button {
-    margin-top: 10px; /* Adjust the margin to create space between text and buttons */
-    display: block; /* Ensure each button is on its own line */
-  }
-}
-
-/* Styles for mobile devices (768px and under) */
-@media only screen and (max-width: 768px) {
-  .popup {
-    padding: 0 15px 15px;
-  }
 }

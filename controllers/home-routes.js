@@ -83,7 +83,7 @@ router.get("/search/:title", async (req, res) => {
 // render invidividual anime page with all it's info
 router.get("/anime/:id", async (req, res) => {
   try {
-    res.render("anime", {
+    res.render("anime-page", {
       animeId: req.params.id,
       loggedIn: req.session.logged_in,
       userName: req.session.user_name,
