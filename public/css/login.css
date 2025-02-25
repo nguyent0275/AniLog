@@ -11,16 +11,6 @@
   --dark-grey: #222831;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 10px;
-}
-
 body {
   font-family: "Open Sans", sans-serif;
 }

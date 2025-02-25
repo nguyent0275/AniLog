@@ -1,129 +1,118 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="css/login.css" />
-  </head>
-  <body>
-    <section class="main">
-      <div class="container box">
-        <!-- Login Section -->
-        <div class="login main-container">
-          <div class="login-img img-container">
-            <img src="images/login.svg" alt="login" />
-          </div>
-          <div class="login-form form-container">
-            <form class="login-form" action="">
-              <h2 class="text-center pb-3">Login</h2>
-              <input
-                type="text"
-                class="form-control form-control-lg mb-3"
-                placeholder="email"
-                id="email-login"
-              />
-              <input
-                type="password"
-                class="form-control form-control-lg mb-3"
-                placeholder="Password"
-                \
-                id="password-login"
-              />
-              <div class="d-grid">
-                <button class="btn btn-primary btn-lg">Login</button>
-              </div>
-              <a href="#" class="forgot-link">Forgot Password?</a>
-              <span>
-                Don't have an account?
-                <a href="#" class="register-link"> Register </a>
-              </span>
-            </form>
-          </div>
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body>
+  <section class="main">
+    <div class="container box">
+      <!-- Login Section -->
+      <div class="login main-container">
+        <div class="login-img img-container">
+          <img src="images/login.svg" alt="login" />
         </div>
-        <!-- Signup Section -->
-        <div class="register main-container">
-          <div class="register-form form-container">
-            <form class="signup-form" action="">
-              <h2 class="text-center pb-3">Register</h2>
-              <input
-                type="text"
-                class="form-control form-control-lg mb-3"
-                placeholder="Username"
-                id="username-signup"
-              />
-              <input
-                type="email"
-                class="form-control form-control-lg mb-3"
-                placeholder="Email"
-                id="email-signup"
-              />
-              <input
-                type="password"
-                class="form-control form-control-lg mb-3"
-                placeholder="Password"
-                id="password-signup"
-              />
-              <input
-                type="password"
-                class="form-control form-control-lg mb-3"
-                placeholder="Password"
-                id="confirm-password-signup"
-              />
-              <div class="d-grid">
-                <button
-                  type="submit"
-                  class="btn btn-primary btn-lg"
-                >Register</button>
-              </div>
-              <a href="#" class="forgot-link">Forgot Password?</a>
-              <span>
-                Have an account?
-                <a href="#" class="login-link"> Login </a>
-              </span>
-            </form>
-          </div>
-          <div class="register-img img-container">
-            <img src="images/register.svg" alt="register" />
-          </div>
-        </div>
-        <!-- Forgot Section -->
-        <div class="forgot main-container">
-          <div class="forgot-form form-container">
-            <form action="">
-              <h2 class="text-center pb-3">Reset Password</h2>
-              <input
-                type="email"
-                class="form-control form-control-lg mb-3"
-                placeholder="Email"
-              />
-              <div class="d-grid">
-                <button class="btn btn-primary btn-lg">Reset Password</button>
-              </div>
-              <span> We will send you a reset link! </span>
-            </form>
-            <div class="close">
-              <i class="fas fa-times"></i>
+        <div class="login-form form-container">
+          <form class="login-form" action="">
+            <h2 class="text-center pb-3">Login</h2>
+            <input
+              type="text"
+              class="form-control form-control-lg mb-3"
+              placeholder="Email"
+              id="email-login"
+            />
+            <input
+              type="password"
+              class="form-control form-control-lg mb-3"
+              placeholder="Password"
+              \
+              id="password-login"
+            />
+            <div class="d-grid">
+              <button class="btn btn-primary btn-lg">Login</button>
             </div>
-          </div>
-          <div class="forgot-img img-container">
-            <img src="images/forgot.svg" alt="forgot" />
-          </div>
+            <a href="#" class="forgot-link">Forgot Password?</a>
+            <span>
+              Don't have an account?
+              <a href="#" class="register-link"> Register </a>
+            </span>
+          </form>
         </div>
       </div>
-    </section>
-    <script src="js/login.js"></script>
-  </body>
-</html>
+      <!-- Signup Section -->
+      <div class="register main-container">
+        <div class="register-form form-container">
+          <form class="signup-form" action="">
+            <h2 class="text-center pb-3">Register</h2>
+            <input
+              type="text"
+              class="form-control form-control-lg mb-3"
+              placeholder="Username"
+              id="username-signup"
+            />
+            <input
+              type="email"
+              class="form-control form-control-lg mb-3"
+              placeholder="Email"
+              id="email-signup"
+            />
+            <input
+              type="password"
+              class="form-control form-control-lg mb-3"
+              placeholder="Password"
+              id="password-signup"
+            />
+            <input
+              type="password"
+              class="form-control form-control-lg mb-3"
+              placeholder="Password"
+              id="confirm-password-signup"
+            />
+            <div class="d-grid">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg"
+              >Register</button>
+            </div>
+            <a href="#" class="forgot-link">Forgot Password?</a>
+            <span>
+              Have an account?
+              <a href="#" class="login-link"> Login </a>
+            </span>
+          </form>
+        </div>
+        <div class="register-img img-container">
+          <img src="images/register.svg" alt="register" />
+        </div>
+      </div>
+      <!-- Forgot Section -->
+      <div class="forgot main-container">
+        <div class="forgot-form form-container">
+          <form action="">
+            <h2 class="text-center pb-3">Reset Password</h2>
+            <input
+              type="email"
+              class="form-control form-control-lg mb-3"
+              placeholder="Email"
+            />
+            <div class="d-grid">
+              <button class="btn btn-primary btn-lg">Reset Password</button>
+            </div>
+            <span> We will send you a reset link! </span>
+          </form>
+          <div class="close">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+        <div class="forgot-img img-container">
+          <img src="images/forgot.svg" alt="forgot" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="js/login.js"></script>
+</body>

@@ -25,8 +25,10 @@ const renderAnime = async function () {
       if (
         // opting out of manga media (only showing anime)
         // relatedData.data[i].attributes.role == "adaptation" ||
+        relatedData.data[i].attributes.role == "prequel" ||
         relatedData.data[i].attributes.role == "side_story" ||
-        relatedData.data[i].attributes.role == "sequel"
+        relatedData.data[i].attributes.role == "sequel" ||
+        relatedData.data[i].attributes.role == "parent_story"
       ) {
         let relatedMediaLinkAndRole = [
           // gets the link for each of the related media source to do a fetch request for more details
@@ -52,12 +54,21 @@ const renderAnime = async function () {
           `https://kitsu.io/api/edge/${relatedMediaData.data.type}/${relatedMediaData.data.id}`
         );
         const data = await res.json();
-        let relatedMediaRole = relatedMediaArray[j][0];
-        let tinyPosterImage = data.data.attributes.posterImage.tiny;
-        relatedMediaHTML += `<div class="related-media-container">
+        // does not include music videos or manga
+        if (
+          data.data.attributes.showType == undefined ||
+          data.data.attributes.showType == "music"
+        )
+          return;
+        else {
+          let relatedMediaRole = relatedMediaArray[j][0];
+          let tinyPosterImage = data.data.attributes.posterImage.tiny;
+          let relatedMediaId = data.data.id;
+          relatedMediaHTML += `<div style="cursor: pointer;" onclick="location.href=${relatedMediaId}" class="related-media-container">
       <img class="related-media-poster" src="${tinyPosterImage}" alt="" />
       <p class="related-media-role">${relatedMediaRole}</p>
     </div>`;
+        }
       }
     };
     await renderRelatedMedia();
@@ -72,7 +83,6 @@ const renderAnime = async function () {
       `${baseURL}${animeId}/categories?${paginationLimit}${paginationOffset}`
     );
     const categoryData = await categoryResponse.json();
-    console.log(categoryData);
 
     for (let i = 0; i < categoryData.data.length; i++) {
       let categoryTitleandCount = [
@@ -86,8 +96,8 @@ const renderAnime = async function () {
     });
 
     // returns the top 6 categories by "media count"
-    for (let i = 0; i < 6; i++) {
-      categoryHTML += `<span>${categoryArray[i][1]}<br /></span>`;
+    for (let i = 0; i < categoryArray.length; i++) {
+      if (i < 7) categoryHTML += `<span>${categoryArray[i][1]}<br /></span>`;
     }
 
     return categoryHTML;
@@ -95,7 +105,6 @@ const renderAnime = async function () {
 
   // storing return values of each function as a variable to pass to the HTML render function
   let anime = await initialFetch();
-  console.log(anime);
   let relatedMediaHTML = await getRelatedMedia();
   let categoryHTML = await getCategories();
 
@@ -214,7 +223,9 @@ function renderHTML(anime, categoryHTML, relatedMediaHTML) {
     <div class="info-container">
       <ul class="info-list">
         <li>Format</li>
-        <span>${anime.showType}</span>
+        <span>${
+          anime.showType.charAt(0).toUpperCase() + anime.showType.slice(1)
+        }</span>
         <li>Episodes</li>
         <span>${anime.episodeCount}</span>
         <li>Episode Duration</li>

@@ -1,116 +1,80 @@
-$(document).ready(async function () {
-  //   const baseUrl = "https://kitsu.io/api/edge";
-  //   const categoryFilter = "/anime?filter[categories]=adventure";
-  //   const textFilter = "/anime?filter[text]=";
+//   const baseUrl = "https://kitsu.io/api/edge";
+//   const categoryFilter = "/anime?filter[categories]=adventure";
+//   const textFilter = "/anime?filter[text]=";
 
-  // array of api urls for fetches
-  const apiFetchArray = [
-    "https://kitsu.io/api/edge/anime?sort=ratingRank",
-    "https://kitsu.io/api/edge/anime?sort=popularityRank",
-    "https://kitsu.io/api/edge/anime?filter[categories]=romance",
-    "https://kitsu.io/api/edge/anime?filter[categories]=sports",
-    "https://kitsu.io/api/edge/anime?filter[categories]=shoujo",
-    "https://kitsu.io/api/edge/anime?filter[subtype]=movie",
-  ];
+// array of api urls for fetches
+const apiFetchArray = [
+  // "https://kitsu.io/api/edge/anime?sort=ratingRank",
+  "https://kitsu.io/api/edge/anime?sort=popularityRank",
+  "https://kitsu.io/api/edge/anime?filter[categories]=romance",
+  "https://kitsu.io/api/edge/anime?filter[categories]=sports",
+  "https://kitsu.io/api/edge/anime?filter[categories]=shoujo",
+  "https://kitsu.io/api/edge/anime?filter[subtype]=movie",
+];
 
-  // array of class names of the carousels from the home.handlebars
-  const carouselCategoryArray = [
-    ".top",
-    ".popular",
-    ".romance",
-    ".sports",
-    ".shoujo",
-    ".movie",
-  ];
+// array of class names of the carousels from the home.handlebars
+const carouselCategoryArray = [
+  ".top",
+  ".popular",
+  ".romance",
+  ".sports",
+  ".shoujo",
+  ".movie",
+];
 
-  // function runs a fetch on one of the urls in the array and then runs a function for rendering html elements
-  var apiData = null;
+const renderTop10Anime = async function () {
+  let top10Div = document.querySelector(".top-10");
+  let res = await fetch("https://kitsu.io/api/edge/anime?sort=ratingRank");
+  let data = await res.json();
+  console.log(data.length);
+  for (let i = 0; i < data.data.length; i++) {
+    let anime = data.data[i];
+    console.log(anime);
 
-  async function apiFetchRequest(index) {
-    let requestUrl = apiFetchArray[index];
-    let response = await fetch(requestUrl);
-    apiData = await response.json();
-    // console.log(apiData);
-    return apiData;
+    top10Div.insertAdjacentHTML(
+      "beforeend",
+      `<div class="top-anime-div">
+        <span class="ranking" id="rank-${i + 1}" >${i + 1}</span>
+        <img class="top-10-img" src="${anime.attributes.posterImage.tiny}"/>
+        <div class="anime-info">
+        <p>${anime.attributes.titles.en}</p>
+        <small>${anime.attributes.showType} </br> ${
+        anime.attributes.episodeCount
+      } episodes </br> ${anime.attributes.averageRating} </br>
+        </small>
+        </div>
+      </div>`
+    );
   }
+};
 
-  // function for rendering the html element for each carousel
-  const renderAnimeCarouselCards = (animeApiData, i) => {
-    for (let index = 0; index < animeApiData.data.length; index++) {
-      // console.log("test");
-      // creating html elements
-      const animeDivEl = $("<div>");
-      const animeImgContainer = $("<div>");
-      const animeImgEl = $("<img>");
-      const animeDivCaption = $("<div>");
-      const animeCaption = $("<h5>");
-      const addToListBtn = $("<button>");
+renderTop10Anime();
 
-      // setting attributes
-      animeDivEl.addClass("anime-item");
-      animeImgContainer.addClass("anime-image-container");
-      animeImgEl.addClass("anime-img");
-      animeDivCaption.addClass("anime-caption");
-      addToListBtn.addClass("hide-button");
-      animeImgEl.attr(
-        "src",
-        animeApiData.data[index].attributes.posterImage.tiny
-      );
-      // if the anime has an english title in the api, we will use otherwise we will user the canonical title
-      if (animeApiData.data[index].attributes.titles.en) {
-        animeCaption.text(animeApiData.data[index].attributes.titles.en);
-      } else {
-        animeCaption.text(animeApiData.data[index].attributes.canonicalTitle);
-      }
-      addToListBtn.text("Add to List");
-
-      // appending elements
-      $(carouselCategoryArray[i] + "-anime-carousel").append(animeDivEl);
-      animeDivEl.append(animeImgContainer);
-      animeImgContainer.append(animeImgEl);
-      animeImgContainer.append(addToListBtn);
-      animeImgContainer.append(animeDivCaption);
-      animeDivCaption.append(animeCaption);
-
-      // adds the ability to directly add to list if use is logged in, if not logged in will redirect to the login page
-      addToListBtn.on("click", async function (event) {
-        const animeToSave = {
-          anime_title: animeCaption.text(),
-          rating: 0,
-          watch_status: "planning to watch",
-        };
-        event.preventDefault();
-        const response = await fetch(`/api/status/save`, {
-          method: "POST",
-          body: JSON.stringify(animeToSave),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (!response.ok) {
-          if (response.status === 401) {
-            console.log("User is not logged in");
-            window.location.replace("/login");
-          } else if (response.status === 500) {
-            alert("Anime is already in your list");
-          } else {
-            console.log("Error");
-          }
-        } else {
-          console.log("Added to list");
-        }
-      });
-    }
-    $(`${carouselCategoryArray[i]}-anime-carousel`).slick({
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      // autoplay: true,
-      autoplaySpeed: 2000,
-    });
-  };
-
-  for (let index = 0; index < apiFetchArray.length; index++) {
-    const data = await apiFetchRequest(index);
-    renderAnimeCarouselCards(data, index);
-  }
-});
+// adds the ability to directly add to list if use is logged in, if not logged in will redirect to the login page
+// addToListBtn.on("click", async function (event) {
+//   const animeToSave = {
+//     anime_title: animeCaption.text(),
+//     rating: 0,
+//     watch_status: "planning to watch",
+//   };
+//   event.preventDefault();
+//   const response = await fetch(`/api/status/save`, {
+//     method: "POST",
+//     body: JSON.stringify(animeToSave),
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   });
+//   if (!response.ok) {
+//     if (response.status === 401) {
+//       console.log("User is not logged in");
+//       window.location.replace("/login");
+//     } else if (response.status === 500) {
+//       alert("Anime is already in your list");
+//     } else {
+//       console.log("Error");
+//     }
+//   } else {
+//     console.log("Added to list");
+//   }
+// });

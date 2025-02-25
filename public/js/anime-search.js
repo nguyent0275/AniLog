@@ -1,4 +1,6 @@
 const animeDiv = document.querySelector(".anime-div");
+const searchFormDiv = document.getElementById("search-form-div");
+searchFormDiv.style.visibility = "hidden";
 
 const addYearFilter = function () {
   let nextYear = new Date().getFullYear() + 1;
@@ -82,6 +84,8 @@ function addCategoryFilters(categoryFilter) {
     genreOption.textContent = categoryFilter[i][0];
     document.getElementById("genre").append(genreOption);
   }
+
+  searchFormDiv.style.visibility = "visible";
 }
 
 categoriesFilter();
@@ -193,6 +197,16 @@ const formHandler = async (title, genre, year, season, format) => {
         window.location.assign(`/anime/${animeId}`);
       });
     }
+  }
+
+  // if no anime can be found, will display an error
+
+  if (animeDiv.innerHTML === "") {
+    console.log("test");
+    animeDiv.innerHTML += `
+    <div>
+      <h3>No Results</h3>
+    </div>`;
   }
 };
 

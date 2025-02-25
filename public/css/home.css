@@ -3,6 +3,10 @@
   background-color: #a6b1e1;
 }
 
+.main {
+  display: flex;
+}
+
 .card {
   background-color: #f4eeff;
   width: 75%;
@@ -73,10 +77,45 @@ button {
   display: block;
 }
 
-
 .container-fluid {
   display: flex;
   align-items: center;
+}
+
+.top-10 {
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+  align-content: space-evenly;
+}
+
+.top-anime-div {
+  display: flex;
+  height: 160px;
+  margin-bottom: 1rem;
+}
+
+.top-10-img {
+  max-width: 110px;
+  max-height: 160px;
+}
+
+.top-anime-div p {
+  font-size: 1rem;
+}
+
+@container top-anime-div (height: 160px) {
+  .top-anime-div p {
+    font-size: 0.1rem;
+  }
+}
+
+.ranking {
+  margin-right: 1rem;
+}
+
+#rank-10 {
+  margin-left: -0.5rem;
 }
 
 /* AniLog */
