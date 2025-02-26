@@ -56,7 +56,7 @@ router.get("/profile", async (req, res) => {
 
 router.get("/search", async (req, res) => {
   try {
-    res.render("browse", {
+    res.render("search", {
       loggedIn: req.session.logged_in,
       userName: req.session.user_name,
     });
