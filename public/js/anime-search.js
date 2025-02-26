@@ -1,6 +1,8 @@
 const animeDiv = document.querySelector(".anime-div");
 const searchFormDiv = document.getElementById("search-form-div");
-searchFormDiv.style.visibility = "hidden";
+const spinningLoader = document.querySelector(".loader");
+// starts off not displaying until all the options for the filters are loaded
+searchFormDiv.style.display = "none";
 
 const addYearFilter = function () {
   let nextYear = new Date().getFullYear() + 1;
@@ -85,7 +87,11 @@ function addCategoryFilters(categoryFilter) {
     document.getElementById("genre").append(genreOption);
   }
 
-  searchFormDiv.style.visibility = "visible";
+  // if genre is has more than 10 options, show the filters and hide the loader
+  if (document.querySelector("#genre").children.length > 10) {
+    spinningLoader.style.display = "none";
+    searchFormDiv.style.display = "block";
+  }
 }
 
 categoriesFilter();

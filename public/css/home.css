@@ -1,6 +1,73 @@
+/* IMAGE SLIDER CSS */
 .hero {
-  padding: 10rem;
-  background-color: #a6b1e1;
+  width: 100%;
+  height: 50vh;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: all 0.5s ease;
+}
+
+.slide img {
+  height: 100%;
+}
+
+.current {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.content {
+  position: absolute;
+  top: 23rem;
+  opacity: 0;
+  color: white;
+  padding: 3rem;
+  transform: translateX(3rem);
+  backdrop-filter: blur(5px);
+  font-weight: bolder;
+}
+
+.current .content {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.5s ease;
+}
+
+.buttons button {
+  border: 2px solid white;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.buttons button:hover {
+  background-color: white;
+  color: #777;
+}
+
+.next {
+  top: 30%;
+  right: 1.5rem;
+}
+
+.prev {
+  top: 30%;
+  left: 1.5rem;
 }
 
 .main {

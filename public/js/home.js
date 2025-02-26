@@ -2,34 +2,129 @@
 //   const categoryFilter = "/anime?filter[categories]=adventure";
 //   const textFilter = "/anime?filter[text]=";
 
-// array of api urls for fetches
-const apiFetchArray = [
-  // "https://kitsu.io/api/edge/anime?sort=ratingRank",
-  "https://kitsu.io/api/edge/anime?sort=popularityRank",
-  "https://kitsu.io/api/edge/anime?filter[categories]=romance",
-  "https://kitsu.io/api/edge/anime?filter[categories]=sports",
-  "https://kitsu.io/api/edge/anime?filter[categories]=shoujo",
-  "https://kitsu.io/api/edge/anime?filter[subtype]=movie",
-];
+const renderSpinningLoader = function () {
+  let spinningLoader = document.querySelector(".loader");
+  if (document.body.innerHTML === "") {
+    spinningLoader.style.display = "block";
+  } else {
+    spinningLoader.style.display = "none";
+  }
+};
+renderSpinningLoader();
 
-// array of class names of the carousels from the home.handlebars
-const carouselCategoryArray = [
-  ".top",
-  ".popular",
-  ".romance",
-  ".sports",
-  ".shoujo",
-  ".movie",
-];
+const renderHeroSlider = async function () {
+  let heroSlider = document.querySelector(".hero");
+  // current season and year fetch
+  // https://kitsu.io/api/edge/anime?filter[seasonYear]=${year}&filter[season]=${season}
+  let year = new Date().getFullYear();
+  let month = new Date().getMonth();
+  let season;
+  console.log(year, month);
+  if (month <= 3) {
+    season = "winter";
+  } else if (month > 3 && month <= 6) {
+    season = "spring";
+  } else if (month > 6 && month <= 9) {
+    season = "summer";
+  } else if (month > 9 && month <= 12) {
+    season = "fall";
+  }
+
+  let req = await fetch(
+    `https://kitsu.io/api/edge/anime?filter[seasonYear]=${year}&filter[season]=${season}`
+  );
+  let data = await req.json();
+  console.log(data);
+
+  let airingAnime = data.data;
+  for (let i = 0; i < airingAnime.length; i++) {
+    let bannerImg;
+    if (airingAnime[i].attributes.coverImage) {
+      bannerImg = airingAnime[i].attributes.coverImage.large;
+    } else {
+      bannerImg = airingAnime[i].attributes.posterImage.large;
+    }
+    heroSlider.insertAdjacentHTML(
+      "beforeend",
+      `
+      <div id='slide-${i + 1}' class="slide" data-id="${airingAnime[i].id}">
+        <img class="banner-img" src="${bannerImg}" alt="" />
+        <div class="content">
+          <h3 class="banner-title">${airingAnime[i].attributes.titles.en}</h3>
+        </div>
+      </div>
+    `
+    );
+  }
+
+  let slide1 = document.getElementById("slide-1");
+  const slides = document.querySelectorAll(".slide");
+  const next = document.querySelector(".next");
+  const prev = document.querySelector(".prev");
+  let autoScroll = true;
+  let slideInterval;
+  let intervalTime = 5000;
+  // makes the first slide the active/current one
+  slide1.classList.add("current");
+
+  heroSlider.addEventListener("click", (e) => {
+    let currentAnimeId = document.querySelector(".current").dataset.id;
+    window.location.href = `/anime/${currentAnimeId}`;
+  });
+
+  const nextSlide = function () {
+    const current = document.querySelector(".current");
+    current.classList.remove("current");
+    if (current.nextElementSibling) {
+      current.nextElementSibling.classList.add("current");
+    } else {
+      slides[0].classList.add("current");
+    }
+    current.classList.remove("current");
+  };
+
+  const prevSlide = function () {
+    const current = document.querySelector(".current");
+    current.classList.remove("current");
+    if (current.previousElementSibling) {
+      current.previousElementSibling.classList.add("current");
+    } else {
+      slides[slides.length - 1].classList.add("current");
+    }
+    current.classList.remove("current");
+  };
+
+  next.addEventListener("click", () => {
+    nextSlide();
+    if (autoScroll) {
+      clearInterval(slideInterval);
+      auto();
+    }
+  });
+  prev.addEventListener("click", () => {
+    prevSlide();
+    if (autoScroll) {
+      clearInterval(slideInterval);
+      auto();
+    }
+  });
+
+  if (autoScroll) {
+    function auto() {
+      slideInterval = setInterval(nextSlide, intervalTime);
+    }
+  }
+
+  auto();
+};
+renderHeroSlider();
 
 const renderTop10Anime = async function () {
   let top10Div = document.querySelector(".top-10");
   let res = await fetch("https://kitsu.io/api/edge/anime?sort=ratingRank");
   let data = await res.json();
-  console.log(data.length);
   for (let i = 0; i < data.data.length; i++) {
     let anime = data.data[i];
-    console.log(anime);
 
     top10Div.insertAdjacentHTML(
       "beforeend",

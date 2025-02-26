@@ -14,3 +14,24 @@
 #big-list-container {
   padding: 1rem 2rem;
 }
+
+.loader {
+  border: 8px solid #a6b1e1;
+  border-top: 8px solid #424874;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

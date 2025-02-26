@@ -5,6 +5,8 @@ const close = document.querySelector(".close");
 const loginSection = document.querySelector(".login");
 const registerSection = document.querySelector(".register");
 const forgotSection = document.querySelector(".forgot");
+const spinningLoader = document.querySelector(".loader");
+spinningLoader.style.display = "none";
 
 register.addEventListener("click", (e) => {
   e.preventDefault;
@@ -22,7 +24,7 @@ forgot.addEventListener("click", (e) => {
   console.log("test");
   e.preventDefault;
   loginSection.style.display = "none";
-  registerSection.style.display = "none"; 
+  registerSection.style.display = "none";
   forgotSection.style.display = "flex";
 });
 
@@ -33,12 +35,9 @@ close.addEventListener("click", () => {
 
 const loginFormHandler = async (event) => {
   event.preventDefault(event);
-  // console.log("logging in");
 
   const email = document.getElementById("email-login").value.trim();
   const password = document.getElementById("password-login").value.trim();
-
-  // console.log(email, password)
 
   // login route from controller
   if (email && password) {

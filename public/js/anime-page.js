@@ -114,6 +114,7 @@ const renderAnime = async function () {
 renderAnime();
 
 function renderHTML(anime, categoryHTML, relatedMediaHTML) {
+  const spinningLoader = document.querySelector(".loader");
   // checks the month the anime came out and returns a string that identifies the season
   function formatSeason() {
     let year = anime.startDate.slice(0, 4);
@@ -260,6 +261,8 @@ function renderHTML(anime, categoryHTML, relatedMediaHTML) {
       </div>
     </div>
   </div>`;
+
+  spinningLoader.style.display = "none";
 
   async function addToList(event) {
     console.log("test");
