@@ -2,9 +2,10 @@ const thumbnails = document.getElementsByClassName("thumbnail");
 const carousel = document.querySelector(".carousel");
 
 carousel.addEventListener("click", (e) => {
+  let slider;
   // selects the <section> container for sliding effect
-  let slider = e.target.parentNode.childNodes.tagName.contains("section");
   if (e.target.classList.contains("slide-left")) {
+    slider = e.target.parentNode.childNodes.tagName.contains("section");
     scrollAmount = 0;
     let slideTimer = setInterval(() => {
       slider.scrollLeft -= 10;
@@ -14,6 +15,7 @@ carousel.addEventListener("click", (e) => {
       }
     }, 25);
   } else if (e.target.classList.contains("slide-right")) {
+    slider = e.target.parentNode.childNodes.tagName.contains("section");
     scrollAmount = 0;
     let slideTimer = setInterval(() => {
       slider.scrollLeft += 10;

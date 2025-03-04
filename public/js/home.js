@@ -85,11 +85,11 @@ const renderCarousel = async function () {
     document.querySelector(".most-popular section").insertAdjacentHTML(
       "beforeend",
       `<div class="thumbnail">
-          <img src="${mostPopular[i].attributes.posterImage.tiny}" alt="" />
+          <img src="${mostPopular[i].attributes.posterImage.tiny}" alt="" data-id="${mostPopular[i].id}" />
           <div class="product-details">
             <a href="#">Add to List</a>
           </div>
-        </div>`
+      </div>`
     );
   }
 
@@ -97,11 +97,11 @@ const renderCarousel = async function () {
     document.querySelector(".upcoming section").insertAdjacentHTML(
       "beforeend",
       `<div class="thumbnail">
-          <img src="${upcomingSeason[i].attributes.posterImage.tiny}" alt="" />
+          <img src="${upcomingSeason[i].attributes.posterImage.tiny}" alt="" data-id="${upcomingSeason[i].id}"/>
           <div class="product-details">
             <a href="#">Add to List</a>
           </div>
-        </div>`
+      </div>`
     );
   }
 
@@ -109,13 +109,21 @@ const renderCarousel = async function () {
     document.querySelector(".popular-airing section").insertAdjacentHTML(
       "beforeend",
       `<div class="thumbnail">
-          <img src="${popularAiring[i].attributes.posterImage.tiny}" alt="" />
+          <img src="${popularAiring[i].attributes.posterImage.tiny}" alt="" data-id="${popularAiring[i].id}" />
           <div class="product-details">
             <a href="#">Add to List</a>
           </div>
         </div>`
     );
   }
+
+  document.querySelector(".carousel").addEventListener("click", (e) => {
+    console.log(e.target);
+    if (e.target.tagName === "IMG") {
+      console.log("test");
+      window.location.href = `/anime/${e.target.dataset.id}`;
+    }
+  });
 };
 
 const renderHeroSlider = async function () {
