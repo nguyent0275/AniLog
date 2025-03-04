@@ -1,3 +1,8 @@
+let spinningLoader = document.querySelector(".loader");
+let mainDiv = document.querySelector(".main");
+mainDiv.style.display = "none";
+spinningLoader.style.display = "block";
+
 const getCurrentYearAndMonth = function () {
   let year = new Date().getFullYear();
   let month = new Date().getMonth();
@@ -14,15 +19,12 @@ const getCurrentYearAndMonth = function () {
   return [year, month, season];
 };
 
-const renderSpinningLoader = function () {
-  let spinningLoader = document.querySelector(".loader");
-  if (document.body.innerHTML === "") {
-    spinningLoader.style.display = "block";
-  } else {
+const renderSpinningLoader = async function () {
+  if (document.querySelector(".thumbnail")) {
     spinningLoader.style.display = "none";
+    document.querySelector(".main").style.display = "flex";
   }
 };
-renderSpinningLoader();
 
 /*
 Most Popular
@@ -71,6 +73,7 @@ const fetchCarouselData = async function () {
   let mostPopular = await fetchMostPopular();
   let upcomingSeason = await fetchUpcomingSeason();
   let popularAiring = await fetchPopularAiring();
+
   return [mostPopular, upcomingSeason, popularAiring];
 };
 
@@ -114,39 +117,39 @@ const renderCarousel = async function () {
     );
   }
 };
-renderCarousel();
 
 const renderHeroSlider = async function () {
   let heroSlider = document.querySelector(".hero");
   let [year, month, season] = getCurrentYearAndMonth();
 
-  // current season and year fetch
-  // https://kitsu.io/api/edge/anime?filter[seasonYear]=${year}&filter[season]=${season}
-
   let res = await fetch(
-    `https://kitsu.io/api/edge/anime?filter[seasonYear]=${year}&filter[season]=${season}&sort=popularityRank`
+    `https://kitsu.io/api/edge/anime?filter[seasonYear]=${year}&filter[season]=${season}&sort=popularityRank&page[limit]=20`
   );
   let data = await res.json();
 
   let airingAnime = data.data;
   for (let i = 0; i < airingAnime.length; i++) {
     let bannerImg;
+    let title;
     if (airingAnime[i].attributes.coverImage) {
       bannerImg = airingAnime[i].attributes.coverImage.large;
-    } else {
-      bannerImg = airingAnime[i].attributes.posterImage.large;
-    }
-    heroSlider.insertAdjacentHTML(
-      "beforeend",
-      `
+      if (!airingAnime[i].attributes.titles.en) {
+        title = airingAnime[i].attributes.canonicalTitle;
+      } else {
+        title = airingAnime[i].attributes.titles.en;
+      }
+      heroSlider.insertAdjacentHTML(
+        "beforeend",
+        `
       <div id='slide-${i + 1}' class="slide" data-id="${airingAnime[i].id}">
         <img class="banner-img" src="${bannerImg}" alt="" />
         <div class="content">
-          <h3 class="banner-title">${airingAnime[i].attributes.titles.en}</h3>
+          <h3 class="banner-title">${title}</h3>
         </div>
       </div>
     `
-    );
+      );
+    }
   }
 
   let slide1 = document.getElementById("slide-1");
@@ -209,7 +212,6 @@ const renderHeroSlider = async function () {
 
   auto();
 };
-renderHeroSlider();
 
 const renderTop10Anime = async function () {
   let top10Div = document.querySelector(".top-10");
@@ -235,7 +237,13 @@ const renderTop10Anime = async function () {
   }
 };
 
-renderTop10Anime();
+async function render() {
+  await renderCarousel();
+  await renderHeroSlider();
+  await renderTop10Anime();
+  await renderSpinningLoader();
+}
+render();
 
 // adds the ability to directly add to list if use is logged in, if not logged in will redirect to the login page
 // addToListBtn.on("click", async function (event) {
