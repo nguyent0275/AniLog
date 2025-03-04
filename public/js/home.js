@@ -1,6 +1,18 @@
-//   const baseUrl = "https://kitsu.io/api/edge";
-//   const categoryFilter = "/anime?filter[categories]=adventure";
-//   const textFilter = "/anime?filter[text]=";
+const getCurrentYearAndMonth = function () {
+  let year = new Date().getFullYear();
+  let month = new Date().getMonth();
+  let season;
+  if (month <= 3) {
+    season = "winter";
+  } else if (month > 3 && month <= 6) {
+    season = "spring";
+  } else if (month > 6 && month <= 9) {
+    season = "summer";
+  } else if (month > 9 && month <= 12) {
+    season = "fall";
+  }
+  return [year, month, season];
+};
 
 const renderSpinningLoader = function () {
   let spinningLoader = document.querySelector(".loader");
@@ -12,29 +24,109 @@ const renderSpinningLoader = function () {
 };
 renderSpinningLoader();
 
-const renderHeroSlider = async function () {
-  let heroSlider = document.querySelector(".hero");
-  // current season and year fetch
-  // https://kitsu.io/api/edge/anime?filter[seasonYear]=${year}&filter[season]=${season}
-  let year = new Date().getFullYear();
-  let month = new Date().getMonth();
-  let season;
-  console.log(year, month);
-  if (month <= 3) {
-    season = "winter";
-  } else if (month > 3 && month <= 6) {
-    season = "spring";
-  } else if (month > 6 && month <= 9) {
-    season = "summer";
-  } else if (month > 9 && month <= 12) {
-    season = "fall";
+/*
+Most Popular
+Upcoming Season
+Popular Airing
+*/
+const fetchCarouselData = async function () {
+  const fetchMostPopular = async function (params) {
+    let res = await fetch(
+      `https://kitsu.io/api/edge/anime?sort=popularityRank`
+    );
+    let data = await res.json();
+    return data.data;
+  };
+
+  const fetchUpcomingSeason = async function (params) {
+    let nextSeason;
+    let [year, month, season] = getCurrentYearAndMonth();
+    // finds the next season based on current season
+    switch (season) {
+      case "winter":
+        nextSeason = "spring";
+        break;
+      case "spring":
+        nextSeason = "summer";
+      case "summer":
+        nextSeason = "fall";
+      case "fall":
+        nextSeason = "winter";
+    }
+    let res = await fetch(
+      `https://kitsu.io/api/edge/anime?filter[seasonYear]=${year}&filter[season]=${nextSeason}`
+    );
+    let data = await res.json();
+    return data.data;
+  };
+
+  const fetchPopularAiring = async function () {
+    let res = await fetch(
+      `https://kitsu.io/api/edge/anime?sort=popularityRank&filter[status]=current`
+    );
+    let data = await res.json();
+    return data.data;
+  };
+
+  let mostPopular = await fetchMostPopular();
+  let upcomingSeason = await fetchUpcomingSeason();
+  let popularAiring = await fetchPopularAiring();
+  return [mostPopular, upcomingSeason, popularAiring];
+};
+
+const renderCarousel = async function () {
+  let [mostPopular, upcomingSeason, popularAiring] = await fetchCarouselData();
+
+  // for loop for creating carousel and carousel items for each category and anime
+  for (let i = 0; i < mostPopular.length; i++) {
+    document.querySelector(".most-popular section").insertAdjacentHTML(
+      "beforeend",
+      `<div class="thumbnail">
+          <img src="${mostPopular[i].attributes.posterImage.tiny}" alt="" />
+          <div class="product-details">
+            <a href="#">Add to List</a>
+          </div>
+        </div>`
+    );
   }
 
-  let req = await fetch(
-    `https://kitsu.io/api/edge/anime?filter[seasonYear]=${year}&filter[season]=${season}`
+  for (let i = 0; i < upcomingSeason.length; i++) {
+    document.querySelector(".upcoming section").insertAdjacentHTML(
+      "beforeend",
+      `<div class="thumbnail">
+          <img src="${upcomingSeason[i].attributes.posterImage.tiny}" alt="" />
+          <div class="product-details">
+            <a href="#">Add to List</a>
+          </div>
+        </div>`
+    );
+  }
+
+  for (let i = 0; i < popularAiring.length; i++) {
+    document.querySelector(".popular-airing section").insertAdjacentHTML(
+      "beforeend",
+      `<div class="thumbnail">
+          <img src="${popularAiring[i].attributes.posterImage.tiny}" alt="" />
+          <div class="product-details">
+            <a href="#">Add to List</a>
+          </div>
+        </div>`
+    );
+  }
+};
+renderCarousel();
+
+const renderHeroSlider = async function () {
+  let heroSlider = document.querySelector(".hero");
+  let [year, month, season] = getCurrentYearAndMonth();
+
+  // current season and year fetch
+  // https://kitsu.io/api/edge/anime?filter[seasonYear]=${year}&filter[season]=${season}
+
+  let res = await fetch(
+    `https://kitsu.io/api/edge/anime?filter[seasonYear]=${year}&filter[season]=${season}&sort=popularityRank`
   );
-  let data = await req.json();
-  console.log(data);
+  let data = await res.json();
 
   let airingAnime = data.data;
   for (let i = 0; i < airingAnime.length; i++) {
