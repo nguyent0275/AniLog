@@ -152,7 +152,7 @@ const renderHeroSlider = async function () {
       <div id='slide-${i + 1}' class="slide" data-id="${airingAnime[i].id}">
         <img class="banner-img" src="${bannerImg}" alt="" />
         <div class="content">
-          <h3 class="banner-title">${title}</h3>
+          <h3 class="banner-title"><span>${title}<span></h3>
         </div>
       </div>
     `

@@ -32,10 +32,8 @@
   top: 23rem;
   opacity: 0;
   color: white;
-  padding: 3rem;
-  transform: translateX(3rem);
-  backdrop-filter: blur(5px);
-  font-weight: bolder;
+  padding-left: 2.5rem;
+  padding-top: 7rem;
 }
 
 .current .content {
@@ -238,4 +236,8 @@ button {
   h5 {
     font-size: x-small;
   }
+}
+
+.banner-title span {
+  background-color: #333333;
 }
