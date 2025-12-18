@@ -347,47 +347,52 @@ const carouselScrollEffect = async function () {
   WORK IN PROGRESS
   Carousel is speeding up indefinitely after mouse in and out
   */
-  // Array.from(mostPopularSlider.children).forEach((e) => {
-  //   e.addEventListener("mouseover", (e) => {
-  //     if (e.target.parentNode.parentNode.className == "thumbnail-container") {
-  //       clearInterval(playMostPopular);
-  //       e.target.parentNode.parentNode.style.visibility = "visible";
-  //       e.target.parentNode.parentNode.style.zIndex = "1000";
-  //     }
-  //   });
-  // });
+  Array.from(mostPopularSlider.children).forEach((e) => {
+    e.addEventListener("mouseover", (e) => {
+      if (e.target.parentNode.parentNode.className == "thumbnail-container") {
+        e.target.parentNode.parentNode.getElementsByClassName(
+          "thumbnail-info"
+        )[0].style.cssText = "display: block;";
+        e.target.parentNode.parentNode.style.zIndex = "1000";
+        e.target.parentNode.parentNode.style.transform = "scale(1)";
+      }
+    });
+    e.addEventListener("mouseout", (e) => {
+      if (e.target.parentNode.parentNode.className == "thumbnail-container") {
+        e.target.parentNode.parentNode.getElementsByClassName(
+          "thumbnail-info"
+        )[0].style.cssText = "display: none;";
+        e.target.parentNode.parentNode.style.zIndex = "auto";
+        e.target.parentNode.parentNode.style.transform = "scale(.95)";
+      }
+    });
+  });
 
-  // Array.from(mostPopularSlider.children).forEach((e) => {
-  //   e.addEventListener("mouseout", (e) => {
-  //     return (playMostPopular = setInterval(autoPlayMostPopular, 20));
-  //   });
-  // });
+  mostPopularSlider.addEventListener("mouseover", () => {
+    clearInterval(playMostPopular);
+  });
+  mostPopularSlider.addEventListener("mouseout", () => {
+    return (playMostPopular = setInterval(autoPlayMostPopular, 20));
+  });
 
-  // mostPopularSlider.addEventListener("mouseover", () => {
-  //   clearInterval(playMostPopular);
-  // });
-  // mostPopularSlider.addEventListener("mouseout", () => {
-  //   return (playMostPopular = setInterval(autoPlayMostPopular, 20));
-  // });
+  upcomingSeasonSlider.addEventListener("mouseover", () => {
+    clearInterval(playUpcomingSeason);
+  });
+  upcomingSeasonSlider.addEventListener("mouseout", () => {
+    return (playUpcomingSeason = setInterval(autoPlayUpcomingSeason, 20));
+  });
 
-  // upcomingSeasonSlider.addEventListener("mouseover", () => {
-  //   clearInterval(playUpcomingSeason);
-  // });
-  // upcomingSeasonSlider.addEventListener("mouseout", () => {
-  //   return (playUpcomingSeason = setInterval(autoPlayUpcomingSeason, 20));
-  // });
-
-  // popularAiringSlider.addEventListener("mouseover", () => {
-  //   clearInterval(playPopularAiring);
-  // });
-  // popularAiringSlider.addEventListener("mouseout", () => {
-  //   return (playPopularAiring = setInterval(autoPlayPopularAiring, 20));
-  // });
+  popularAiringSlider.addEventListener("mouseover", () => {
+    clearInterval(playPopularAiring);
+  });
+  popularAiringSlider.addEventListener("mouseout", () => {
+    return (playPopularAiring = setInterval(autoPlayPopularAiring, 20));
+  });
 
   // // intervals for the sliders to autoplay
-  // let playMostPopular = setInterval(autoPlayMostPopular, 20);
-  // let playUpcomingSeason = setInterval(autoPlayUpcomingSeason, 20);
-  // let playPopularAiring = setInterval(autoPlayPopularAiring, 20);
+  let playMostPopular = setInterval(autoPlayMostPopular, 20);
+  let playUpcomingSeason = setInterval(autoPlayUpcomingSeason, 20);
+  let playPopularAiring = setInterval(autoPlayPopularAiring, 20);
 
   // Pause slider on hover
   // loop through HTML collection of thumbnails and adds a mouseover and mouseout event

@@ -75,16 +75,15 @@ section::-webkit-scrollbar-thumb {
   cursor: pointer;
   margin: 5px;
   border: 1px solid var(--black);
-  /* overflow: hidden; */
   transform: scale(0.95);
   transition: all 0.3s;
 }
 
-.thumbnail-container:hover {
+/* .thumbnail-container:hover {
   transform: scale(1);
   display: block;
   z-index: 1000;
-}
+} */
 /* 
 .thumbnail-info-container {
   position: relative;
@@ -105,7 +104,7 @@ section::-webkit-scrollbar-thumb {
   bottom: 0;
   left: 120px;
   background-color: lightgrey;
-  /* visibility: hidden; */
+  display: none;
 }
 
 .synopsis {
