@@ -79,28 +79,45 @@ const fetchCarouselData = async function () {
 
 const renderCarousel = async function () {
   let [mostPopular, upcomingSeason, popularAiring] = await fetchCarouselData();
+  console.log(mostPopular);
 
   // for loop for creating carousel and carousel items for each category and anime
   for (let i = 0; i < mostPopular.length; i++) {
     document.querySelector(".most-popular section").insertAdjacentHTML(
       "beforeend",
-      `<div class="thumbnail">
+      `<div class="thumbnail-container">
+      <div class="thumbnail">
           <img src="${mostPopular[i].attributes.posterImage.tiny}" alt="" data-id="${mostPopular[i].id}" />
           <div class="product-details">
             <a href="#">Add to List</a>
           </div>
-      </div>`
+      </div>
+      <div class="thumbnail-info-container">
+        <div class="thumbnail-info">
+          <h6 class="thumbnail-title">${mostPopular[i].attributes.canonicalTitle}</h6>
+          <p class='synopsis'>${mostPopular[i].attributes.synopsis}</p>
+        </div>
+      </div>
+    </div>`
     );
   }
 
   for (let i = 0; i < upcomingSeason.length; i++) {
     document.querySelector(".upcoming section").insertAdjacentHTML(
       "beforeend",
-      `<div class="thumbnail">
+      `<div class="thumbnail-container">
+      <div class="thumbnail">
           <img src="${upcomingSeason[i].attributes.posterImage.tiny}" alt="" data-id="${upcomingSeason[i].id}"/>
           <div class="product-details">
             <a href="#">Add to List</a>
           </div>
+      </div>      
+      <div class="thumbnail-info-container">
+        <div class="thumbnail-info">
+          <h6 class="thumbnail-title">${upcomingSeason[i].attributes.canonicalTitle}</h6>
+          <p class='synopsis'>${upcomingSeason[i].attributes.synopsis}</p>
+        </div>
+      </div>
       </div>`
     );
   }
@@ -108,11 +125,19 @@ const renderCarousel = async function () {
   for (let i = 0; i < popularAiring.length; i++) {
     document.querySelector(".popular-airing section").insertAdjacentHTML(
       "beforeend",
-      `<div class="thumbnail">
+      `<div class="thumbnail-container">
+      <div class="thumbnail">
           <img src="${popularAiring[i].attributes.posterImage.tiny}" alt="" data-id="${popularAiring[i].id}" />
           <div class="product-details">
             <a href="#">Add to List</a>
           </div>
+        </div>
+       <div class="thumbnail-info-container">
+        <div class="thumbnail-info">
+          <h6 class="thumbnail-title">${popularAiring[i].attributes.canonicalTitle}</h6>
+          <p class='synopsis'>${popularAiring[i].attributes.synopsis}</p>
+        </div>
+      </div>
         </div>`
     );
   }
@@ -318,40 +343,52 @@ const carouselScrollEffect = async function () {
   // Pause slider on hover
   // loop through HTML collection of thumbnails and adds a mouseover and mouseout event
   // mouseover pauses slider, mouseout resumes slider
-  mostPopularSlider.addEventListener("mouseover", () => {
-    clearInterval(playMostPopular);
-  });
-  mostPopularSlider.addEventListener("mouseout", () => {
-    return (playMostPopular = setInterval(autoPlayMostPopular, 20));
-  });
+  /*
+  WORK IN PROGRESS
+  Carousel is speeding up indefinitely after mouse in and out
+  */
+  // Array.from(mostPopularSlider.children).forEach((e) => {
+  //   e.addEventListener("mouseover", (e) => {
+  //     if (e.target.parentNode.parentNode.className == "thumbnail-container") {
+  //       clearInterval(playMostPopular);
+  //       e.target.parentNode.parentNode.style.visibility = "visible";
+  //       e.target.parentNode.parentNode.style.zIndex = "1000";
+  //     }
+  //   });
+  // });
 
-  upcomingSeasonSlider.addEventListener("mouseover", () => {
-    clearInterval(playUpcomingSeason);
-  });
-  upcomingSeasonSlider.addEventListener("mouseout", () => {
-    return (playUpcomingSeason = setInterval(autoPlayUpcomingSeason, 20));
-  });
+  // Array.from(mostPopularSlider.children).forEach((e) => {
+  //   e.addEventListener("mouseout", (e) => {
+  //     return (playMostPopular = setInterval(autoPlayMostPopular, 20));
+  //   });
+  // });
 
-  popularAiringSlider.addEventListener("mouseover", () => {
-    clearInterval(playPopularAiring);
-  });
-  popularAiringSlider.addEventListener("mouseout", () => {
-    return (playPopularAiring = setInterval(autoPlayPopularAiring, 20));
-  });
+  // mostPopularSlider.addEventListener("mouseover", () => {
+  //   clearInterval(playMostPopular);
+  // });
+  // mostPopularSlider.addEventListener("mouseout", () => {
+  //   return (playMostPopular = setInterval(autoPlayMostPopular, 20));
+  // });
 
-  // intervals for the sliders to autoplay
-  let playMostPopular = setInterval(autoPlayMostPopular, 20);
-  let playUpcomingSeason = setInterval(autoPlayUpcomingSeason, 20);
-  let playPopularAiring = setInterval(autoPlayPopularAiring, 20);
+  // upcomingSeasonSlider.addEventListener("mouseover", () => {
+  //   clearInterval(playUpcomingSeason);
+  // });
+  // upcomingSeasonSlider.addEventListener("mouseout", () => {
+  //   return (playUpcomingSeason = setInterval(autoPlayUpcomingSeason, 20));
+  // });
 
-  // autoplays all sliders
-  function autoPlay() {
-    autoPlayMostPopular();
-    autoPlayUpcomingSeason();
-    autoPlayPopularAiring();
-  }
+  // popularAiringSlider.addEventListener("mouseover", () => {
+  //   clearInterval(playPopularAiring);
+  // });
+  // popularAiringSlider.addEventListener("mouseout", () => {
+  //   return (playPopularAiring = setInterval(autoPlayPopularAiring, 20));
+  // });
 
-  autoPlay();
+  // // intervals for the sliders to autoplay
+  // let playMostPopular = setInterval(autoPlayMostPopular, 20);
+  // let playUpcomingSeason = setInterval(autoPlayUpcomingSeason, 20);
+  // let playPopularAiring = setInterval(autoPlayPopularAiring, 20);
+
   // Pause slider on hover
   // loop through HTML collection of thumbnails and adds a mouseover and mouseout event
   // mouseover pauses slider, mouseout resumes slider
