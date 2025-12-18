@@ -340,63 +340,64 @@ const carouselScrollEffect = async function () {
     }
   }
 
+  let carouselSliders = [
+    mostPopularSlider,
+    upcomingSeasonSlider,
+    popularAiringSlider,
+  ];
+
+  // Show anime title and synopsis on hover
+  for (let i = 0; i < carouselSliders.length; i++) {
+    Array.from(carouselSliders[i].children).forEach((e) => {
+      e.addEventListener("mouseover", (e) => {
+        if (e.target.parentNode.parentNode.className == "thumbnail-container") {
+          e.target.parentNode.parentNode.getElementsByClassName(
+            "thumbnail-info"
+          )[0].style.cssText = "display: block;";
+          e.target.parentNode.parentNode.style.zIndex = "1000";
+          e.target.parentNode.parentNode.style.transform = "scale(1)";
+        }
+      });
+      e.addEventListener("mouseout", (e) => {
+        if (e.target.parentNode.parentNode.className == "thumbnail-container") {
+          e.target.parentNode.parentNode.getElementsByClassName(
+            "thumbnail-info"
+          )[0].style.cssText = "display: none;";
+          e.target.parentNode.parentNode.style.zIndex = "auto";
+          e.target.parentNode.parentNode.style.transform = "scale(.95)";
+        }
+      });
+    });
+  }
+
   // Pause slider on hover
   // loop through HTML collection of thumbnails and adds a mouseover and mouseout event
   // mouseover pauses slider, mouseout resumes slider
-  /*
-  WORK IN PROGRESS
-  Carousel is speeding up indefinitely after mouse in and out
-  */
-  Array.from(mostPopularSlider.children).forEach((e) => {
-    e.addEventListener("mouseover", (e) => {
-      if (e.target.parentNode.parentNode.className == "thumbnail-container") {
-        e.target.parentNode.parentNode.getElementsByClassName(
-          "thumbnail-info"
-        )[0].style.cssText = "display: block;";
-        e.target.parentNode.parentNode.style.zIndex = "1000";
-        e.target.parentNode.parentNode.style.transform = "scale(1)";
-      }
-    });
-    e.addEventListener("mouseout", (e) => {
-      if (e.target.parentNode.parentNode.className == "thumbnail-container") {
-        e.target.parentNode.parentNode.getElementsByClassName(
-          "thumbnail-info"
-        )[0].style.cssText = "display: none;";
-        e.target.parentNode.parentNode.style.zIndex = "auto";
-        e.target.parentNode.parentNode.style.transform = "scale(.95)";
-      }
-    });
-  });
+  // mostPopularSlider.addEventListener("mouseover", () => {
+  //   clearInterval(playMostPopular);
+  // });
+  // mostPopularSlider.addEventListener("mouseout", () => {
+  //   return (playMostPopular = setInterval(autoPlayMostPopular, 20));
+  // });
 
-  mostPopularSlider.addEventListener("mouseover", () => {
-    clearInterval(playMostPopular);
-  });
-  mostPopularSlider.addEventListener("mouseout", () => {
-    return (playMostPopular = setInterval(autoPlayMostPopular, 20));
-  });
+  // upcomingSeasonSlider.addEventListener("mouseover", () => {
+  //   clearInterval(playUpcomingSeason);
+  // });
+  // upcomingSeasonSlider.addEventListener("mouseout", () => {
+  //   return (playUpcomingSeason = setInterval(autoPlayUpcomingSeason, 20));
+  // });
 
-  upcomingSeasonSlider.addEventListener("mouseover", () => {
-    clearInterval(playUpcomingSeason);
-  });
-  upcomingSeasonSlider.addEventListener("mouseout", () => {
-    return (playUpcomingSeason = setInterval(autoPlayUpcomingSeason, 20));
-  });
-
-  popularAiringSlider.addEventListener("mouseover", () => {
-    clearInterval(playPopularAiring);
-  });
-  popularAiringSlider.addEventListener("mouseout", () => {
-    return (playPopularAiring = setInterval(autoPlayPopularAiring, 20));
-  });
+  // popularAiringSlider.addEventListener("mouseover", () => {
+  //   clearInterval(playPopularAiring);
+  // });
+  // popularAiringSlider.addEventListener("mouseout", () => {
+  //   return (playPopularAiring = setInterval(autoPlayPopularAiring, 20));
+  // });
 
   // // intervals for the sliders to autoplay
-  let playMostPopular = setInterval(autoPlayMostPopular, 20);
-  let playUpcomingSeason = setInterval(autoPlayUpcomingSeason, 20);
-  let playPopularAiring = setInterval(autoPlayPopularAiring, 20);
-
-  // Pause slider on hover
-  // loop through HTML collection of thumbnails and adds a mouseover and mouseout event
-  // mouseover pauses slider, mouseout resumes slider
+  // let playMostPopular = setInterval(autoPlayMostPopular, 20);
+  // let playUpcomingSeason = setInterval(autoPlayUpcomingSeason, 20);
+  // let playPopularAiring = setInterval(autoPlayPopularAiring, 20);
 };
 
 async function render() {
