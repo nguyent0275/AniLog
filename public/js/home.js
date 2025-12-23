@@ -43,6 +43,7 @@ const fetchCarouselData = async function () {
   const fetchUpcomingSeason = async function (params) {
     let nextSeason;
     let [year, month, season] = getCurrentYearAndMonth();
+    console.log(year, month, season);
     // finds the next season based on current season
     switch (season) {
       case "winter":
@@ -52,8 +53,10 @@ const fetchCarouselData = async function () {
         nextSeason = "summer";
       case "summer":
         nextSeason = "fall";
+      // fall is the last season in the year. If the season is fall, the next upcoming season will be winter, but in the next year.
       case "fall":
         nextSeason = "winter";
+        year = year + 1;
     }
     let res = await fetch(
       `https://kitsu.io/api/edge/anime?filter[seasonYear]=${year}&filter[season]=${nextSeason}`
@@ -79,7 +82,6 @@ const fetchCarouselData = async function () {
 
 const renderCarousel = async function () {
   let [mostPopular, upcomingSeason, popularAiring] = await fetchCarouselData();
-  console.log(mostPopular);
 
   // for loop for creating carousel and carousel items for each category and anime
   for (let i = 0; i < mostPopular.length; i++) {
@@ -142,8 +144,8 @@ const renderCarousel = async function () {
     );
   }
 
+  // changes the page to the clicked anime's info page
   document.querySelector(".carousel").addEventListener("click", (e) => {
-    console.log(e.target);
     if (e.target.tagName === "IMG") {
       console.log("test");
       window.location.href = `/anime/${e.target.dataset.id}`;
