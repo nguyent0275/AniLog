@@ -43,7 +43,6 @@ const fetchCarouselData = async function () {
   const fetchUpcomingSeason = async function (params) {
     let nextSeason;
     let [year, month, season] = getCurrentYearAndMonth();
-    console.log(year, month, season);
     // finds the next season based on current season
     switch (season) {
       case "winter":
@@ -84,12 +83,13 @@ const renderCarousel = async function () {
   let [mostPopular, upcomingSeason, popularAiring] = await fetchCarouselData();
 
   // for loop for creating carousel and carousel items for each category and anime
+  // if api does not have access to a tiny poster img, will grab a bigger img and force a max height in CSS
   for (let i = 0; i < mostPopular.length; i++) {
     document.querySelector(".most-popular section").insertAdjacentHTML(
       "beforeend",
       `<div class="thumbnail-container">
       <div class="thumbnail">
-          <img src="${mostPopular[i].attributes.posterImage.tiny}" alt="" data-id="${mostPopular[i].id}" />
+          <img src="${mostPopular[i].attributes.posterImage.tiny ? mostPopular[i].attributes.posterImage.tiny : mostPopular[i].attributes.posterImage.original}" id="${!mostPopular[i].attributes.posterImage.tiny ? "big-poster" : ""}" alt="" data-id="${mostPopular[i].id}"/>
           <div class="product-details">
             <a href="#">Add to List</a>
           </div>
@@ -105,15 +105,16 @@ const renderCarousel = async function () {
   }
 
   for (let i = 0; i < upcomingSeason.length; i++) {
+    console.log(upcomingSeason[i].attributes);
     document.querySelector(".upcoming section").insertAdjacentHTML(
       "beforeend",
       `<div class="thumbnail-container">
       <div class="thumbnail">
-          <img src="${upcomingSeason[i].attributes.posterImage.tiny}" alt="" data-id="${upcomingSeason[i].id}"/>
+          <img src="${upcomingSeason[i].attributes.posterImage.tiny ? upcomingSeason[i].attributes.posterImage.tiny : upcomingSeason[i].attributes.posterImage.original}" id="${!upcomingSeason[i].attributes.posterImage.tiny ? "big-poster" : ""}" alt="" data-id="${upcomingSeason[i].id}"/>
           <div class="product-details">
             <a href="#">Add to List</a>
           </div>
-      </div>      
+      </div>        
       <div class="thumbnail-info-container">
         <div class="thumbnail-info">
           <h6 class="thumbnail-title">${upcomingSeason[i].attributes.canonicalTitle}</h6>
@@ -129,7 +130,7 @@ const renderCarousel = async function () {
       "beforeend",
       `<div class="thumbnail-container">
       <div class="thumbnail">
-          <img src="${popularAiring[i].attributes.posterImage.tiny}" alt="" data-id="${popularAiring[i].id}" />
+          <img src="${popularAiring[i].attributes.posterImage.tiny ? popularAiring[i].attributes.posterImage.tiny : popularAiring[i].attributes.posterImage.original}" id="${!popularAiring[i].attributes.posterImage.tiny ? "big-poster" : ""}" alt="" data-id="${popularAiring[i].id}"/>
           <div class="product-details">
             <a href="#">Add to List</a>
           </div>
@@ -147,7 +148,6 @@ const renderCarousel = async function () {
   // changes the page to the clicked anime's info page
   document.querySelector(".carousel").addEventListener("click", (e) => {
     if (e.target.tagName === "IMG") {
-      console.log("test");
       window.location.href = `/anime/${e.target.dataset.id}`;
     }
   });
@@ -187,6 +187,7 @@ const renderHeroSlider = async function () {
     }
   }
 
+  // Carousel Slide Effect
   let slide1 = document.getElementById("slide-1");
   const slides = document.querySelectorAll(".slide");
   const next = document.querySelector(".next");
@@ -257,19 +258,29 @@ const renderTop10Anime = async function () {
 
     top10Div.insertAdjacentHTML(
       "beforeend",
-      `<div class="top-anime-div">
+      `<div class="top-anime-div" >
         <span class="ranking" id="rank-${i + 1}" >${i + 1}</span>
-        <img class="top-10-img" src="${anime.attributes.posterImage.tiny}"/>
+        <img class="top-10-img" src="${
+          anime.attributes.posterImage.tiny
+        }" data-id="${anime.id}"/>
         <div class="anime-info">
-        <p>${anime.attributes.titles.en}</p>
+        <p>${anime.attributes.canonicalTitle}</p>
         <small>${anime.attributes.showType} </br> ${
-        anime.attributes.episodeCount
-      } episodes </br> ${anime.attributes.averageRating} </br>
+          anime.attributes.episodeCount
+        } episodes </br> ${anime.attributes.averageRating} </br>
         </small>
         </div>
       </div>`
     );
   }
+
+  // changes the page to the clicked anime's info page
+  document.querySelector(".top-10").addEventListener("click", (e) => {
+    if (e.target.tagName === "IMG") {
+      console.log(e.target);
+      window.location.href = `/anime/${e.target.dataset.id}`;
+    }
+  });
 };
 
 const carouselScrollEffect = async function () {
@@ -357,7 +368,39 @@ const carouselScrollEffect = async function () {
             "thumbnail-info"
           )[0].style.cssText = "display: block;";
           e.target.parentNode.parentNode.style.zIndex = "1000";
+          // makes anime thumbnail slightly bigger and focused on hover
           e.target.parentNode.parentNode.style.transform = "scale(1)";
+
+          // checking if anime info on hover overlaps the right arrow on the carousel
+          /*
+          rect1 is the hovered target
+          rect2 is always the right slider arrow
+          .getBoundingClientRect returns the object's position on the viewport and the size
+          (we only care about the position for checking overlaps)
+          */
+          const rect1 = e.target.parentNode.parentNode
+            .getElementsByClassName("thumbnail-info")[0]
+            .getBoundingClientRect();
+          const rect2 = e.target.parentNode.parentNode.parentNode.parentNode
+            .getElementsByClassName("slide-right")[0]
+            .getBoundingClientRect();
+
+          // if any of the below expressions return true, then there is no overlap
+          // we take the inverse of that boolean for clarity with the "overlap" variable name
+          // FALSE = OVERLAP / TRUE = NO OVERLAP BECOMES TRUE = OVERLAP / FALSE = NO OVERLAP
+          var overlap = !(
+            rect1.right < rect2.left ||
+            rect1.left > rect2.right ||
+            rect1.bottom < rect2.top ||
+            rect1.top > rect2.bottom
+          );
+
+          // if it overlaps, displays the anime title and info on the left side of the thumbnail instead of right
+          if (overlap == true) {
+            e.target.parentNode.parentNode.getElementsByClassName(
+              "thumbnail-info"
+            )[0].style.cssText = "left: -185px; display: block;";
+          }
         }
       });
       e.addEventListener("mouseout", (e) => {
@@ -366,6 +409,7 @@ const carouselScrollEffect = async function () {
             "thumbnail-info"
           )[0].style.cssText = "display: none;";
           e.target.parentNode.parentNode.style.zIndex = "auto";
+          // resets the thumbnail when on mouse out
           e.target.parentNode.parentNode.style.transform = "scale(.95)";
         }
       });

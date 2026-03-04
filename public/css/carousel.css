@@ -25,6 +25,11 @@ main {
   width: 100%;
 }
 
+/* ONLY IF API DOES NOT HAVE A SMALL IMG (RESIZES A BIGGER IMAGE TO FIT INSIDE THUMBNAIL) */
+#big-poster {
+  max-height: 158px;
+}
+
 .slide-container {
   max-width: 1000px;
   display: flex;
@@ -98,21 +103,21 @@ section::-webkit-scrollbar-thumb {
 
 /* INFO CONTAINER */
 .thumbnail-info {
+  /* prevents overflow of synopsis */
+  overflow: hidden;
   display: flex;
   position: absolute;
-  width: 200px;
-  max-height: 200px;
+  width: 175px;
+  height: 200px;
   bottom: 0;
   left: 120px;
   background-color: lightgrey;
+  /* doesn't show the anime title or synopsis until on mouse hover */
   display: none;
 }
 
 .synopsis {
-  display: block;
-  width: auto;
-  max-height: 200px;
-  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .product-details {
